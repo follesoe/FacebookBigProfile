@@ -18,12 +18,14 @@ namespace FacebookBigProfile
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		MainView mainView;
+		
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{			
 			window.MakeKeyAndVisible();	
 			
-			var mainView = new MainView();
+			mainView = new MainView();
 			window.AddSubview(mainView.View);
 			return true;
 		}
