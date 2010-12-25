@@ -17,7 +17,12 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIWindow __mt_window;
 		
+		private MonoTouch.UIKit.UIButton __mt_myButton;
+		
 		#pragma warning disable 0169
+		[MonoTouch.Foundation.Export("buttonPressed:")]
+		partial void buttonPressed (MonoTouch.UIKit.UIButton sender);
+
 		[MonoTouch.Foundation.Connect("window")]
 		private MonoTouch.UIKit.UIWindow window {
 			get {
@@ -27,6 +32,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_window = value;
 				this.SetNativeField("window", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("myButton")]
+		private MonoTouch.UIKit.UIButton myButton {
+			get {
+				this.__mt_myButton = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("myButton")));
+				return this.__mt_myButton;
+			}
+			set {
+				this.__mt_myButton = value;
+				this.SetNativeField("myButton", value);
 			}
 		}
 	}

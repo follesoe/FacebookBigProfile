@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Drawing;
 
 namespace FacebookBigProfile
 {
@@ -26,7 +27,24 @@ namespace FacebookBigProfile
 			
 			window.MakeKeyAndVisible ();
 			
+			var button = UIButton.FromType(UIButtonType.RoundedRect);
+			var frame = new RectangleF(35f, 30f, 100f, 100f);
+			
+			button.Frame = frame;
+			button.SetTitle("My coded button", UIControlState.Normal);
+			
+			button.TouchUpInside += (sender, e) => {
+				button.SetTitle("Clicked!", UIControlState.Normal);
+			};
+			
+			window.AddSubview(button);
+			
 			return true;
+		}
+		
+		partial void buttonPressed (UIButton sender)
+		{
+			myButton.SetTitle("Clicked!", UIControlState.Normal);
 		}
 
 		// This method is required in iPhoneOS 3.0
