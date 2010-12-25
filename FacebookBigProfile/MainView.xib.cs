@@ -68,8 +68,8 @@ namespace FacebookBigProfile
 			
 			scrollView.ZoomScale = 1f;
 			
-			//UIImage overlayImage = UIImage.FromFile("FacebookOverlay.png");
-			//facebookOverlay.Image = overlayImage;		
+			UIImage overlayImage = UIImage.FromFile("FacebookOverlay.png");
+			facebookOverlay.Image = overlayImage;		
 		}
 		
 		#endregion
