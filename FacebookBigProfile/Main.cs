@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,24 +26,29 @@ namespace FacebookBigProfile
 			
 			window.MakeKeyAndVisible ();
 			
-			var button = UIButton.FromType(UIButtonType.RoundedRect);
-			var frame = new RectangleF(35f, 30f, 100f, 100f);
+			UIImage image = UIImage.FromFile("ProfilePicture.jpg");
+			UIImageView imageView = new UIImageView(image);
 			
-			button.Frame = frame;
-			button.SetTitle("My coded button", UIControlState.Normal);
+						
+			scrollView.AddSubview(imageView);
+			scrollView.ContentSize = imageView.Frame.Size;
+			scrollView.ContentInset = new UIEdgeInsets(imageView.Frame.Height, imageView.Frame.Width, imageView.Frame.Bottom, imageView.Frame.Height);
+			scrollView.MaximumZoomScale = 5f;
+			scrollView.MinimumZoomScale = 0.0f;
+			scrollView.Bounces = false;
+			scrollView.BouncesZoom = false;
 			
-			button.TouchUpInside += (sender, e) => {
-				button.SetTitle("Clicked!", UIControlState.Normal);
+			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
+			scrollView.ViewForZoomingInScrollView = (sender) => {
+				return imageView;	
 			};
 			
-			window.AddSubview(button);
+			scrollView.ZoomScale = 1f;
+			
+			UIImage overlayImage = UIImage.FromFile("FacebookOverlay.png");
+			facebookOverlay.Image = overlayImage;
 			
 			return true;
-		}
-		
-		partial void buttonPressed (UIButton sender)
-		{
-			myButton.SetTitle("Clicked!", UIControlState.Normal);
 		}
 
 		// This method is required in iPhoneOS 3.0

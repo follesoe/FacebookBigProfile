@@ -17,12 +17,11 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIWindow __mt_window;
 		
-		private MonoTouch.UIKit.UIButton __mt_myButton;
+		private MonoTouch.UIKit.UIScrollView __mt_scrollView;
+		
+		private MonoTouch.UIKit.UIImageView __mt_facebookOverlay;
 		
 		#pragma warning disable 0169
-		[MonoTouch.Foundation.Export("buttonPressed:")]
-		partial void buttonPressed (MonoTouch.UIKit.UIButton sender);
-
 		[MonoTouch.Foundation.Connect("window")]
 		private MonoTouch.UIKit.UIWindow window {
 			get {
@@ -35,15 +34,27 @@ namespace FacebookBigProfile {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("myButton")]
-		private MonoTouch.UIKit.UIButton myButton {
+		[MonoTouch.Foundation.Connect("scrollView")]
+		private MonoTouch.UIKit.UIScrollView scrollView {
 			get {
-				this.__mt_myButton = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("myButton")));
-				return this.__mt_myButton;
+				this.__mt_scrollView = ((MonoTouch.UIKit.UIScrollView)(this.GetNativeField("scrollView")));
+				return this.__mt_scrollView;
 			}
 			set {
-				this.__mt_myButton = value;
-				this.SetNativeField("myButton", value);
+				this.__mt_scrollView = value;
+				this.SetNativeField("scrollView", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("facebookOverlay")]
+		private MonoTouch.UIKit.UIImageView facebookOverlay {
+			get {
+				this.__mt_facebookOverlay = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("facebookOverlay")));
+				return this.__mt_facebookOverlay;
+			}
+			set {
+				this.__mt_facebookOverlay = value;
+				this.SetNativeField("facebookOverlay", value);
 			}
 		}
 	}
