@@ -21,6 +21,10 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIImageView __mt_facebookOverlay;
 		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_libraryButton;
+		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_cameraButton;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -55,6 +59,30 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_facebookOverlay = value;
 				this.SetNativeField("facebookOverlay", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("libraryButton")]
+		private MonoTouch.UIKit.UIBarButtonItem libraryButton {
+			get {
+				this.__mt_libraryButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("libraryButton")));
+				return this.__mt_libraryButton;
+			}
+			set {
+				this.__mt_libraryButton = value;
+				this.SetNativeField("libraryButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("cameraButton")]
+		private MonoTouch.UIKit.UIBarButtonItem cameraButton {
+			get {
+				this.__mt_cameraButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("cameraButton")));
+				return this.__mt_cameraButton;
+			}
+			set {
+				this.__mt_cameraButton = value;
+				this.SetNativeField("cameraButton", value);
 			}
 		}
 	}

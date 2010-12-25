@@ -35,44 +35,59 @@ namespace FacebookBigProfile
 			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);				
 		}
 		
+		private UIImagePickerController picker;
 		private UIImageView profilePictureView;
-		private UIImage profilePicture;
+		private UIImage overlayImage;
 		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			Console.WriteLine("ViewDidLoad");
-			
-			profilePicture = UIImage.FromFile("ProfilePicture.jpg");
-		 	profilePictureView = new UIImageView(profilePicture);
-			var frame = profilePictureView.Frame;
+					
+			profilePictureView = new UIImageView();
 									
 			scrollView.AddSubview(profilePictureView);
-			scrollView.ContentSize = profilePictureView.Frame.Size;
-			scrollView.ContentInset = new UIEdgeInsets(frame.Height, frame.Width, frame.Bottom, frame.Height);
 			scrollView.MaximumZoomScale = 5f;
-			scrollView.MinimumZoomScale = 0.0f;
+			scrollView.MinimumZoomScale = 0.2f;
+			scrollView.ZoomScale = 1f;
 			scrollView.Bounces = false;
-			scrollView.BouncesZoom = false;
-			
+			scrollView.BouncesZoom = false;			
 			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
-			
-			
-			
+
+		 	LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
+						
 			scrollView.ViewForZoomingInScrollView = (sender) => {
-				Console.WriteLine("ViewForZoomingInScrollView"); 
 				return profilePictureView;	
+			};					
+			
+			overlayImage = UIImage.FromFile("FacebookOverlay.png");
+			facebookOverlay.Image = overlayImage;	
+			
+			picker = new UIImagePickerController();
+			picker.Delegate = new ImagePickerDelegate(this);
+			
+			libraryButton.Clicked += (o, e) => {
+				picker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+				PresentModalViewController(picker, true);								
 			};
 			
-			
-			scrollView.ZoomScale = 1f;
-			
-			UIImage overlayImage = UIImage.FromFile("FacebookOverlay.png");
-			facebookOverlay.Image = overlayImage;		
+			cameraButton.Clicked += (o, e) => {
+				var cameraType = UIImagePickerControllerSourceType.Camera;
+				if(UIImagePickerController.IsSourceTypeAvailable(cameraType)) {
+					picker.SourceType = cameraType;
+					PresentModalViewController(picker, true);
+				}
+			};
 		}
 		
 		#endregion
+		
+		public void LoadImage(UIImage image) {
+			var frame = new RectangleF(0, 0, image.Size.Width, image.Size.Height);
+			profilePictureView.Image = image;
+			profilePictureView.Frame = frame;
+			scrollView.ContentSize = frame.Size;
+			scrollView.ContentInset = new UIEdgeInsets(frame.Height, frame.Width, frame.Height, frame.Width);			
+		}
 	}
 }
 

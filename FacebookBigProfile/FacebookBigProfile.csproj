@@ -78,6 +78,7 @@
     <Compile Include="MainView.xib.designer.cs">
       <DependentUpon>MainView.xib</DependentUpon>
     </Compile>
+    <Compile Include="ImagePickerDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

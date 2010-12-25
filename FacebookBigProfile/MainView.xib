@@ -75,7 +75,7 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="192544352">
+					<object class="IBUIImageView" id="103227928">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 416}</string>
@@ -120,9 +120,25 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">facebookOverlay</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="192544352"/>
+						<reference key="destination" ref="103227928"/>
 					</object>
 					<int key="connectionID">21</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">libraryButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="613740265"/>
+					</object>
+					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cameraButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="149256394"/>
+					</object>
+					<int key="connectionID">23</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -141,7 +157,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="490063014"/>
 							<reference ref="747711850"/>
-							<reference ref="192544352"/>
+							<reference ref="103227928"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -186,7 +202,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
-						<reference key="object" ref="192544352"/>
+						<reference key="object" ref="103227928"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -242,7 +258,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">21</int>
+			<int key="maxID">23</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -253,12 +269,16 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cameraButton</string>
 							<string>facebookOverlay</string>
+							<string>libraryButton</string>
 							<string>scrollView</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -268,14 +288,24 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cameraButton</string>
 							<string>facebookOverlay</string>
+							<string>libraryButton</string>
 							<string>scrollView</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
+								<string key="name">cameraButton</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">facebookOverlay</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">libraryButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

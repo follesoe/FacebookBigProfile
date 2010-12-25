@@ -1,7 +1,0 @@
-2010-12-25 23:45:38.839 FacebookBigProfile[2100:207] -[__NSArrayM scrollViewDidScroll:]: unrecognized selector sent to instance 0x6eae750
-
-Unhandled Exception: MonoTouch.Foundation.MonoTouchException: Objective-C exception thrown.  Name: NSInvalidArgumentException Reason: -[__NSArrayM scrollViewDidScroll:]: unrecognized selector sent to instance 0x6eae750
-  at (wrapper managed-to-native) MonoTouch.UIKit.UIApplication:UIApplicationMain (int,string[],intptr,intptr)
-  at MonoTouch.UIKit.UIApplication.Main (System.String[] args, System.String principalClassName, System.String delegateClassName) [0x00038] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:26 
-  at MonoTouch.UIKit.UIApplication.Main (System.String[] args) [0x00000] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:31 
-  at FacebookBigProfile.Application.Main (System.String[] args) [0x00000] in /Users/jf/Code/FacebookBigProfile/FacebookBigProfile/Main.cs:14 
