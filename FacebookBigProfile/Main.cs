@@ -20,34 +20,11 @@ namespace FacebookBigProfile
 	{
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
-		{
-			// If you have defined a view, add it here:
-			// window.AddSubview (navigationController.View);
+		{			
+			window.MakeKeyAndVisible();	
 			
-			window.MakeKeyAndVisible ();
-			
-			UIImage image = UIImage.FromFile("ProfilePicture.jpg");
-			UIImageView imageView = new UIImageView(image);
-			
-						
-			scrollView.AddSubview(imageView);
-			scrollView.ContentSize = imageView.Frame.Size;
-			scrollView.ContentInset = new UIEdgeInsets(imageView.Frame.Height, imageView.Frame.Width, imageView.Frame.Bottom, imageView.Frame.Height);
-			scrollView.MaximumZoomScale = 5f;
-			scrollView.MinimumZoomScale = 0.0f;
-			scrollView.Bounces = false;
-			scrollView.BouncesZoom = false;
-			
-			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
-			scrollView.ViewForZoomingInScrollView = (sender) => {
-				return imageView;	
-			};
-			
-			scrollView.ZoomScale = 1f;
-			
-			UIImage overlayImage = UIImage.FromFile("FacebookOverlay.png");
-			facebookOverlay.Image = overlayImage;
-			
+			var mainView = new MainView();
+			window.AddSubview(mainView.View);
 			return true;
 		}
 
@@ -57,4 +34,3 @@ namespace FacebookBigProfile
 		}
 	}
 }
-

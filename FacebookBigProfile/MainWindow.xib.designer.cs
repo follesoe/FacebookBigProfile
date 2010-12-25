@@ -17,10 +17,6 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIWindow __mt_window;
 		
-		private MonoTouch.UIKit.UIScrollView __mt_scrollView;
-		
-		private MonoTouch.UIKit.UIImageView __mt_facebookOverlay;
-		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("window")]
 		private MonoTouch.UIKit.UIWindow window {
@@ -31,30 +27,6 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_window = value;
 				this.SetNativeField("window", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("scrollView")]
-		private MonoTouch.UIKit.UIScrollView scrollView {
-			get {
-				this.__mt_scrollView = ((MonoTouch.UIKit.UIScrollView)(this.GetNativeField("scrollView")));
-				return this.__mt_scrollView;
-			}
-			set {
-				this.__mt_scrollView = value;
-				this.SetNativeField("scrollView", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("facebookOverlay")]
-		private MonoTouch.UIKit.UIImageView facebookOverlay {
-			get {
-				this.__mt_facebookOverlay = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("facebookOverlay")));
-				return this.__mt_facebookOverlay;
-			}
-			set {
-				this.__mt_facebookOverlay = value;
-				this.SetNativeField("facebookOverlay", value);
 			}
 		}
 	}

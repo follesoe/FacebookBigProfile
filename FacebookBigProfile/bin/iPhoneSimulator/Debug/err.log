@@ -1,0 +1,164 @@
+Stacktrace:
+
+  at (wrapper managed-to-native) MonoTouch.UIKit.UIApplication.UIApplicationMain (int,string[],intptr,intptr) <0x00004>
+  at (wrapper managed-to-native) MonoTouch.UIKit.UIApplication.UIApplicationMain (int,string[],intptr,intptr) <0x00004>
+  at MonoTouch.UIKit.UIApplication.Main (string[],string,string) [0x00038] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:26
+  at MonoTouch.UIKit.UIApplication.Main (string[]) [0x00000] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:31
+  at FacebookBigProfile.Application.Main (string[]) [0x00000] in /Users/jf/Code/FacebookBigProfile/FacebookBigProfile/Main.cs:14
+  at (wrapper runtime-invoke) <Module>.runtime_invoke_void_object (object,intptr,intptr,intptr) <IL 0x0001d, 0x00043>
+
+Native stacktrace:
+
+	0   FacebookBigProfile                  0x000be66f mono_handle_native_sigsegv + 343
+	1   FacebookBigProfile                  0x0000e43e mono_sigsegv_signal_handler + 313
+	2   libSystem.B.dylib                   0x941a846b _sigtramp + 43
+	3   ???                                 0xffffffff 0x0 + 4294967295
+	4   UIKit                               0x01c32cce -[UIScrollView _updatePanWithStartDelta:gesture:ignoringDirectionalScroll:] + 294
+	5   UIKit                               0x01c33efa -[UIScrollView handlePan:] + 347
+	6   UIKit                               0x01e6a9c7 -[UIGestureRecognizer _updateGestureWithEvent:] + 727
+	7   UIKit                               0x01e669d6 -[UIGestureRecognizer _delayedUpdateGesture] + 47
+	8   UIKit                               0x01e6cfa5 _UIGestureRecognizerUpdateObserver + 584
+	9   UIKit                               0x01e6d18a _UIGestureRecognizerUpdateGesturesFromSendEvent + 51
+	10  UIKit                               0x01c086b4 -[UIWindow _sendGesturesForEvent:] + 1292
+	11  UIKit                               0x01c03f87 -[UIWindow sendEvent:] + 105
+	12  UIKit                               0x01be737a -[UIApplication sendEvent:] + 447
+	13  UIKit                               0x01bec732 _UIApplicationHandleEvent + 7576
+	14  GraphicsServices                    0x03eb7a36 PurpleEventCallback + 1550
+	15  CoreFoundation                      0x00df9064 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__ + 52
+	16  CoreFoundation                      0x00d596f7 __CFRunLoopDoSource1 + 215
+	17  CoreFoundation                      0x00d56983 __CFRunLoopRun + 979
+	18  CoreFoundation                      0x00d56240 CFRunLoopRunSpecific + 208
+	19  CoreFoundation                      0x00d56161 CFRunLoopRunInMode + 97
+	20  GraphicsServices                    0x03eb6268 GSEventRunModal + 217
+	21  GraphicsServices                    0x03eb632d GSEventRun + 115
+	22  UIKit                               0x01bf042e UIApplicationMain + 1160
+	23  ???                                 0x099e4bd9 0x0 + 161369049
+	24  ???                                 0x099e4b12 0x0 + 161368850
+	25  ???                                 0x099e4515 0x0 + 161367317
+	26  ???                                 0x099e4451 0x0 + 161367121
+	27  ???                                 0x099e44ac 0x0 + 161367212
+	28  FacebookBigProfile                  0x0000e202 mono_jit_runtime_invoke + 1360
+	29  FacebookBigProfile                  0x001c92af mono_runtime_invoke + 137
+	30  FacebookBigProfile                  0x001caf6b mono_runtime_exec_main + 714
+	31  FacebookBigProfile                  0x001ca891 mono_runtime_run_main + 812
+	32  FacebookBigProfile                  0x00094fe8 mono_jit_exec + 200
+	33  FacebookBigProfile                  0x0027cf05 main + 3494
+	34  FacebookBigProfile                  0x00002ca1 _start + 208
+	35  FacebookBigProfile                  0x00002bd0 start + 40
+
+Debug info from gdb:
+
+warning: Could not find object file "/var/folders/Ny/NyElTwhDGD8kZMqIEeLGXE+++TI/-Tmp-//ccL7W0sx.o" - no debug information available for "template.m".
+
+warning: .o file "/Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(zlib-helper.x86.42.o)" more recent than executable timestamp in "/Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile"
+warning: Could not open OSO file /Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(zlib-helper.x86.42.o) to scan for pubtypes for objfile /Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile
+warning: .o file "/Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(monotouch-glue.x86.42.o)" more recent than executable timestamp in "/Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile"
+warning: Could not open OSO file /Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(monotouch-glue.x86.42.o) to scan for pubtypes for objfile /Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile
+warning: .o file "/Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(gc.x86.42.o)" more recent than executable timestamp in "/Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile"
+warning: Could not open OSO file /Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(gc.x86.42.o) to scan for pubtypes for objfile /Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile
+warning: .o file "/Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(monotouch-glue.x86.42.o)" more recent than executable timestamp in "/Users/jonas folleso/Library/Application Support/iPhone Simulator/4.2/Applications/255A9D5B-5AE6-4A2B-BEFD-B516CB44E7ED/FacebookBigProfile.app/FacebookBigProfile"
+warning: Couldn't open object file '/Developer/MonoTouch/SDKs/MonoTouch.iphonesimulator4.2.sdk/usr/lib/libmonotouch.a(monotouch-glue.x86.42.o)'
+Attaching to process 2000.
+Reading symbols for shared libraries . done
+Reading symbols for shared libraries ...................................................................................................................... done
+0x9414d459 in read$UNIX2003 ()
+  6 "WebThread"                     0x941420fa in mach_msg_trap ()
+  5                                 0x941700a6 in __semwait_signal ()
+  4                                 0x94142136 in semaphore_wait_trap ()
+  3                                 0x941420fa in mach_msg_trap ()
+  2 "com.apple.libdispatch-manager" 0x94168982 in kevent ()
+* 1 "com.apple.main-thread"         0x9414d459 in read$UNIX2003 ()
+
+Thread 6 (process 2000):
+#0  0x941420fa in mach_msg_trap ()
+#1  0x94142867 in mach_msg ()
+#2  0x00df94a6 in __CFRunLoopServiceMachPort ()
+#3  0x00d56874 in __CFRunLoopRun ()
+#4  0x00d56240 in CFRunLoopRunSpecific ()
+#5  0x00d56161 in CFRunLoopRunInMode ()
+#6  0x04f7c423 in RunWebThread ()
+#7  0x9416f85d in _pthread_start ()
+#8  0x9416f6e2 in thread_start ()
+
+Thread 5 (process 2000):
+#0  0x941700a6 in __semwait_signal ()
+#1  0x9419bee5 in nanosleep$UNIX2003 ()
+#2  0x9419be23 in usleep$UNIX2003 ()
+#3  0x0027714c in monotouch_pump_gc ()
+#4  0x9416f85d in _pthread_start ()
+#5  0x9416f6e2 in thread_start ()
+
+Thread 4 (process 2000):
+#0  0x94142136 in semaphore_wait_trap ()
+#1  0x0015ae1d in finalizer_thread (unused=0x0) at ../../../../mono/metadata/gc.c:1026
+#2  0x002034a3 in start_wrapper (data=0x9a03760) at ../../../../mono/metadata/threads.c:661
+#3  0x002448e2 in thread_start_routine (args=0x7048034) at ../../../../mono/io-layer/wthreads.c:286
+#4  0x00274357 in GC_start_routine (arg=0x6ff7f60) at ../../../libgc/pthread_support.c:1390
+#5  0x9416f85d in _pthread_start ()
+#6  0x9416f6e2 in thread_start ()
+
+Thread 3 (process 2000):
+#0  0x941420fa in mach_msg_trap ()
+#1  0x94142867 in mach_msg ()
+#2  0x0011cc46 in mach_exception_thread (arg=0x0) at ../../../../mono/mini/mini-darwin.c:138
+#3  0x9416f85d in _pthread_start ()
+#4  0x9416f6e2 in thread_start ()
+
+Thread 2 (process 2000):
+#0  0x94168982 in kevent ()
+#1  0x9416909c in _dispatch_mgr_invoke ()
+#2  0x94168559 in _dispatch_queue_invoke ()
+#3  0x941682fe in _dispatch_worker_thread2 ()
+#4  0x94167d81 in _pthread_wqthread ()
+#5  0x94167bc6 in start_wqthread ()
+
+Thread 1 (process 2000):
+#0  0x9414d459 in read$UNIX2003 ()
+#1  0x000be81f in mono_handle_native_sigsegv (signal=11, ctx=0xbfffcd58) at ../../../../mono/mini/mini-exceptions.c:1826
+#2  0x0000e43e in mono_sigsegv_signal_handler (_dummy=10, info=0xbfffcd18, context=0xbfffcd58) at ../../../../mono/mini/mini.c:4846
+#3  <signal handler called>
+#4  0x028d6a63 in objc_msgSend ()
+#5  0x0d5045d0 in ?? ()
+#6  0x01c32cce in -[UIScrollView _updatePanWithStartDelta:gesture:ignoringDirectionalScroll:] ()
+#7  0x01c33efa in -[UIScrollView handlePan:] ()
+#8  0x01e6a9c7 in -[UIGestureRecognizer _updateGestureWithEvent:] ()
+#9  0x01e669d6 in -[UIGestureRecognizer _delayedUpdateGesture] ()
+#10 0x01e6cfa5 in _UIGestureRecognizerUpdateObserver ()
+#11 0x01e6d18a in _UIGestureRecognizerUpdateGesturesFromSendEvent ()
+#12 0x01c086b4 in -[UIWindow _sendGesturesForEvent:] ()
+#13 0x01c03f87 in -[UIWindow sendEvent:] ()
+#14 0x01be737a in -[UIApplication sendEvent:] ()
+#15 0x01bec732 in _UIApplicationHandleEvent ()
+#16 0x03eb7a36 in PurpleEventCallback ()
+#17 0x00df9064 in __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__ ()
+#18 0x00d596f7 in __CFRunLoopDoSource1 ()
+#19 0x00d56983 in __CFRunLoopRun ()
+#20 0x00d56240 in CFRunLoopRunSpecific ()
+#21 0x00d56161 in CFRunLoopRunInMode ()
+#22 0x03eb6268 in GSEventRunModal ()
+#23 0x03eb632d in GSEventRun ()
+#24 0x01bf042e in UIApplicationMain ()
+#25 0x099e4bd9 in ?? ()
+#26 0x099e4b12 in ?? ()
+#27 0x099e4515 in ?? ()
+#28 0x099e4451 in ?? ()
+#29 0x099e44ac in ?? ()
+#30 0x0000e202 in mono_jit_runtime_invoke (method=0x70db0ec, obj=0x0, params=0xbfffef4c, exc=0x0) at ../../../../mono/mini/mini.c:4733
+#31 0x001c92af in mono_runtime_invoke (method=0x70db0ec, obj=0x0, params=0xbfffef4c, exc=0x0) at ../../../../mono/metadata/object.c:2615
+#32 0x001caf6b in mono_runtime_exec_main (method=0x70db0ec, args=0x9f01a90, exc=0x0) at ../../../../mono/metadata/object.c:3581
+#33 0x001ca891 in mono_runtime_run_main (method=0x70db0ec, argc=0, argv=0xbffff084, exc=0x0) at ../../../../mono/metadata/object.c:3355
+#34 0x00094fe8 in mono_jit_exec (domain=0x6f8fe58, assembly=0x6e93530, argc=1, argv=0xbffff080) at ../../../../mono/mini/driver.c:1094
+#35 0x0027cf05 in main ()
+
+=================================================================
+Got a SIGSEGV while executing native code. This usually indicates
+a fatal error in the mono runtime or one of the native libraries 
+used by your application.
+=================================================================
+
+
+Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object
+  at (wrapper managed-to-native) MonoTouch.UIKit.UIApplication:UIApplicationMain (int,string[],intptr,intptr)
+  at MonoTouch.UIKit.UIApplication.Main (System.String[] args, System.String principalClassName, System.String delegateClassName) [0x00038] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:26 
+  at MonoTouch.UIKit.UIApplication.Main (System.String[] args) [0x00000] in /Users/plasma/Source/iphone/monotouch/UIKit/UIApplication.cs:31 
+  at FacebookBigProfile.Application.Main (System.String[] args) [0x00000] in /Users/jf/Code/FacebookBigProfile/FacebookBigProfile/Main.cs:14 
