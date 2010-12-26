@@ -112,9 +112,7 @@ namespace FacebookBigProfile
 		}
 		
 		private float GetZoomScale(SizeF originalSize, SizeF targetSize) {
-			float zoomScale = targetSize.Width / originalSize.Width;
-			Console.WriteLine("Calculated zoom scale: " + zoomScale);
-			return zoomScale;
+			return targetSize.Width / originalSize.Width;			
 		}		
 		
 		public void SplitImage() {
@@ -124,9 +122,12 @@ namespace FacebookBigProfile
 			Console.WriteLine("Picture View Size:\t" + profilePictureView.Frame.Size);
 			Console.WriteLine("Scroll Offset:\t" + scrollView.ContentOffset);
 			
+	
+			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			Console.WriteLine("ZoomScale:\t" + scrollView.ZoomScale);
-			
-			var frame6 = new RectangleF(8f, 55f, 163f, 486f);
+			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
+			Console.WriteLine("Actuall ZoomScale:\t" + scrollView.ZoomScale * zoomScale);
+			//var frame6 = new RectangleF(8f, 55f, 163f, 486f);
 		}
 	}
 }
