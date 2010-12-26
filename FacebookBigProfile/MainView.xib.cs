@@ -119,16 +119,49 @@ namespace FacebookBigProfile
 			Console.WriteLine("Split the image...");
 			
 			Console.WriteLine("Picture Size:\t" + profilePicture.Size);
+			Console.WriteLine("Picture Zoom:\t" + profilePicture.CurrentScale);
 			Console.WriteLine("Picture View Size:\t" + profilePictureView.Frame.Size);
 			Console.WriteLine("Scroll Offset:\t" + scrollView.ContentOffset);
 			
 	
 			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
+			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			Console.WriteLine("ZoomScale:\t" + scrollView.ZoomScale);
 			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
-			Console.WriteLine("Actuall ZoomScale:\t" + scrollView.ZoomScale * zoomScale);
-			//var frame6 = new RectangleF(8f, 55f, 163f, 486f);
+			Console.WriteLine("Current ZoomScale:\t" + currentZoomScale);
+			
+			var frame6 = new RectangleF(8f, 55f, 163f, 486f);
+			var image6 = new RectangleF((frame6.X + scrollView.ContentOffset.X) * currentZoomScale,
+			                            (frame6.Y + scrollView.ContentOffset.Y) * currentZoomScale,
+			                            frame6.Width * currentZoomScale,
+			                            frame6.Height * currentZoomScale);
+			
+			Console.WriteLine("Cut6: " + image6);
+			
+			var cropped6 = Crop(profilePicture, image6);
+			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});
 		}
+		
+		public UIImage Crop(UIImage image, RectangleF section)
+	    {			
+			UIGraphics.BeginImageContext(section.Size);			
+			var context = UIGraphics.GetCurrentContext();
+			
+			context.ClipToRect(new RectangleF(0, 0, section.Width, section.Height));
+		
+			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
+			context.ConcatCTM(transform);
+			
+			var drawRectangle = new RectangleF(-section.X, -section.Y, image.Size.Width, image.Size.Height);
+			context.DrawImage(drawRectangle, image.CGImage);
+			
+			
+			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
+			UIGraphics.EndImageContext();
+			return croppedImage;
+	    }
 	}
 }
 
