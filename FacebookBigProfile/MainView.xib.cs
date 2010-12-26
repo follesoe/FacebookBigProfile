@@ -1,44 +1,50 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
 using System.Drawing;
+using System.Collections.Generic;
+
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
+
+using FacebookSdk;
 
 namespace FacebookBigProfile
 {
 	public partial class MainView : UIViewController
 	{
-		#region Constructors
-
 		// The IntPtr and initWithCoder constructors are required for items that need 
 		// to be able to be created from a xib rather than from managed code
 
 		public MainView (IntPtr handle) : base(handle)
 		{
-			Initialize ();
+			Initialize (null);
 		}
 
 		[Export("initWithCoder:")]
 		public MainView (NSCoder coder) : base(coder)
 		{
-			Initialize ();
+			Initialize (null);
 		}
 
-		public MainView () : base("MainView", null)
+		public MainView (Facebook facebook) : base("MainView", null)
 		{
-			Initialize ();
+			_facebook = facebook;
+			Initialize (null);
 		}
-
-		void Initialize ()
-		{
-			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);				
-		}
-		
+				
+	
+		private Facebook _facebook;
+		private FacebookController facebookController;
 		private UIImagePickerController picker;
 		private UIImageView profilePictureView;
 		private UIImage overlayImage;
 		
+		private void Initialize (Facebook facebook)
+		{
+			facebookController = new FacebookController(_facebook);
+			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);				
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -77,9 +83,11 @@ namespace FacebookBigProfile
 					PresentModalViewController(picker, true);
 				}
 			};
+			
+			facebookButton.Clicked += (o, e) => {
+				facebookController.Login();
+			};
 		}
-		
-		#endregion
 		
 		public void LoadImage(UIImage image) {
 			var frame = new RectangleF(0, 0, image.Size.Width, image.Size.Height);
@@ -90,4 +98,3 @@ namespace FacebookBigProfile
 		}
 	}
 }
-

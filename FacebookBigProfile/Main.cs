@@ -1,9 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
 using System.Drawing;
+using System.Collections.Generic;
+
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
+
+using FacebookSdk;
 
 namespace FacebookBigProfile
 {
@@ -14,20 +17,32 @@ namespace FacebookBigProfile
 			UIApplication.Main (args);
 		}
 	}
-
+	
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		MainView mainView;
+		const string kAppId = "188864954461169";
+		private Facebook _facebook;
+		
+		private MainView mainView;
+		
 		
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{			
-			window.MakeKeyAndVisible();	
+			_facebook = new FacebookSdk.Facebook(kAppId);
 			
-			mainView = new MainView();
+			window.MakeKeyAndVisible();	
+					
+			mainView = new MainView(_facebook);
 			window.AddSubview(mainView.View);
+			
 			return true;
+		}
+		
+		public override void HandleOpenURL (UIApplication application, NSUrl url)
+		{
+			_facebook.HandleOpenUrl(url);
 		}
 
 		// This method is required in iPhoneOS 3.0

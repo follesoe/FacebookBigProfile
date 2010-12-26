@@ -23,8 +23,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
+    <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a"</MtouchExtraArgs>
+    <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -63,6 +64,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="monotouch-facebook, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\monotouch-facebook.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -79,6 +84,9 @@
       <DependentUpon>MainView.xib</DependentUpon>
     </Compile>
     <Compile Include="ImagePickerDelegate.cs" />
+    <Compile Include="FacebookController.cs" />
+    <Compile Include="RequestDelegate.cs" />
+    <Compile Include="SessionDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

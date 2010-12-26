@@ -1,8 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/Main.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/FacebookController.cs">
     <Files>
-      <File FileName="FacebookBigProfile/Main.cs" Line="5" Column="28" />
+      <File FileName="FacebookBigProfile/Main.cs" Line="27" Column="4" />
+      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="85" Column="6" />
+      <File FileName="FacebookBigProfile/ImagePickerDelegate.cs" Line="22" Column="4" />
+      <File FileName="FacebookBigProfile/FacebookController.cs" Line="8" Column="3" />
+      <File FileName="FacebookBigProfile/RequestDelegate.cs" Line="9" Column="22" />
+      <File FileName="FacebookBigProfile/SessionDelegate.cs" Line="30" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

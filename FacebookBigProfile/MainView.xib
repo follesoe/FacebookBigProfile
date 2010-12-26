@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="24"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -73,9 +73,15 @@
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="490063014"/>
 							</object>
+							<object class="IBUIBarButtonItem" id="48788155">
+								<string key="IBUITitle">facebook</string>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="490063014"/>
+							</object>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="103227928">
+					<object class="IBUIImageView" id="597910832">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 416}</string>
@@ -120,7 +126,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">facebookOverlay</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="103227928"/>
+						<reference key="destination" ref="597910832"/>
 					</object>
 					<int key="connectionID">21</int>
 				</object>
@@ -140,6 +146,14 @@
 					</object>
 					<int key="connectionID">23</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">facebookButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="48788155"/>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -157,7 +171,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="490063014"/>
 							<reference ref="747711850"/>
-							<reference ref="103227928"/>
+							<reference ref="597910832"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -187,6 +201,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="149256394"/>
 							<reference ref="613740265"/>
+							<reference ref="48788155"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -202,8 +217,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
-						<reference key="object" ref="103227928"/>
+						<reference key="object" ref="597910832"/>
 						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">24</int>
+						<reference key="object" ref="48788155"/>
+						<reference key="parent" ref="490063014"/>
 					</object>
 				</object>
 			</object>
@@ -220,6 +240,7 @@
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
+					<string>24.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -233,6 +254,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw+2AAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -258,7 +280,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">23</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -270,6 +292,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cameraButton</string>
+							<string>facebookButton</string>
 							<string>facebookOverlay</string>
 							<string>libraryButton</string>
 							<string>scrollView</string>
@@ -277,6 +300,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -289,6 +313,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>cameraButton</string>
+							<string>facebookButton</string>
 							<string>facebookOverlay</string>
 							<string>libraryButton</string>
 							<string>scrollView</string>
@@ -298,6 +323,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">cameraButton</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">facebookButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">
