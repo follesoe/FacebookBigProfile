@@ -9,7 +9,16 @@ namespace FacebookBigProfile
 		private RequestDelegate _requestDelegate;
 		private SessionDelegate _sessionDelegate;
 		
-		public bool IsLoggedIn { get; set; }
+		private bool _isLoggedIn; 
+		
+		public bool IsLoggedIn {
+			get { return _isLoggedIn; }
+			set {
+				_isLoggedIn = value;
+				if(_isLoggedIn) 
+					GetProfile();
+			}
+		}
 		
 		public FacebookController (Facebook facebook)
 		{
@@ -24,6 +33,16 @@ namespace FacebookBigProfile
 		
 		public void Logout() {
 			_facebook.Logout(_sessionDelegate);
+		}
+		
+		public void GetProfile() {
+			if(!IsLoggedIn) throw new Exception("User not logged in!");
+			
+			_facebook.RequestWithGraphPath("me", _requestDelegate);
+		}
+		
+		public void ShowName(string name) {
+			Console.WriteLine("Logged in as: " + name);
 		}
 	}
 }

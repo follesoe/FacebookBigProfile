@@ -49,6 +49,7 @@ namespace FacebookBigProfile
 			else 
 			{
 				NSObject name =	dict.ObjectForKey(new NSString("name"));
+				_facebookController.ShowName(name.ToString());
 			}
 		}
 	
