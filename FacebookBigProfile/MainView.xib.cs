@@ -118,17 +118,16 @@ namespace FacebookBigProfile
 		public void SplitImage() {
 			Console.WriteLine("Split the image...");
 			
-			Console.WriteLine("Picture Size:\t" + profilePicture.Size);
-			Console.WriteLine("Picture Zoom:\t" + profilePicture.CurrentScale);
-			Console.WriteLine("Picture View Size:\t" + profilePictureView.Frame.Size);
-			Console.WriteLine("Scroll Offset:\t" + scrollView.ContentOffset);
+			Console.WriteLine("Picture Size:\t\t\t" + profilePicture.Size);			
+			Console.WriteLine("Picture View Size:\t\t" + profilePictureView.Frame.Size);
+			Console.WriteLine("Scroll Offset:\t\t\t" + scrollView.ContentOffset);
 			
 	
 			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
-			Console.WriteLine("ZoomScale:\t" + scrollView.ZoomScale);
+			Console.WriteLine("ScrollView ZoomScale:\t" + scrollView.ZoomScale);
 			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
-			Console.WriteLine("Current ZoomScale:\t" + currentZoomScale);
+			Console.WriteLine("Actuall ZoomScale:\t\t" + currentZoomScale);
 			
 			var frame6 = new RectangleF(8f, 55f, 163f, 486f);
 			var image6 = new RectangleF((frame6.X + scrollView.ContentOffset.X) * currentZoomScale,
@@ -136,12 +135,14 @@ namespace FacebookBigProfile
 			                            frame6.Width * currentZoomScale,
 			                            frame6.Height * currentZoomScale);
 			
+			Console.WriteLine();
 			Console.WriteLine("Cut6: " + image6);
 			
+			/*
 			var cropped6 = Crop(profilePicture, image6);
 			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
-			});
+			});*/
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
