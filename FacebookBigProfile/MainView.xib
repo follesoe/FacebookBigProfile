@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="24"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -73,15 +73,21 @@
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="490063014"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="48788155">
+							<object class="IBUIBarButtonItem" id="662527421">
 								<string key="IBUITitle">facebook</string>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="490063014"/>
+							</object>
+							<object class="IBUIBarButtonItem" id="41705575">
+								<string key="IBUITitle">split</string>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="490063014"/>
 							</object>
 						</object>
 					</object>
-					<object class="IBUIImageView" id="597910832">
+					<object class="IBUIImageView" id="747166226">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 416}</string>
@@ -126,7 +132,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">facebookOverlay</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="597910832"/>
+						<reference key="destination" ref="747166226"/>
 					</object>
 					<int key="connectionID">21</int>
 				</object>
@@ -150,9 +156,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">facebookButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="48788155"/>
+						<reference key="destination" ref="662527421"/>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">splitButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="41705575"/>
+					</object>
+					<int key="connectionID">27</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -171,7 +185,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="490063014"/>
 							<reference ref="747711850"/>
-							<reference ref="597910832"/>
+							<reference ref="747166226"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -201,7 +215,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="149256394"/>
 							<reference ref="613740265"/>
-							<reference ref="48788155"/>
+							<reference ref="662527421"/>
+							<reference ref="41705575"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -217,12 +232,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
-						<reference key="object" ref="597910832"/>
+						<reference key="object" ref="747166226"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="48788155"/>
+						<reference key="object" ref="662527421"/>
+						<reference key="parent" ref="490063014"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="41705575"/>
 						<reference key="parent" ref="490063014"/>
 					</object>
 				</object>
@@ -241,6 +261,7 @@
 					<string>12.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
+					<string>26.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -254,6 +275,7 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw+2AAA</bytes>
 					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -280,7 +302,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -296,10 +318,12 @@
 							<string>facebookOverlay</string>
 							<string>libraryButton</string>
 							<string>scrollView</string>
+							<string>splitButton</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -317,6 +341,7 @@
 							<string>facebookOverlay</string>
 							<string>libraryButton</string>
 							<string>scrollView</string>
+							<string>splitButton</string>
 							<string>view</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -339,6 +364,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">scrollView</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">splitButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

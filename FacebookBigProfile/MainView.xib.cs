@@ -32,12 +32,12 @@ namespace FacebookBigProfile
 			Initialize (null);
 		}
 				
-	
 		private Facebook _facebook;
 		private FacebookController facebookController;
 		private UIImagePickerController picker;
 		private UIImageView profilePictureView;
 		private UIImage overlayImage;
+		private UIImage profilePicture;
 		
 		private void Initialize (Facebook facebook)
 		{
@@ -54,16 +54,15 @@ namespace FacebookBigProfile
 			scrollView.AddSubview(profilePictureView);
 			scrollView.MaximumZoomScale = 5f;
 			scrollView.MinimumZoomScale = 0.2f;
-			scrollView.ZoomScale = 1f;
 			scrollView.Bounces = false;
 			scrollView.BouncesZoom = false;			
 			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
-
-		 	LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
-						
+					 				
 			scrollView.ViewForZoomingInScrollView = (sender) => {
 				return profilePictureView;	
-			};					
+			};		
+			
+			LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
 			
 			overlayImage = UIImage.FromFile("FacebookOverlay.png");
 			facebookOverlay.Image = overlayImage;	
@@ -87,14 +86,53 @@ namespace FacebookBigProfile
 			facebookButton.Clicked += (o, e) => {
 				facebookController.Login();
 			};
+			
+			splitButton.Clicked += (o, e) => {
+				SplitImage();
+			};
+		}
+		
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
 		}
 		
 		public void LoadImage(UIImage image) {
-			var frame = new RectangleF(0, 0, image.Size.Width, image.Size.Height);
-			profilePictureView.Image = image;
+			profilePicture = image;
+			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
+			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
+			var size = scrollView.Frame.Size;
+			
 			profilePictureView.Frame = frame;
+			profilePictureView.Image = image;			
 			scrollView.ContentSize = frame.Size;
-			scrollView.ContentInset = new UIEdgeInsets(frame.Height, frame.Width, frame.Height, frame.Width);			
+			scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
+			scrollView.ContentOffset = new PointF(0, 0);
+			scrollView.ZoomScale = 1.0f;
+		}
+		
+		private float GetZoomScale(SizeF originalSize, SizeF targetSize) {
+			float zoomScale = targetSize.Width / originalSize.Width;
+			Console.WriteLine("Calculated zoom scale: " + zoomScale);
+			return zoomScale;
+		}		
+		
+		public void SplitImage() {
+			Console.WriteLine("Split the image...");
+			
+			Console.WriteLine("Picture Size:\t" + profilePicture.Size);
+			Console.WriteLine("Picture View Size:\t" + profilePictureView.Frame.Size);
+			Console.WriteLine("Scroll Offset:\t" + scrollView.ContentOffset);
+			
+			Console.WriteLine("ZoomScale:\t" + scrollView.ZoomScale);
+			
+			var frame6 = new RectangleF(8f, 55f, 163f, 486f);
 		}
 	}
 }
+
+
+
+
+
+

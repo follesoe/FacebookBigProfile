@@ -27,6 +27,8 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIBarButtonItem __mt_facebookButton;
 		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_splitButton;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -97,6 +99,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_facebookButton = value;
 				this.SetNativeField("facebookButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("splitButton")]
+		private MonoTouch.UIKit.UIBarButtonItem splitButton {
+			get {
+				this.__mt_splitButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("splitButton")));
+				return this.__mt_splitButton;
+			}
+			set {
+				this.__mt_splitButton = value;
+				this.SetNativeField("splitButton", value);
 			}
 		}
 	}
