@@ -28,7 +28,7 @@ namespace FacebookBigProfile
 
 		public MainView (Facebook facebook) : base("MainView", null)
 		{
-			facebook = facebook;
+			this.facebook = facebook;
 			Initialize ();
 		}
 				
@@ -46,10 +46,15 @@ namespace FacebookBigProfile
 		private UIImageView cropSource5;
 		private UIImageView cropSource6;
 		
+		private SizeF profilePictureSize;
+		private SizeF profilePictureSmallSize;
+		
 		private void Initialize ()
 		{
-			facebookController = new FacebookController(facebook);
-			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);				
+			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);
+			facebookController = new FacebookController(facebook);		
+			profilePictureSize = new SizeF(180f, 540f);
+			profilePictureSmallSize = new SizeF(97f, 68f);
 		}
 		
 		private UIImageView CreateCropSource(float x, float y, float width, float height) 
@@ -158,17 +163,31 @@ namespace FacebookBigProfile
 			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
 			Console.WriteLine("Actuall ZoomScale:\t\t" + currentZoomScale);
 			
-			var cropSource6 = new RectangleF(8f, 55f, 163f, 486f);		
-			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6, scrollView.ContentOffset, zoomScale); 
+			var imageCrop1 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource1.Frame, scrollView.ContentOffset, currentZoomScale); 
+			var imageCrop2 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource2.Frame, scrollView.ContentOffset, currentZoomScale); 
+			var imageCrop3 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource3.Frame, scrollView.ContentOffset, currentZoomScale); 
+			var imageCrop4 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource4.Frame, scrollView.ContentOffset, currentZoomScale); 
+			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
+			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
 			
 			Console.WriteLine();
+			Console.WriteLine("Image 1 crop: " + imageCrop1);
+			Console.WriteLine("Image 2 crop: " + imageCrop2);
+			Console.WriteLine("Image 3 crop: " + imageCrop3);
+			Console.WriteLine("Image 4 crop: " + imageCrop4);
+			Console.WriteLine("Image 5 crop: " + imageCrop5);
 			Console.WriteLine("Image 6 crop: " + imageCrop6);
+				
+			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
+			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
+			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
+			var cropped4 = Crop(profilePicture, imageCrop4).Scale(profilePictureSmallSize);
+			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
+			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			/*
-			var cropped6 = Crop(profilePicture, image6);
 			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
-			});*/
+			});
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
@@ -176,14 +195,13 @@ namespace FacebookBigProfile
 			UIGraphics.BeginImageContext(section.Size);			
 			var context = UIGraphics.GetCurrentContext();
 			
-			context.ClipToRect(new RectangleF(0, 0, section.Width, section.Height));
+			context.ClipToRect(new RectangleF(0, 0, section.Width + 1, section.Height + 1));
 		
 			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
-			context.ConcatCTM(transform);
+			context.ConcatCTM(transform);			
 			
 			var drawRectangle = new RectangleF(-section.X, -section.Y, image.Size.Width, image.Size.Height);
-			context.DrawImage(drawRectangle, image.CGImage);
-			
+			context.DrawImage(drawRectangle, image.CGImage);			
 			
 			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
