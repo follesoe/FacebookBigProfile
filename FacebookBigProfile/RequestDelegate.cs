@@ -15,14 +15,17 @@ namespace FacebookBigProfile
 		
 		public override void RequestLoading(FBRequest request)
 		{
+			Console.WriteLine("Request Loading...");
 		}
 		
 		public override void Request (FBRequest request, NSUrlResponse response)
 		{
+			
 		}
 		
 		public override void Request (FBRequest request, NSError error)
 		{
+			Console.WriteLine("Error: " + error.ToString());
 		}
 		
 		public override void Request (FBRequest request, NSObject result)
@@ -49,7 +52,10 @@ namespace FacebookBigProfile
 			else 
 			{
 				NSObject name =	dict.ObjectForKey(new NSString("name"));
-				_facebookController.ShowName(name.ToString());
+				NSObject id = dict.ObjectForKey(new NSString("id"));
+				Console.WriteLine("Logged in as: {0} - {1}", name, id);	
+				
+				_facebookController.LoggedIn(id.ToString());
 			}
 		}
 	

@@ -13,6 +13,8 @@
     <AssemblyName>FacebookBigProfile</AssemblyName>
     <MtouchMinimumOS>3.0</MtouchMinimumOS>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <BundleIdentifier>no.follesoe.bigprofile</BundleIdentifier>
+    <BundleDisplayName>Facebook Big Profile</BundleDisplayName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +70,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\monotouch-facebook.dll</HintPath>
     </Reference>
+    <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
