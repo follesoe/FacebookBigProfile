@@ -194,7 +194,7 @@ namespace FacebookBigProfile
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			*/
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
-			facebookController.UploadImage(cropped6, "Part 6 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");
 			
 			/*
 			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {

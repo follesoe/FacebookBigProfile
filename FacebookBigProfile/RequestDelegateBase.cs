@@ -4,30 +4,27 @@ using MonoTouch.Foundation;
 
 namespace FacebookBigProfile
 {
-	public class RequestDelegate : FBRequestDelegate
-	{
-		private FacebookController _facebookController;
-		
-		public RequestDelegate(FacebookController facebookController)
+	public abstract class RequestDelegateBase : FBRequestDelegate
+	{				
+		public RequestDelegateBase()
 		{
-			_facebookController = facebookController;
 		}
 		
-		public override void RequestLoading(FBRequest request)
-		{
-			Console.WriteLine("Request Loading...");
-		}
+		public abstract void HandleResult(FBRequest request, NSDictionary result);
 		
+		public override void RequestLoading (FBRequest request)
+		{
+		}
+				
 		public override void Request (FBRequest request, NSUrlResponse response)
 		{
-			
-		}
+		}		
 		
 		public override void Request (FBRequest request, NSError error)
 		{
 			Console.WriteLine("Error: " + error.ToString());
 		}
-		
+				
 		public override void Request (FBRequest request, NSObject result)
 		{
 			NSDictionary dict;
@@ -39,29 +36,24 @@ namespace FacebookBigProfile
 			else if(result is NSArray)
 			{
 				var arr = (NSArray)result;
-				dict = new NSDictionary(arr.ValueAt(0));
+				
+				if(arr.Count > 0)
+					dict = new NSDictionary(arr.ValueAt(0));
+				else 
+					dict = new NSDictionary();
 			}
 			else
 			{
 				throw new Exception("cannot handle result in FBRequestDelegate callback");
 			}
 			
-			if (dict.ObjectForKey(new NSString("owner")) != null)
-		    {
-			}
-			else 
-			{
-				NSObject name =	dict.ObjectForKey(new NSString("name"));
-				NSObject id = dict.ObjectForKey(new NSString("id"));
-				Console.WriteLine("Logged in as: {0} - {1}", name, id);	
-				
-				_facebookController.LoggedIn(id.ToString());
-			}
-		}
-	
+			HandleResult(request, dict);
+		}	
+		
 		public override void Request (FBRequest request, NSData data)
 		{
-			
+			Console.WriteLine("Request NSData");
 		}
 	}
 }
+

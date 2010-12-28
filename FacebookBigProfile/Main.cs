@@ -21,11 +21,10 @@ namespace FacebookBigProfile
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		const string kAppId = "188864954461169";
+		const string kAppId = "180991745253598"; //"188864954461169";
 		private Facebook _facebook;
 		
 		private MainView mainView;
-		
 		
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)

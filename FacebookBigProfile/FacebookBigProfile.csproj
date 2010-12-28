@@ -88,9 +88,11 @@
     </Compile>
     <Compile Include="ImagePickerDelegate.cs" />
     <Compile Include="FacebookController.cs" />
-    <Compile Include="RequestDelegate.cs" />
     <Compile Include="SessionDelegate.cs" />
     <Compile Include="CropHelpers.cs" />
+    <Compile Include="UploadPhotoRequestDelegate.cs" />
+    <Compile Include="RequestDelegateBase.cs" />
+    <Compile Include="GetUserRequestDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
