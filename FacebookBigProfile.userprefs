@@ -1,14 +1,37 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/FacebookController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/MainView.xib.cs">
     <Files>
-      <File FileName="FacebookBigProfile/Main.cs" Line="27" Column="4" />
-      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="85" Column="6" />
-      <File FileName="FacebookBigProfile/ImagePickerDelegate.cs" Line="22" Column="4" />
-      <File FileName="FacebookBigProfile/FacebookController.cs" Line="8" Column="3" />
-      <File FileName="FacebookBigProfile/RequestDelegate.cs" Line="9" Column="22" />
-      <File FileName="FacebookBigProfile/SessionDelegate.cs" Line="30" Column="43" />
+      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="59" Column="20" />
+      <File FileName="FacebookBigProfileTests/Image_slicing_tests.cs" Line="36" Column="13" />
+      <File FileName="FacebookBigProfile/CropHelpers.cs" Line="19" Column="55" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="FacebookBigProfile" expanded="True">
+            <Node name="MainView.xib" expanded="True">
+              <Node name="MainView.xib.cs" selected="True" />
+            </Node>
+          </Node>
+          <Node name="FacebookBigProfileTests" expanded="True" />
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="ConnectionManagerPad">
+        <State selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True">
+          <Node name="FacebookBigProfileTests" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

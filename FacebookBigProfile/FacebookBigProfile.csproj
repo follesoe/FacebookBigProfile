@@ -87,6 +87,7 @@
     <Compile Include="FacebookController.cs" />
     <Compile Include="RequestDelegate.cs" />
     <Compile Include="SessionDelegate.cs" />
+    <Compile Include="CropHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

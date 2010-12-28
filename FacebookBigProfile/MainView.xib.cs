@@ -17,32 +17,47 @@ namespace FacebookBigProfile
 
 		public MainView (IntPtr handle) : base(handle)
 		{
-			Initialize (null);
+			Initialize ();
 		}
 
 		[Export("initWithCoder:")]
 		public MainView (NSCoder coder) : base(coder)
 		{
-			Initialize (null);
+			Initialize ();
 		}
 
 		public MainView (Facebook facebook) : base("MainView", null)
 		{
-			_facebook = facebook;
-			Initialize (null);
+			facebook = facebook;
+			Initialize ();
 		}
 				
-		private Facebook _facebook;
+		private Facebook facebook;
 		private FacebookController facebookController;
 		private UIImagePickerController picker;
 		private UIImageView profilePictureView;
 		private UIImage overlayImage;
 		private UIImage profilePicture;
 		
-		private void Initialize (Facebook facebook)
+		private UIImageView cropSource1;
+		private UIImageView cropSource2;
+		private UIImageView cropSource3;
+		private UIImageView cropSource4;
+		private UIImageView cropSource5;
+		private UIImageView cropSource6;
+		
+		private void Initialize ()
 		{
-			facebookController = new FacebookController(_facebook);
+			facebookController = new FacebookController(facebook);
 			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);				
+		}
+		
+		private UIImageView CreateCropSource(float x, float y, float width, float height) 
+		{
+			var imageView = new UIImageView();
+			imageView.BackgroundColor = new UIColor(255, 0, 0, 0.5f);
+			imageView.Frame = new RectangleF(x, y, width, height);
+			return imageView;
 		}
 
 		public override void ViewDidLoad ()
@@ -90,16 +105,32 @@ namespace FacebookBigProfile
 			splitButton.Clicked += (o, e) => {
 				SplitImage();
 			};
-		}
+			
+			AddCropHelpers();
+		}	
 		
-		public override void ViewWillAppear (bool animated)
+		private void AddCropHelpers() 
 		{
-			base.ViewWillAppear (animated);
+			cropSource6 = CreateCropSource(5, 24, 80, 222);
+			cropSource5 = CreateCropSource(95, 41, 43, 28);
+			cropSource4 = CreateCropSource(139, 41, 43, 28);			
+			cropSource3 = CreateCropSource(184, 41, 43, 28);
+			cropSource2 = CreateCropSource(228, 41, 43, 28);
+			cropSource1 = CreateCropSource(273, 41, 43, 28);
+			
+			View.AddSubview(cropSource1);
+			View.AddSubview(cropSource2);
+			View.AddSubview(cropSource3);
+			View.AddSubview(cropSource4);
+			View.AddSubview(cropSource5);
+			View.AddSubview(cropSource6);
 		}
 		
-		public void LoadImage(UIImage image) {
+		
+		public void LoadImage(UIImage image) 
+		{
 			profilePicture = image;
-			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
+			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
 			var size = scrollView.Frame.Size;
 			
@@ -109,34 +140,29 @@ namespace FacebookBigProfile
 			scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
 			scrollView.ContentOffset = new PointF(0, 0);
 			scrollView.ZoomScale = 1.0f;
-		}
+		}			
 		
-		private float GetZoomScale(SizeF originalSize, SizeF targetSize) {
-			return targetSize.Width / originalSize.Width;			
-		}		
-		
-		public void SplitImage() {
+		public void SplitImage() 
+		{
+			Console.WriteLine();
 			Console.WriteLine("Split the image...");
-			
+			Console.WriteLine();
 			Console.WriteLine("Picture Size:\t\t\t" + profilePicture.Size);			
 			Console.WriteLine("Picture View Size:\t\t" + profilePictureView.Frame.Size);
 			Console.WriteLine("Scroll Offset:\t\t\t" + scrollView.ContentOffset);
 			
 	
-			float zoomScale = GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
+			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			Console.WriteLine("ScrollView ZoomScale:\t" + scrollView.ZoomScale);
 			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
 			Console.WriteLine("Actuall ZoomScale:\t\t" + currentZoomScale);
 			
-			var frame6 = new RectangleF(8f, 55f, 163f, 486f);
-			var image6 = new RectangleF((frame6.X + scrollView.ContentOffset.X) * currentZoomScale,
-			                            (frame6.Y + scrollView.ContentOffset.Y) * currentZoomScale,
-			                            frame6.Width * currentZoomScale,
-			                            frame6.Height * currentZoomScale);
+			var cropSource6 = new RectangleF(8f, 55f, 163f, 486f);		
+			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6, scrollView.ContentOffset, zoomScale); 
 			
 			Console.WriteLine();
-			Console.WriteLine("Cut6: " + image6);
+			Console.WriteLine("Image 6 crop: " + imageCrop6);
 			
 			/*
 			var cropped6 = Crop(profilePicture, image6);

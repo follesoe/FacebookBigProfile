@@ -3,14 +3,33 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookBigProfile", "FacebookBigProfile\FacebookBigProfile.csproj", "{2CBB70B6-6E90-4E40-9589-E9E07E84F367}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookBigProfileTests", "FacebookBigProfileTests\FacebookBigProfileTests.csproj", "{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 		Debug|iPhone = Debug|iPhone
 		Release|iPhone = Release|iPhone
+		Default|Any CPU = Default|Any CPU
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhone.ActiveCfg = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhone.Build.0 = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhoneSimulator.Build.0 = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|x86.ActiveCfg = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|x86.Build.0 = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Default|Any CPU.ActiveCfg = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Default|Any CPU.Build.0 = Debug|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|iPhone.ActiveCfg = Release|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|iPhone.Build.0 = Release|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|iPhoneSimulator.ActiveCfg = Release|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|iPhoneSimulator.Build.0 = Release|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|x86.ActiveCfg = Release|x86
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|x86.Build.0 = Release|x86
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhone.Build.0 = Debug|iPhone
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
