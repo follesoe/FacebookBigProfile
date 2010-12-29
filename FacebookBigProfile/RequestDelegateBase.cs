@@ -52,7 +52,6 @@ namespace FacebookBigProfile
 		
 		public override void Request (FBRequest request, NSData data)
 		{
-			Console.WriteLine("Request NSData");
 		}
 	}
 }

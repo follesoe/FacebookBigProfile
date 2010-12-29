@@ -4,11 +4,11 @@ using MonoTouch.Foundation;
 
 namespace FacebookBigProfile
 {
-	public class UploadPhotoRequestDelegate : RequestDelegateBase
-	{
+	public class FqlRequestDelegate : RequestDelegateBase
+	{	
 		private readonly FacebookController _controller;
 		
-		public UploadPhotoRequestDelegate(FacebookController controller)
+		public FqlRequestDelegate(FacebookController controller)
 		{
 			_controller = controller;
 		}
@@ -20,9 +20,10 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				NSObject id = dict.ObjectForKey(new NSString("id"));
-				_controller.GetPIDforPhotoFBID(id.ToString()); 	
+				NSObject id = dict.ObjectForKey(new NSString("pid"));
+				_controller.TagPhoto(id.ToString()); 	
 			}
 		}
 	}
 }
+

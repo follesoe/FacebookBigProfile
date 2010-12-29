@@ -9,11 +9,12 @@ namespace FacebookBigProfile
 {
 	public class FacebookController
 	{
-		private Facebook _facebook;
-		private GetUserRequestDelegate _userDelegate;
-		private UploadPhotoRequestDelegate _photoDelegate;
-		private FqlRequestDelegate _fqlDelegate;
-		private SessionDelegate _sessionDelegate;
+		private readonly Facebook _facebook;
+		private readonly GetUserRequestDelegate _userDelegate;
+		private readonly UploadPhotoRequestDelegate _photoDelegate;
+		private readonly FqlRequestDelegate _fqlDelegate;
+		private readonly SessionDelegate _sessionDelegate;
+		private readonly NoActionRequestDelegate _noActionDelegate;
 		
 		private string _userId;
 		private bool _isLoggedIn; 
@@ -37,7 +38,8 @@ namespace FacebookBigProfile
 			_photoDelegate = new UploadPhotoRequestDelegate(this);
 			_userDelegate = new GetUserRequestDelegate(this);
 			_sessionDelegate = new SessionDelegate(this);
-			_fqlDelegate = new FqlRequestDelegate();
+			_fqlDelegate = new FqlRequestDelegate(this);
+			_noActionDelegate = new NoActionRequestDelegate();
 		}
 		
 		public void Login() 
@@ -51,7 +53,7 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				_facebook.Authorize(new string[]{"publish_stream" /*, "offline_access"*/}, _sessionDelegate);
+				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos"/*, "offline_access"*/}, _sessionDelegate);
 			}
 		}
 		
@@ -81,41 +83,33 @@ namespace FacebookBigProfile
 			parameters.Add(new NSString("picture"), image);
 			parameters.Add(new NSString("message"), new NSString(message));
 			_facebook.RequestWithGraphPath("/me/photos", parameters, "POST", _photoDelegate);			
+		}		
+		
+		public void GetPIDforPhotoFBID(string fbid)
+		{			
+			string fql = "SELECT pid FROM photo WHERE object_id = " + fbid;
+			
+			var parameters = new NSMutableDictionary();
+			parameters.Add(new NSString("query"), new NSString(fql));	
+			
+			_facebook.RequestWithMethodName("fql.query", parameters, "POST", _fqlDelegate);	
 		}
 		
 		public void TagPhoto(string photoPid)
 		{
-			Console.WriteLine("TagPhoto: " + photoPid);
-			GetPIDforPhotoFBID(photoPid);
-			return;
-			
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("pid"), new NSString(photoPid));
 			parameters.Add(new NSString("tag_uid"), new NSString(_userId));
 			parameters.Add(new NSString("x"), new NSString("10.0"));
 			parameters.Add(new NSString("y"), new NSString("10.0"));
-			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _userDelegate);	
-		}
-		
-		private void GetPIDforPhotoFBID(string fbid)
-		{			
-			string fql = "SELECT pid FROM photo WHERE object_id = " + fbid;
-			//fql =        "SELECT uid,name FROM user WHERE uid=4";
-				
-			
-			var parameters = new NSMutableDictionary();
-			parameters.Add(new NSString("query"), new NSString(fql));	
-			
-			Console.WriteLine("Making FQL Request: " + fql);
-			_facebook.RequestWithMethodName("fql.query", parameters, "POST", _fqlDelegate);	
+			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _noActionDelegate);	
 		}
 	}
 	
-	public class FqlRequestDelegate : RequestDelegateBase
-	{		
+	public class NoActionRequestDelegate : RequestDelegateBase
+	{
 		public override void HandleResult (FBRequest request, NSDictionary result)
 		{
-			Console.WriteLine("HandleResult for FQL");
 		}
 	}
 }
