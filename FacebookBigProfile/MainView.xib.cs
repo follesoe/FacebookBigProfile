@@ -148,59 +148,60 @@ namespace FacebookBigProfile
 		}			
 		
 		public void SplitImage() 
-		{
-			/*
-			Console.WriteLine();
-			Console.WriteLine("Split the image...");
-			Console.WriteLine();
-			Console.WriteLine("Picture Size:\t\t\t" + profilePicture.Size);			
-			Console.WriteLine("Picture View Size:\t\t" + profilePictureView.Frame.Size);
-			Console.WriteLine("Scroll Offset:\t\t\t" + scrollView.ContentOffset);
-			*/
-	
+		{		
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
-			/*
-			Console.WriteLine("ScrollView ZoomScale:\t" + scrollView.ZoomScale);
-			Console.WriteLine("Calculated ZoomScale:\t" + zoomScale);
-			Console.WriteLine("Actuall ZoomScale:\t\t" + currentZoomScale);
-			*/
-			
-			/*
 			var imageCrop1 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource1.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop2 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource2.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop3 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource3.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop4 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource4.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
-			*/
 			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
 
-			/*
-			Console.WriteLine();
-			Console.WriteLine("Image 1 crop: " + imageCrop1);
-			Console.WriteLine("Image 2 crop: " + imageCrop2);
-			Console.WriteLine("Image 3 crop: " + imageCrop3);
-			Console.WriteLine("Image 4 crop: " + imageCrop4);
-			Console.WriteLine("Image 5 crop: " + imageCrop5);
-			Console.WriteLine("Image 6 crop: " + imageCrop6);
-			*/
-				
-			/*
+			Console.WriteLine("Image 1: " + imageCrop1);
+			Console.WriteLine("Image 2: " + imageCrop2);
+			Console.WriteLine("Image 3: " + imageCrop3);
+			Console.WriteLine("Image 4: " + imageCrop4);
+			Console.WriteLine("Image 5: " + imageCrop5);
+			Console.WriteLine("Image 6: " + imageCrop6);
+			
 			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
 			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
 			var cropped4 = Crop(profilePicture, imageCrop4).Scale(profilePictureSmallSize);
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
-			*/
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
-			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");
 			
 			/*
+			facebookController.UploadPhoto(cropped1, "Part 1 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped2, "Part 2 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped3, "Part 3 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped4, "Part 4 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped5, "Part 5 of my Big Profile Picture.");
+			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");
+			*/
+			
+			/*
+			cropped1.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});	
+			cropped2.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});	
+			cropped3.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});	
+			cropped4.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});	
+			*
+			cropped5.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
+				Console.WriteLine("Saved to album!");
+			});	
 			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
-			});*/
-			
+			});		*/
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
