@@ -173,14 +173,12 @@ namespace FacebookBigProfile
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			/*
 			facebookController.UploadPhoto(cropped1, "Part 1 of my Big Profile Picture.");
 			facebookController.UploadPhoto(cropped2, "Part 2 of my Big Profile Picture.");
 			facebookController.UploadPhoto(cropped3, "Part 3 of my Big Profile Picture.");
 			facebookController.UploadPhoto(cropped4, "Part 4 of my Big Profile Picture.");
 			facebookController.UploadPhoto(cropped5, "Part 5 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");
-			*/
+			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");		
 			
 			/*
 			cropped1.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
@@ -195,13 +193,12 @@ namespace FacebookBigProfile
 			cropped4.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
 			});	
-			*
 			cropped5.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
-			});	
+			});
 			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
 				Console.WriteLine("Saved to album!");
-			});		*/
+			});*/
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
@@ -209,13 +206,11 @@ namespace FacebookBigProfile
 			UIGraphics.BeginImageContext(section.Size);			
 			var context = UIGraphics.GetCurrentContext();
 			
-			context.ClipToRect(new RectangleF(0, 0, section.Width + 1, section.Height + 1));
-		
 			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
-			context.ConcatCTM(transform);			
-			
-			var drawRectangle = new RectangleF(-section.X, -section.Y, image.Size.Width, image.Size.Height);
-			context.DrawImage(drawRectangle, image.CGImage);			
+			context.ConcatCTM(transform);	
+
+			context.DrawImage(new RectangleF(0, 0, section.Width, section.Height), 
+			                  image.CGImage.WithImageInRect(section));
 			
 			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
