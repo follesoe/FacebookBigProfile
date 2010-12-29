@@ -173,32 +173,13 @@ namespace FacebookBigProfile
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			facebookController.UploadPhoto(cropped1, "Part 1 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped2, "Part 2 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped3, "Part 3 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped4, "Part 4 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped5, "Part 5 of my Big Profile Picture.");
-			facebookController.UploadPhoto(cropped6, "Part 6 of my Big Profile Picture.");		
-			
-			/*
-			cropped1.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});	
-			cropped2.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});	
-			cropped3.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});	
-			cropped4.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});	
-			cropped5.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});
-			cropped6.SaveToPhotosAlbum(delegate(UIImage image, NSError error) {
-				Console.WriteLine("Saved to album!");
-			});*/
+			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
+			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
+			facebookController.QueueForUpload(cropped3, "Part 3 of my Big Profile Picture.", true);
+			facebookController.QueueForUpload(cropped4, "Part 4 of my Big Profile Picture.", true);
+			facebookController.QueueForUpload(cropped5, "Part 5 of my Big Profile Picture.", true);
+			facebookController.QueueForUpload(cropped6, "Part 6 of my Big Profile Picture.", false);	
+			facebookController.StartUpload();
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)

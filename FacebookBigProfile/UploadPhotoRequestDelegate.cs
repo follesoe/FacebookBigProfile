@@ -8,6 +8,8 @@ namespace FacebookBigProfile
 	{
 		private readonly FacebookController _controller;
 		
+		public bool AutoTag { get; set; }
+		
 		public UploadPhotoRequestDelegate(FacebookController controller)
 		{
 			_controller = controller;
@@ -20,8 +22,15 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				NSObject id = dict.ObjectForKey(new NSString("id"));
-				_controller.GetPIDforPhotoFBID(id.ToString()); 	
+				if(AutoTag) 
+				{
+					NSObject id = dict.ObjectForKey(new NSString("id"));
+					_controller.GetPIDforPhotoFBID(id.ToString()); 	
+				}
+				else 
+				{
+					_controller.StartUpload();
+				}
 			}
 		}
 	}

@@ -9,12 +9,22 @@ namespace FacebookBigProfile
 {
 	public class FacebookController
 	{
+		public class QueuedUpload 
+		{
+			public UIImage Image { get; set; }
+			public string Message { get; set; }
+			public bool AutoTag { get; set; }
+		}
+		
+		
 		private readonly Facebook _facebook;
 		private readonly GetUserRequestDelegate _userDelegate;
 		private readonly UploadPhotoRequestDelegate _photoDelegate;
 		private readonly FqlRequestDelegate _fqlDelegate;
 		private readonly SessionDelegate _sessionDelegate;
-		private readonly NoActionRequestDelegate _noActionDelegate;
+		private readonly UploadNextRequestDelegate _uploadNextDelegate;
+		
+		private Queue<QueuedUpload> _queuedUploads;
 		
 		private string _userId;
 		private bool _isLoggedIn; 
@@ -39,7 +49,8 @@ namespace FacebookBigProfile
 			_userDelegate = new GetUserRequestDelegate(this);
 			_sessionDelegate = new SessionDelegate(this);
 			_fqlDelegate = new FqlRequestDelegate(this);
-			_noActionDelegate = new NoActionRequestDelegate();
+			_uploadNextDelegate = new UploadNextRequestDelegate(this);
+			_queuedUploads = new Queue<QueuedUpload>();
 		}
 		
 		public void Login() 
@@ -74,14 +85,30 @@ namespace FacebookBigProfile
 			_facebook.RequestWithGraphPath("me", _userDelegate);
 		}
 		
-		public void UploadPhoto(UIImage image, string message) 
+		public void QueueForUpload(UIImage image, string message, bool autoTag) 
 		{
+			_queuedUploads.Enqueue(new QueuedUpload { Image = image, Message = message, AutoTag = autoTag });			
+		}
+		
+		public void StartUpload()
+		{
+			if(_queuedUploads.Count > 0)
+			{
+				var upload = _queuedUploads.Dequeue();
+				UploadPhoto(upload.Image, upload.Message, upload.AutoTag);
+			}
+		}
+		
+		private void UploadPhoto(UIImage image, string message, bool autoTag) 
+		{			
 			if(!IsLoggedIn) throw new Exception("User not logged in.");	
 			if(string.IsNullOrEmpty(_userId)) throw new Exception("Logged in but missing user id.");
-						                          		
+		
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("picture"), image);
 			parameters.Add(new NSString("message"), new NSString(message));
+			
+			_photoDelegate.AutoTag = autoTag;
 			_facebook.RequestWithGraphPath("/me/photos", parameters, "POST", _photoDelegate);			
 		}		
 		
@@ -102,14 +129,22 @@ namespace FacebookBigProfile
 			parameters.Add(new NSString("tag_uid"), new NSString(_userId));
 			parameters.Add(new NSString("x"), new NSString("10.0"));
 			parameters.Add(new NSString("y"), new NSString("10.0"));
-			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _noActionDelegate);	
+			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _uploadNextDelegate);	
 		}
 	}
 	
-	public class NoActionRequestDelegate : RequestDelegateBase
+	public class UploadNextRequestDelegate : RequestDelegateBase
 	{
+		private readonly FacebookController _controller;
+		
+		public UploadNextRequestDelegate(FacebookController controller)
+		{
+			_controller = controller;
+		}
+		
 		public override void HandleResult (FBRequest request, NSDictionary result)
 		{
+			_controller.StartUpload();
 		}
 	}
 }
