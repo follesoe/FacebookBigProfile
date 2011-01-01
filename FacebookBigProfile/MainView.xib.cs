@@ -60,7 +60,7 @@ namespace FacebookBigProfile
 		private UIImageView CreateCropSource(float x, float y, float width, float height) 
 		{
 			var imageView = new UIImageView();
-			imageView.BackgroundColor = new UIColor(255, 0, 0, 0.5f);
+			//imageView.BackgroundColor = new UIColor(255, 0, 0, 0.5f);
 			imageView.Frame = new RectangleF(x, y, width, height);
 			return imageView;
 		}
@@ -129,22 +129,15 @@ namespace FacebookBigProfile
 			View.AddSubview(cropSource4);
 			View.AddSubview(cropSource5);
 			View.AddSubview(cropSource6);
-		}
-		
+		}		
 		
 		public void LoadImage(UIImage image) 
-		{			
-
-			
+		{						
 			profilePicture = image;
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
 			var size = scrollView.Frame.Size;
-			
-			Console.WriteLine("ScrollView Frame: " + scrollView.Frame);
-			Console.WriteLine("Picture View Frame: " + frame);
-			Console.WriteLine("ZoomScale: " + scrollView.ZoomScale);
-			
+						
 			profilePictureView.Frame = frame;
 			profilePictureView.Image = image;			
 			scrollView.ContentSize = frame.Size;

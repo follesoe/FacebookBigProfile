@@ -56,6 +56,10 @@
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{0, 416}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="636655175">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xODAzOTIxNTY5IDAuMjYyNzQ1MDk4IDAuNTQ1MDk4MDM5MgA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -86,6 +90,7 @@
 								<reference key="IBUIToolbar" ref="490063014"/>
 							</object>
 						</object>
+						<reference key="IBUITintColor" ref="636655175"/>
 					</object>
 					<object class="IBUIImageView" id="747166226">
 						<reference key="NSNextResponder" ref="191373211"/>
