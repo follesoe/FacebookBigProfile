@@ -116,12 +116,12 @@ namespace FacebookBigProfile
 		
 		private void AddCropHelpers() 
 		{
-			cropSource6 = CreateCropSource(5, 24, 80, 222);
-			cropSource5 = CreateCropSource(95, 41, 43, 28);
-			cropSource4 = CreateCropSource(139, 41, 43, 28);			
-			cropSource3 = CreateCropSource(184, 41, 43, 28);
-			cropSource2 = CreateCropSource(228, 41, 43, 28);
-			cropSource1 = CreateCropSource(273, 41, 43, 28);
+			cropSource6 = CreateCropSource(5, 25, 80, 242);
+			cropSource5 = CreateCropSource(94, 57, 43, 30);
+			cropSource4 = CreateCropSource(138, 57, 44, 30);			
+			cropSource3 = CreateCropSource(183, 57, 43, 30);
+			cropSource2 = CreateCropSource(227, 57, 44, 30);
+			cropSource1 = CreateCropSource(272, 57, 43, 30);
 			
 			View.AddSubview(cropSource1);
 			View.AddSubview(cropSource2);
@@ -133,18 +133,23 @@ namespace FacebookBigProfile
 		
 		
 		public void LoadImage(UIImage image) 
-		{
+		{			
+
+			
 			profilePicture = image;
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
 			var size = scrollView.Frame.Size;
+			
+			Console.WriteLine("ScrollView Frame: " + scrollView.Frame);
+			Console.WriteLine("Picture View Frame: " + frame);
+			Console.WriteLine("ZoomScale: " + scrollView.ZoomScale);
 			
 			profilePictureView.Frame = frame;
 			profilePictureView.Image = image;			
 			scrollView.ContentSize = frame.Size;
 			scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
 			scrollView.ContentOffset = new PointF(0, 0);
-			scrollView.ZoomScale = 1.0f;
 		}			
 		
 		public void SplitImage() 
@@ -166,6 +171,7 @@ namespace FacebookBigProfile
 			Console.WriteLine("Image 5: " + imageCrop5);
 			Console.WriteLine("Image 6: " + imageCrop6);
 			
+			
 			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
 			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
@@ -179,7 +185,7 @@ namespace FacebookBigProfile
 			facebookController.QueueForUpload(cropped4, "Part 4 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped5, "Part 5 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped6, "Part 6 of my Big Profile Picture.", false);	
-			facebookController.StartUpload();
+			facebookController.StartUpload();		
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)

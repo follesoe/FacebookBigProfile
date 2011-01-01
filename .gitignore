@@ -1,1 +1,4 @@
 bin
+.userperfs
+test-results
+.test-cache
