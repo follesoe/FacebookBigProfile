@@ -38,6 +38,7 @@ namespace FacebookBigProfile
 		private UIImageView profilePictureView;
 		private UIImage overlayImage;
 		private UIImage profilePicture;
+		private UIActionSheet photoFromWhere;
 		
 		private UIImageView cropSource1;
 		private UIImageView cropSource2;
@@ -90,30 +91,57 @@ namespace FacebookBigProfile
 			picker = new UIImagePickerController();
 			picker.Delegate = new ImagePickerDelegate(this);
 			
-			libraryButton.Clicked += (o, e) => {
-				picker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
-				PresentModalViewController(picker, true);								
-			};
-			
-			cameraButton.Clicked += (o, e) => {
-				var cameraType = UIImagePickerControllerSourceType.Camera;
-				if(UIImagePickerController.IsSourceTypeAvailable(cameraType)) {
-					picker.SourceType = cameraType;
-					PresentModalViewController(picker, true);
-				}
-			};
+						
+			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
+			{			
+				photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", null, "Take Photo", "Choose From Library");
+				photoButton.Clicked += (o, e) => { photoFromWhere.ShowFromToolbar(toolbar);	};
+			} 
+			else
+			{
+				photoButton.Clicked += (o, e) => { GetPhotoFromLibrary();	};				
+			}
 			
 			facebookButton.Clicked += (o, e) => {
 				facebookController.Login();
 			};
 			
+			/*
 			splitButton.Clicked += (o, e) => {
 				SplitImage();
-			};
+			};*/
 			
 			AddCropHelpers();
-		}	
+		}
 		
+		public void GetPhotoFromLibrary()
+		{
+			picker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+			PresentModalViewController(picker, true);		
+		}
+		
+		public void GetPhotoFromCamera()
+		{
+			picker.SourceType = UIImagePickerControllerSourceType.Camera;
+			PresentModalViewController(picker, true);
+		}
+		
+		public class ActionDel : UIActionSheetDelegate
+		{
+			private readonly MainView _mainView;
+			
+			public ActionDel(MainView mainView)
+			{
+				_mainView = mainView;
+			}
+			
+			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
+			{
+				if(buttonIndex == 1) _mainView.GetPhotoFromCamera();
+				else if(buttonIndex == 2) _mainView.GetPhotoFromLibrary();
+			}
+		}
+
 		private void AddCropHelpers() 
 		{
 			cropSource6 = CreateCropSource(5, 25, 80, 242);
