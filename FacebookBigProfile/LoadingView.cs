@@ -19,6 +19,11 @@ namespace FacebookBigProfile
 	    	_activityView.StartAnimating();
 	    	AddSubview(_activityView);
 	    }
+		
+		public void UpdateTitle(string title)
+		{
+			Title = title;
+		}
 	
 	    public void Hide()
 	    {

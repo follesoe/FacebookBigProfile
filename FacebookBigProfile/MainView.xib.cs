@@ -62,7 +62,6 @@ namespace FacebookBigProfile
 		private UIImageView CreateCropSource(float x, float y, float width, float height) 
 		{
 			var imageView = new UIImageView();
-			//imageView.BackgroundColor = new UIColor(255, 0, 0, 0.5f);
 			imageView.Frame = new RectangleF(x, y, width, height);
 			return imageView;
 		}
@@ -112,9 +111,14 @@ namespace FacebookBigProfile
 			AddCropHelpers();
 		}
 		
-		public void StartProgress()
+		public void StartProgress(string title)
 		{
-			loadingView.Show("Uploading your awesome profile pictures!");			
+			loadingView.Show(title);			
+		}
+		
+		public void UpdateProgress(string title)
+		{
+			loadingView.UpdateTitle(title);
 		}
 		
 		public void StopProgress()
@@ -181,14 +185,6 @@ namespace FacebookBigProfile
 			var imageCrop4 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource4.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
 			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
-
-			Console.WriteLine("Image 1: " + imageCrop1);
-			Console.WriteLine("Image 2: " + imageCrop2);
-			Console.WriteLine("Image 3: " + imageCrop3);
-			Console.WriteLine("Image 4: " + imageCrop4);
-			Console.WriteLine("Image 5: " + imageCrop5);
-			Console.WriteLine("Image 6: " + imageCrop6);
-			
 			
 			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);

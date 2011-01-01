@@ -14,8 +14,7 @@ namespace FacebookBigProfile
 			public UIImage Image { get; set; }
 			public string Message { get; set; }
 			public bool AutoTag { get; set; }
-		}
-		
+		}		
 		
 		private readonly Facebook _facebook;
 		private readonly MainView _mainView;
@@ -24,6 +23,8 @@ namespace FacebookBigProfile
 		private readonly FqlRequestDelegate _fqlDelegate;
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
+		
+		private const string ProgresString = "Uploading part {0} of 6 of your awesome profile picture...";
 		
 		private Queue<QueuedUpload> _queuedUploads;
 		
@@ -38,7 +39,7 @@ namespace FacebookBigProfile
 				_isLoggedIn = value;
 				if(_isLoggedIn) 
 				{
-					_mainView.StartProgress();			
+					_mainView.StartProgress(string.Format(ProgresString, 1));			
 					GetProfile();
 				}
 			}
@@ -101,8 +102,9 @@ namespace FacebookBigProfile
 		{
 			if(_queuedUploads.Count > 0)
 			{
+				_mainView.UpdateProgress(string.Format(ProgresString, (6 - _queuedUploads.Count) + 1));
 				var upload = _queuedUploads.Dequeue();
-				UploadPhoto(upload.Image, upload.Message, upload.AutoTag);
+				UploadPhoto(upload.Image, upload.Message, upload.AutoTag);				
 			}
 			else 
 			{
