@@ -94,6 +94,7 @@
     <Compile Include="RequestDelegateBase.cs" />
     <Compile Include="GetUserRequestDelegate.cs" />
     <Compile Include="FqlRequestDelegate.cs" />
+    <Compile Include="LoadingView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

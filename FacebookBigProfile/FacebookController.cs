@@ -38,6 +38,7 @@ namespace FacebookBigProfile
 				_isLoggedIn = value;
 				if(_isLoggedIn) 
 				{
+					_mainView.StartProgress();			
 					GetProfile();
 				}
 			}
@@ -57,7 +58,6 @@ namespace FacebookBigProfile
 		
 		public void Login() 
 		{
-			_mainView.StartProgress();
 			if(_facebook.IsSessionValid)
 			{
 				IsLoggedIn = true;

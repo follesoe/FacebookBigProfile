@@ -39,6 +39,7 @@ namespace FacebookBigProfile
 		private UIImage overlayImage;
 		private UIImage profilePicture;
 		private UIActionSheet photoFromWhere;
+		private LoadingView loadingView;
 		
 		private UIImageView cropSource1;
 		private UIImageView cropSource2;
@@ -106,17 +107,19 @@ namespace FacebookBigProfile
 				facebookController.Login();
 			};
 			
+			loadingView = new LoadingView();
+			
 			AddCropHelpers();
 		}
 		
 		public void StartProgress()
 		{
-			Console.WriteLine("Start progress...");
+			loadingView.Show("Uploading your awesome profile pictures!");			
 		}
 		
 		public void StopProgress()
 		{
-			Console.WriteLine("Stop progress...");
+			loadingView.Hide();
 		}
 		
 		public void ShowError(NSError error)
