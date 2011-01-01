@@ -8,7 +8,7 @@ namespace FacebookBigProfile
 	{	
 		private readonly FacebookController _controller;
 		
-		public FqlRequestDelegate(FacebookController controller)
+		public FqlRequestDelegate(FacebookController controller) : base(controller)
 		{
 			_controller = controller;
 		}

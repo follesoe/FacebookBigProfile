@@ -53,7 +53,7 @@ namespace FacebookBigProfile
 		private void Initialize ()
 		{
 			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);
-			facebookController = new FacebookController(facebook);		
+			facebookController = new FacebookController(facebook, this);		
 			profilePictureSize = new SizeF(180f, 540f);
 			profilePictureSmallSize = new SizeF(97f, 68f);
 		}
@@ -106,12 +106,22 @@ namespace FacebookBigProfile
 				facebookController.Login();
 			};
 			
-			/*
-			splitButton.Clicked += (o, e) => {
-				SplitImage();
-			};*/
-			
 			AddCropHelpers();
+		}
+		
+		public void StartProgress()
+		{
+			Console.WriteLine("Start progress...");
+		}
+		
+		public void StopProgress()
+		{
+			Console.WriteLine("Stop progress...");
+		}
+		
+		public void ShowError(NSError error)
+		{
+			Console.WriteLine("Error: " + error.ToString());
 		}
 		
 		public void GetPhotoFromLibrary()
@@ -124,22 +134,6 @@ namespace FacebookBigProfile
 		{
 			picker.SourceType = UIImagePickerControllerSourceType.Camera;
 			PresentModalViewController(picker, true);
-		}
-		
-		public class ActionDel : UIActionSheetDelegate
-		{
-			private readonly MainView _mainView;
-			
-			public ActionDel(MainView mainView)
-			{
-				_mainView = mainView;
-			}
-			
-			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
-			{
-				if(buttonIndex == 1) _mainView.GetPhotoFromCamera();
-				else if(buttonIndex == 2) _mainView.GetPhotoFromLibrary();
-			}
 		}
 
 		private void AddCropHelpers() 
@@ -224,6 +218,22 @@ namespace FacebookBigProfile
 			UIGraphics.EndImageContext();
 			return croppedImage;
 	    }
+		
+		public class ActionDel : UIActionSheetDelegate
+		{
+			private readonly MainView _mainView;
+			
+			public ActionDel(MainView mainView)
+			{
+				_mainView = mainView;
+			}
+			
+			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
+			{
+				if(buttonIndex == 1) _mainView.GetPhotoFromCamera();
+				else if(buttonIndex == 2) _mainView.GetPhotoFromLibrary();
+			}
+		}
 	}
 }
 

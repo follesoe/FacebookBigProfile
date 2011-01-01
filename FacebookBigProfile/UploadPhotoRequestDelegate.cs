@@ -10,7 +10,7 @@ namespace FacebookBigProfile
 		
 		public bool AutoTag { get; set; }
 		
-		public UploadPhotoRequestDelegate(FacebookController controller)
+		public UploadPhotoRequestDelegate(FacebookController controller) : base(controller)
 		{
 			_controller = controller;
 		}

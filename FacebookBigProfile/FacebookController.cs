@@ -18,6 +18,7 @@ namespace FacebookBigProfile
 		
 		
 		private readonly Facebook _facebook;
+		private readonly MainView _mainView;
 		private readonly GetUserRequestDelegate _userDelegate;
 		private readonly UploadPhotoRequestDelegate _photoDelegate;
 		private readonly FqlRequestDelegate _fqlDelegate;
@@ -42,9 +43,10 @@ namespace FacebookBigProfile
 			}
 		}		
 		
-		public FacebookController (Facebook facebook)
+		public FacebookController(Facebook facebook, MainView mainView)
 		{
 			_facebook = facebook;
+			_mainView = mainView;
 			_photoDelegate = new UploadPhotoRequestDelegate(this);
 			_userDelegate = new GetUserRequestDelegate(this);
 			_sessionDelegate = new SessionDelegate(this);
@@ -55,16 +57,14 @@ namespace FacebookBigProfile
 		
 		public void Login() 
 		{
-			Console.WriteLine(_facebook.AccessToken);
-			Console.WriteLine(_facebook.ExpirationDate);
-			
+			_mainView.StartProgress();
 			if(_facebook.IsSessionValid)
 			{
 				IsLoggedIn = true;
 			}
 			else 
 			{
-				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos"/*, "offline_access"*/}, _sessionDelegate);
+				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos", "offline_access"}, _sessionDelegate);
 			}
 		}
 		
@@ -76,6 +76,13 @@ namespace FacebookBigProfile
 		public void LoggedIn(string userId) 
 		{
 			_userId = userId;
+			_mainView.SplitImage();
+		}
+		
+		public void ErrorOccurred(NSError error)
+		{
+			_mainView.StopProgress();
+			_mainView.ShowError(error);
 		}
 		
 		public void GetProfile() 
@@ -96,6 +103,10 @@ namespace FacebookBigProfile
 			{
 				var upload = _queuedUploads.Dequeue();
 				UploadPhoto(upload.Image, upload.Message, upload.AutoTag);
+			}
+			else 
+			{
+				_mainView.StopProgress();
 			}
 		}
 		
@@ -137,7 +148,7 @@ namespace FacebookBigProfile
 	{
 		private readonly FacebookController _controller;
 		
-		public UploadNextRequestDelegate(FacebookController controller)
+		public UploadNextRequestDelegate(FacebookController controller) : base(controller)
 		{
 			_controller = controller;
 		}
