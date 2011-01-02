@@ -22,15 +22,8 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				if(AutoTag) 
-				{
-					NSObject id = dict.ObjectForKey(new NSString("id"));
-					_controller.GetPIDforPhotoFBID(id.ToString()); 	
-				}
-				else 
-				{
-					_controller.StartUpload();
-				}
+				NSObject id = dict.ObjectForKey(new NSString("id"));
+				_controller.GetPIDforPhotoFBID(id.ToString(), AutoTag); 	
 			}
 		}
 	}

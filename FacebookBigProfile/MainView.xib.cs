@@ -102,7 +102,7 @@ namespace FacebookBigProfile
 				photoButton.Clicked += (o, e) => { GetPhotoFromLibrary();	};				
 			}
 			
-			facebookButton.Clicked += (o, e) => {
+			facebookButton.Clicked += (o, e) => {				
 				facebookController.Login();
 			};
 			
@@ -123,7 +123,8 @@ namespace FacebookBigProfile
 		
 		public void StopProgress()
 		{
-			loadingView.Hide();
+			loadingView.Hide();			
+			facebookController.PostToWall();
 		}
 		
 		public void ShowError(NSError error)
