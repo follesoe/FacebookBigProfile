@@ -40,8 +40,6 @@ namespace FacebookBigProfile
 				if(_isLoggedIn) 
 				{
 					
-					PostToWall();
-					return;
 					_mainView.StartProgress(string.Format(ProgresString, 1));			
 					GetProfile();
 				}
