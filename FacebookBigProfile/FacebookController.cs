@@ -24,7 +24,7 @@ namespace FacebookBigProfile
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
 		
-		private const string ProgresString = "Uploading part {0} of 6 of your awesome profile picture...";
+		private const string ProgresString = "Uploading part {0} of 6 of your big profile picture...";
 		
 		private Queue<QueuedUpload> _queuedUploads;
 		

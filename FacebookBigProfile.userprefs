@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/FacebookController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/Reachability.cs">
     <Files>
-      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="122" Column="4" />
-      <File FileName="FacebookBigProfile/FacebookController.cs" Line="13" Column="4" />
+      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="175" Column="48" />
+      <File FileName="FacebookBigProfile/FacebookController.cs" Line="27" Column="76" />
       <File FileName="FacebookBigProfile/RequestDelegateBase.cs" Line="28" Column="37" />
       <File FileName="FacebookBigProfile/SessionDelegate.cs" Line="1" Column="1" />
       <File FileName="FacebookBigProfile/ImagePickerDelegate.cs" Line="26" Column="21" />
@@ -13,6 +13,7 @@
       <File FileName="FacebookBigProfile/GetUserRequestDelegate.cs" Line="11" Column="98" />
       <File FileName="FacebookBigProfile/CropHelpers.cs" Line="8" Column="3" />
       <File FileName="FacebookBigProfile/LoadingView.cs" Line="25" Column="18" />
+      <File FileName="FacebookBigProfile/Reachability.cs" Line="24" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

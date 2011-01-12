@@ -99,6 +99,7 @@
     <Compile Include="GetUserRequestDelegate.cs" />
     <Compile Include="FqlRequestDelegate.cs" />
     <Compile Include="LoadingView.cs" />
+    <Compile Include="Reachability.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
