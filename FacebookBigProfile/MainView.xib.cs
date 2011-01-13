@@ -79,9 +79,7 @@ namespace FacebookBigProfile
 			scrollView.BouncesZoom = false;			
 			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
 					 				
-			scrollView.ViewForZoomingInScrollView = (sender) => {
-				return profilePictureView;	
-			};		
+			scrollView.ViewForZoomingInScrollView = (sender) => { return profilePictureView; };		
 			
 			LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
 			
@@ -95,16 +93,14 @@ namespace FacebookBigProfile
 			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
 			{			
 				photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", null, "Take Photo", "Choose From Library");
-				photoButton.Clicked += (o, e) => { photoFromWhere.ShowFromToolbar(toolbar);	};
+				photoButton.Clicked += (o, e) => photoFromWhere.ShowFromToolbar(toolbar);
 			} 
 			else
 			{
-				photoButton.Clicked += (o, e) => { GetPhotoFromLibrary();	};				
+				photoButton.Clicked += (o, e) => GetPhotoFromLibrary();			
 			}
-			
-			facebookButton.Clicked += (o, e) => {				
-				facebookController.Login();
-			};
+		
+			facebookButton.Clicked += (o, e) => LoginToFacebook();
 			
 			loadingView = new LoadingView();
 			
@@ -142,6 +138,23 @@ namespace FacebookBigProfile
 		{
 			picker.SourceType = UIImagePickerControllerSourceType.Camera;
 			PresentModalViewController(picker, true);
+		}
+		
+		public void LoginToFacebook() 
+		{
+			facebookController.Login();
+			/*
+			if(Reachability.InternetConnectionStatus() == NetworkStatus.NotReachable)
+			{
+				using(var alert = new UIAlertView("Unable to connect", "Unable to connect to Facebook", null, "OK", null))
+				{
+					alert.Show();
+				}				
+			}
+			else 
+			{
+				facebookController.Login();
+			}*/
 		}
 
 		private void AddCropHelpers() 
