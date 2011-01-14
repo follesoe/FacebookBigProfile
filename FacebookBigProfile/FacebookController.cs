@@ -40,7 +40,7 @@ namespace FacebookBigProfile
 				if(_isLoggedIn) 
 				{
 					
-					_mainView.StartProgress(string.Format(ProgresString, 1));			
+					//_mainView.StartProgress(string.Format(ProgresString, 1));			
 					GetProfile();
 				}
 			}
@@ -78,7 +78,8 @@ namespace FacebookBigProfile
 		public void LoggedIn(string userId) 
 		{
 			_userId = userId;
-			_mainView.SplitImage();
+			//_mainView.SplitImage();
+			PostToWall();
 		}
 		
 		public void ErrorOccurred(NSError error)
@@ -188,10 +189,17 @@ namespace FacebookBigProfile
         andDelegate:self];*/
 			
 			var actionLinks = new JsonArray();
-			var link = new JsonObject();
-			link.Add("text", "Always Running");
-			link.Add("href", "http://itsti.me/");
-			actionLinks.Add(link);
+			
+			var learnMore = new JsonObject();
+			learnMore.Add("text", "Learn more about Big Profile");
+			learnMore.Add("href", "http://myapp.no/BigProfile");
+			
+			var appStore = new JsonObject();
+			appStore.Add("text", "Buy from App Store");
+			appStore.Add("href", "http://myapp.no/BigProfileAppStore");
+			
+			actionLinks.Add(learnMore);
+			actionLinks.Add(appStore);
 			
 			var attachment = new JsonObject();
 			attachment.Add("name", "a long run");
@@ -200,7 +208,7 @@ namespace FacebookBigProfile
 			attachment.Add("href", "http://itsti.me/");
 									
 			var parameters = new NSMutableDictionary();
-			parameters.Add(new NSString("user_message_prompt"), new NSString("Let people know!"));
+			parameters.Add(new NSString("user_message_prompt"), new NSString("Let your friends know"));
 			parameters.Add(new NSString("attachment"), new NSString(attachment.ToString()));     
 			parameters.Add(new NSString("action_links"), new NSString(actionLinks.ToString()));
 			
@@ -212,45 +220,31 @@ namespace FacebookBigProfile
 	
 	public class FacebookDialogDelegate : FBDialogDelegate
 	{
-		#region implemented abstract members of FacebookSdk.FBDialogDelegate
 		public override void DialogDidComplete (FBDialog dialog)
 		{
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
-		}
-		
+		}		
 		
 		public override void DialogCompleteWithUrl (NSUrl url)
 		{
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
-		}
-		
+		}		
 		
 		public override void DialogDidNotCompleteWithUrl (NSUrl url)
 		{
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
-		}
-		
+		}	
 		
 		public override void DialogDidNotComplete (FBDialog dialog)
 		{
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
-		}
-		
+		}		
 		
 		public override void Dialog (FBDialog dialog, NSError error)
 		{
 			Console.WriteLine("Error: " + error.ToString());
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
-		}
-		
+		}		
 		
 		public override bool Dialog (FBDialog dialog, NSUrl url)
 		{
 			return true;
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
 		}
-		
-		#endregion
 	}
 	
 	public class UploadNextRequestDelegate : RequestDelegateBase
