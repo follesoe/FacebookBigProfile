@@ -24,7 +24,7 @@ namespace FacebookBigProfile
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
 		
-		private const string ProgresString = "Uploading part {0} of 6 of your big profile picture...";
+		private const string ProgresString = "Uploading part {0} of 6 of your Big Brofile...";
 		
 		private Queue<QueuedUpload> _queuedUploads;
 		
@@ -162,32 +162,7 @@ namespace FacebookBigProfile
 		}
 		
 		public void PostToWall()
-		{
-			/*
-			 * 
-  SBJSON *jsonWriter = [[SBJSON new] autorelease];
-
-  NSDictionary* actionLinks = [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:
-                               @"Always Running",@"text",@"http://itsti.me/",@"href", nil], nil];
-
-  NSString *actionLinksStr = [jsonWriter stringWithObject:actionLinks];
-  NSDictionary* attachment = [NSDictionary dictionaryWithObjectsAndKeys:
-                               @"a long run", @"name",
-                               @"The Facebook Running app", @"caption",
-                               @"it is fun", @"description",
-                               @"http://itsti.me/", @"href", nil];
-  NSString *attachmentStr = [jsonWriter stringWithObject:attachment];
-  NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 @"Share on Facebook",  @"user_message_prompt",
-                                 actionLinksStr, @"action_links",
-                                 attachmentStr, @"attachment",
-                                 nil];
-
-
-  [_facebook dialog:@"feed"
-          andParams:params
-        andDelegate:self];*/
-			
+		{			
 			var actionLinks = new JsonArray();
 			
 			var learnMore = new JsonObject();
@@ -195,20 +170,20 @@ namespace FacebookBigProfile
 			learnMore.Add("href", "http://myapp.no/BigProfile");
 			
 			var appStore = new JsonObject();
-			appStore.Add("text", "Buy from App Store");
+			appStore.Add("text", "Visit App Store");
 			appStore.Add("href", "http://myapp.no/BigProfileAppStore");
 			
-			actionLinks.Add(learnMore);
+			//actionLinks.Add(learnMore);
 			actionLinks.Add(appStore);
 			
 			var attachment = new JsonObject();
-			attachment.Add("name", "a long run");
-			attachment.Add("caption", "The Facebook Running app");
-			attachment.Add("description", "it is fun");
-			attachment.Add("href", "http://itsti.me/");
+			attachment.Add("name", "Facebook Big Profile");
+			attachment.Add("caption", "Check out my profile picture");
+			attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store");
+			attachment.Add("href", "http://myapp.no/BigProfile");
 									
 			var parameters = new NSMutableDictionary();
-			parameters.Add(new NSString("user_message_prompt"), new NSString("Let your friends know"));
+			parameters.Add(new NSString("user_message_prompt"), new NSString("Tell your friends"));
 			parameters.Add(new NSString("attachment"), new NSString(attachment.ToString()));     
 			parameters.Add(new NSString("action_links"), new NSString(actionLinks.ToString()));
 			

@@ -1,26 +1,25 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/FacebookController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FacebookBigProfile/MainView.xib.cs">
     <Files>
       <File FileName="FacebookBigProfile/Main.cs" Line="17" Column="1" />
-      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="143" Column="3" />
-      <File FileName="FacebookBigProfile/FacebookController.cs" Line="138" Column="7" />
-      <File FileName="FacebookBigProfile/RequestDelegateBase.cs" Line="28" Column="37" />
+      <File FileName="FacebookBigProfile/MainView.xib.cs" Line="144" Column="4" />
+      <File FileName="FacebookBigProfile/FacebookController.cs" Line="106" Column="5" />
+      <File FileName="FacebookBigProfile/RequestDelegateBase.cs" Line="1" Column="1" />
       <File FileName="FacebookBigProfile/SessionDelegate.cs" Line="1" Column="1" />
       <File FileName="FacebookBigProfile/ImagePickerDelegate.cs" Line="26" Column="21" />
-      <File FileName="FacebookBigProfile/UploadPhotoRequestDelegate.cs" Line="26" Column="6" />
-      <File FileName="FacebookBigProfile/FqlRequestDelegate.cs" Line="30" Column="1" />
-      <File FileName="FacebookBigProfile/GetUserRequestDelegate.cs" Line="11" Column="71" />
+      <File FileName="FacebookBigProfile/UploadPhotoRequestDelegate.cs" Line="1" Column="1" />
+      <File FileName="FacebookBigProfile/FqlRequestDelegate.cs" Line="1" Column="1" />
+      <File FileName="FacebookBigProfile/GetUserRequestDelegate.cs" Line="1" Column="1" />
       <File FileName="FacebookBigProfile/CropHelpers.cs" Line="8" Column="3" />
       <File FileName="FacebookBigProfile/LoadingView.cs" Line="25" Column="18" />
-      <File FileName="FacebookBigProfile/Reachability.cs" Line="19" Column="3" />
+      <File FileName="FacebookBigProfile/Reachability.cs" Line="14" Column="33" />
       <File FileName="FacebookBigProfileTests/Image_slicing_tests.cs" Line="46" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="FacebookBigProfile" expanded="True">
-            <Node name="FacebookOverlay.png" selected="True" />
+          <Node name="FacebookBigProfile" expanded="True" selected="True">
             <Node name="MainView.xib" expanded="True" />
             <Node name="MainWindow.xib" expanded="True" />
           </Node>

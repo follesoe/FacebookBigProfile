@@ -30,8 +30,8 @@ namespace FacebookBigProfile
 		{
 			this.facebook = facebook;
 			Initialize ();
-		}
-				
+		}		
+		
 		private Facebook facebook;
 		private FacebookController facebookController;
 		private UIImagePickerController picker;
@@ -68,7 +68,7 @@ namespace FacebookBigProfile
 
 		public override void ViewDidLoad ()
 		{
-			base.ViewDidLoad ();
+			base.ViewDidLoad();
 					
 			profilePictureView = new UIImageView();
 									
@@ -142,11 +142,9 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{
-			facebookController.Login();
-			/*
-			if(Reachability.InternetConnectionStatus() == NetworkStatus.NotReachable)
+			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
-				using(var alert = new UIAlertView("Unable to connect", "Unable to connect to Facebook", null, "OK", null))
+				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
 				{
 					alert.Show();
 				}				
@@ -154,7 +152,7 @@ namespace FacebookBigProfile
 			else 
 			{
 				facebookController.Login();
-			}*/
+			}
 		}
 
 		private void AddCropHelpers() 
