@@ -10,7 +10,7 @@ namespace FacebookBigProfile
 		
 		public bool AutoTag { get; set; }
 		
-		public UploadPhotoRequestDelegate(FacebookController controller) : base(controller)
+		public UploadPhotoRequestDelegate(FacebookController controller)
 		{
 			_controller = controller;
 		}
@@ -22,8 +22,15 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				NSObject id = dict.ObjectForKey(new NSString("id"));
-				_controller.GetPIDforPhotoFBID(id.ToString(), AutoTag); 	
+				if(AutoTag) 
+				{
+					NSObject id = dict.ObjectForKey(new NSString("id"));
+					_controller.GetPIDforPhotoFBID(id.ToString()); 	
+				}
+				else 
+				{
+					_controller.StartUpload();
+				}
 			}
 		}
 	}

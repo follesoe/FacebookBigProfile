@@ -6,11 +6,8 @@ namespace FacebookBigProfile
 {
 	public abstract class RequestDelegateBase : FBRequestDelegate
 	{				
-		private FacebookController _controller;
-		
-		public RequestDelegateBase(FacebookController controller)
+		public RequestDelegateBase()
 		{
-			_controller = controller;
 		}
 		
 		public abstract void HandleResult(FBRequest request, NSDictionary result);
@@ -25,7 +22,7 @@ namespace FacebookBigProfile
 		
 		public override void Request (FBRequest request, NSError error)
 		{
-			_controller.ErrorOccurred(error);			
+			Console.WriteLine("Error: " + error.ToString());
 		}
 				
 		public override void Request (FBRequest request, NSObject result)

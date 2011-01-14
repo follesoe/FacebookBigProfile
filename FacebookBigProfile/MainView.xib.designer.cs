@@ -21,11 +21,13 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIImageView __mt_facebookOverlay;
 		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_libraryButton;
+		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_cameraButton;
+		
 		private MonoTouch.UIKit.UIBarButtonItem __mt_facebookButton;
 		
-		private MonoTouch.UIKit.UIBarButtonItem __mt_photoButton;
-		
-		private MonoTouch.UIKit.UIToolbar __mt_toolbar;
+		private MonoTouch.UIKit.UIBarButtonItem __mt_splitButton;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
@@ -64,6 +66,30 @@ namespace FacebookBigProfile {
 			}
 		}
 		
+		[MonoTouch.Foundation.Connect("libraryButton")]
+		private MonoTouch.UIKit.UIBarButtonItem libraryButton {
+			get {
+				this.__mt_libraryButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("libraryButton")));
+				return this.__mt_libraryButton;
+			}
+			set {
+				this.__mt_libraryButton = value;
+				this.SetNativeField("libraryButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("cameraButton")]
+		private MonoTouch.UIKit.UIBarButtonItem cameraButton {
+			get {
+				this.__mt_cameraButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("cameraButton")));
+				return this.__mt_cameraButton;
+			}
+			set {
+				this.__mt_cameraButton = value;
+				this.SetNativeField("cameraButton", value);
+			}
+		}
+		
 		[MonoTouch.Foundation.Connect("facebookButton")]
 		private MonoTouch.UIKit.UIBarButtonItem facebookButton {
 			get {
@@ -76,27 +102,15 @@ namespace FacebookBigProfile {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("photoButton")]
-		private MonoTouch.UIKit.UIBarButtonItem photoButton {
+		[MonoTouch.Foundation.Connect("splitButton")]
+		private MonoTouch.UIKit.UIBarButtonItem splitButton {
 			get {
-				this.__mt_photoButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("photoButton")));
-				return this.__mt_photoButton;
+				this.__mt_splitButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("splitButton")));
+				return this.__mt_splitButton;
 			}
 			set {
-				this.__mt_photoButton = value;
-				this.SetNativeField("photoButton", value);
-			}
-		}
-		
-		[MonoTouch.Foundation.Connect("toolbar")]
-		private MonoTouch.UIKit.UIToolbar toolbar {
-			get {
-				this.__mt_toolbar = ((MonoTouch.UIKit.UIToolbar)(this.GetNativeField("toolbar")));
-				return this.__mt_toolbar;
-			}
-			set {
-				this.__mt_toolbar = value;
-				this.SetNativeField("toolbar", value);
+				this.__mt_splitButton = value;
+				this.SetNativeField("splitButton", value);
 			}
 		}
 	}

@@ -1,4 +1,6 @@
+obj
 bin
-.userperfs
+*.pidb
 test-results
+*.userprefs
 .test-cache
