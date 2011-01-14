@@ -1,4 +1,6 @@
 bin
-.userperfs
+.userprefs
+*.userprefs
 test-results
 .test-cache
+*.test-cache
