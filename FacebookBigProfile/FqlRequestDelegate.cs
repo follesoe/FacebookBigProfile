@@ -6,7 +6,7 @@ namespace FacebookBigProfile
 {
 	public class FqlRequestDelegate : RequestDelegateBase
 	{	
-		public bool AutoTag { get; set; }
+		public bool IsWallPhoto { get; set; }
 		
 		private readonly FacebookController _controller;
 		
@@ -23,7 +23,7 @@ namespace FacebookBigProfile
 			else 
 			{
 				NSObject id = dict.ObjectForKey(new NSString("pid"));
-				if(AutoTag)
+				if(IsWallPhoto)
 				{
 					_controller.TagPhoto(id.ToString());
 				}

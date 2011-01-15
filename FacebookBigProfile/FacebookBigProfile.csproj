@@ -100,10 +100,17 @@
     <Compile Include="FqlRequestDelegate.cs" />
     <Compile Include="LoadingView.cs" />
     <Compile Include="Reachability.cs" />
+    <Compile Include="SetProfilePictureView.xib.cs">
+      <DependentUpon>SetProfilePictureView.xib</DependentUpon>
+    </Compile>
+    <Compile Include="SetProfilePictureView.xib.designer.cs">
+      <DependentUpon>SetProfilePictureView.xib</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
     <Page Include="MainView.xib" />
+    <Page Include="SetProfilePictureView.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

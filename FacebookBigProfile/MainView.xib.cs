@@ -12,9 +12,6 @@ namespace FacebookBigProfile
 {
 	public partial class MainView : UIViewController
 	{
-		// The IntPtr and initWithCoder constructors are required for items that need 
-		// to be able to be created from a xib rather than from managed code
-
 		public MainView (IntPtr handle) : base(handle)
 		{
 			Initialize ();
@@ -51,6 +48,13 @@ namespace FacebookBigProfile
 		private SizeF profilePictureSize;
 		private SizeF profilePictureSmallSize;
 		
+		private SetProfilePictureView setProfileView;
+		
+		public UIColor FacebookBlue 
+		{
+			get { return toolbar.BackgroundColor; }
+		}
+		
 		private void Initialize ()
 		{
 			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);
@@ -67,9 +71,7 @@ namespace FacebookBigProfile
 		}
 
 		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad();
-					
+		{		
 			profilePictureView = new UIImageView();
 									
 			scrollView.AddSubview(profilePictureView);
@@ -105,10 +107,19 @@ namespace FacebookBigProfile
 			loadingView = new LoadingView();
 			
 			AddCropHelpers();
+			
+			base.ViewDidLoad();
+		}
+		
+		public override void ViewWillAppear (bool animated)
+		{
+			NavigationController.SetNavigationBarHidden(true, true);
+			base.ViewDidAppear (animated);
 		}
 		
 		public void StartProgress(string title)
 		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 			loadingView.Show(title);			
 		}
 		
@@ -119,8 +130,9 @@ namespace FacebookBigProfile
 		
 		public void StopProgress()
 		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 			loadingView.Hide();			
-			facebookController.PostToWall();
+			//facebookController.PostToWall();
 		}
 		
 		public void ShowError(NSError error)
@@ -142,6 +154,10 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{
+			if(setProfileView == null) setProfileView = new SetProfilePictureView();
+			NavigationController.PushViewController(setProfileView, true);
+			
+			return;
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))

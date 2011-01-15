@@ -21,21 +21,25 @@ namespace FacebookBigProfile
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		const string kAppId = "180991745253598"; //"188864954461169";
+		const string kAppId = "188864954461169";
 		private Facebook _facebook;
 		
 		private MainView mainView;
+		private UINavigationController controller;
 		
 		// This method is invoked when the application has loaded its UI and its ready to run
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{			
 			_facebook = new FacebookSdk.Facebook(kAppId);
+								
+			mainView = new MainView(_facebook);			
+			controller = new UINavigationController(mainView);
+			controller.SetNavigationBarHidden(true, false);
+			controller.NavigationBar.TintColor = mainView.FacebookBlue;
 			
-			window.MakeKeyAndVisible();	
-					
-			mainView = new MainView(_facebook);
-			window.AddSubview(mainView.View);
-			
+			window.AddSubview(controller.View);
+			window.MakeKeyAndVisible();
+						
 			return true;
 		}
 		

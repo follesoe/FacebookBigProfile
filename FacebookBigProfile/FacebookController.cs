@@ -24,7 +24,7 @@ namespace FacebookBigProfile
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
 		
-		private const string ProgresString = "Uploading part {0} of 6 of your Big Brofile...";
+		private const string ProgresString = "Uploading image {0} of 6 of your Big Profile...";
 		
 		private Queue<QueuedUpload> _queuedUploads;
 		
@@ -40,7 +40,7 @@ namespace FacebookBigProfile
 				if(_isLoggedIn) 
 				{
 					
-					//_mainView.StartProgress(string.Format(ProgresString, 1));			
+					_mainView.StartProgress(string.Format(ProgresString, 1));			
 					GetProfile();
 				}
 			}
@@ -78,8 +78,7 @@ namespace FacebookBigProfile
 		public void LoggedIn(string userId) 
 		{
 			_userId = userId;
-			//_mainView.SplitImage();
-			PostToWall();
+			_mainView.SplitImage();
 		}
 		
 		public void ErrorOccurred(NSError error)
@@ -127,15 +126,22 @@ namespace FacebookBigProfile
 			_facebook.RequestWithGraphPath("/me/photos", parameters, "POST", _photoDelegate);			
 		}		
 		
-		public void GetPIDforPhotoFBID(string fbid, bool autoTag)
+		public void GetPIDforPhotoFBID(string fbid, bool isWallPhoto)
 		{			
 			string fql = "SELECT pid FROM photo WHERE object_id = " + fbid;
 			
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("query"), new NSString(fql));	
 			
-			_fqlDelegate.AutoTag = autoTag;
-			_facebook.RequestWithMethodName("fql.query", parameters, "POST", _fqlDelegate);	
+			_fqlDelegate.IsWallPhoto = isWallPhoto;
+			if(isWallPhoto)
+			{
+				_facebook.RequestWithMethodName("fql.query", parameters, "POST", _fqlDelegate);	
+			}
+			else 
+			{
+				MakeProfilePhoto(fbid);
+			}
 		}
 		
 		public void TagPhoto(string photoPid)
@@ -148,8 +154,13 @@ namespace FacebookBigProfile
 			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _uploadNextDelegate);	
 		}
 		
-		public void MakeProfilePhoto(string photoPid)
+		public void MakeProfilePhoto(string fbid)
 		{
+			string profilePictureUrl = string.Format("http://www.facebook.com/photo.php?fbid={0}", fbid);
+			_mainView.StopProgress();
+			return;
+			
+			/*
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("owner_id"), new NSString(_userId));
 			parameters.Add(new NSString("photo_id"), new NSString(photoPid));
@@ -158,7 +169,8 @@ namespace FacebookBigProfile
 			parameters.Add(new NSString("height"), new NSString("540"));
 			parameters.Add(new NSString("width"), new NSString("180"));
 			
-			_facebook.RequestWithMethodName("facebook.photos.cropProfilePic", parameters, "POST", _uploadNextDelegate);							
+			_facebook.RequestWithMethodName("facebook.photos.cropProfilePic", parameters, "POST", _uploadNextDelegate);
+			*/						
 		}
 		
 		public void PostToWall()
