@@ -140,7 +140,7 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				MakeProfilePhoto(fbid);
+				SetProfilePicture(fbid);
 			}
 		}
 		
@@ -154,11 +154,11 @@ namespace FacebookBigProfile
 			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _uploadNextDelegate);	
 		}
 		
-		public void MakeProfilePhoto(string fbid)
+		public void SetProfilePicture(string fbid)
 		{
-			string profilePictureUrl = string.Format("http://www.facebook.com/photo.php?fbid={0}", fbid);
+			string profilePictureUrl = string.Format("http://www.facebook.com/photo.php?fbid={0}&m2w", fbid);
 			_mainView.StopProgress();
-			return;
+			_mainView.SetProfilePicture(profilePictureUrl);
 			
 			/*
 			var parameters = new NSMutableDictionary();

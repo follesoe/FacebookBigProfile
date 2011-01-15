@@ -17,6 +17,8 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		
+		private MonoTouch.UIKit.UIWebView __mt_webView;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -27,6 +29,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_view = value;
 				this.SetNativeField("view", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("webView")]
+		private MonoTouch.UIKit.UIWebView webView {
+			get {
+				this.__mt_webView = ((MonoTouch.UIKit.UIWebView)(this.GetNativeField("webView")));
+				return this.__mt_webView;
+			}
+			set {
+				this.__mt_webView = value;
+				this.SetNativeField("webView", value);
 			}
 		}
 	}

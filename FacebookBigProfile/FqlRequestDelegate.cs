@@ -29,7 +29,7 @@ namespace FacebookBigProfile
 				}
 				else 
 				{
-					_controller.MakeProfilePhoto(id.ToString());
+					_controller.SetProfilePicture(id.ToString());
 				}
 			}
 		}

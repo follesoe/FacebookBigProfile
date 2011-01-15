@@ -10,28 +10,47 @@ namespace FacebookBigProfile
 	{
 		public SetProfilePictureView (IntPtr handle) : base(handle)
 		{
-			Initialize ();
+			Initialize();
 		}
 
 		[Export("initWithCoder:")]
 		public SetProfilePictureView (NSCoder coder) : base(coder)
 		{
-			Initialize ();
+			Initialize();
 		}
 
 		public SetProfilePictureView () : base("SetProfilePictureView", null)
 		{
-			Initialize ();
+			Initialize();
 		}
 
-		void Initialize ()
+		void Initialize()
 		{
 		}
 		
 		public override void ViewDidLoad ()
 		{
-			Title = "Set Profile Picture";
+			Title = "Set Profile Picture";		
+			webView.LoadFinished += ScrollIntoView;
 			base.ViewDidLoad ();
+		}
+		
+		public void ScrollIntoView(object sender, EventArgs e)
+		{
+			string script = "window.scrollTo(330, 580);";						
+			webView.EvaluateJavascript(script);		
+		}
+
+		public void NavigateTo(string url)
+		{
+			Console.WriteLine("Load url: " + url);
+			webView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
+			webView.ContentScaleFactor = 1.5f;
+			
+			using(var alert = new UIAlertView("One final thing...", "Because of limitations in what apps can do on Facebook you need to click \"Make Profile Picture\" to complete your Big Profile", null, "OK", null))
+			{
+				alert.Show();
+			}
 		}
 		
 		public override void ViewWillAppear (bool animated)

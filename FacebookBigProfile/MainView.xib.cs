@@ -152,12 +152,17 @@ namespace FacebookBigProfile
 			PresentModalViewController(picker, true);
 		}
 		
-		public void LoginToFacebook() 
+		public void SetProfilePicture(string url)
 		{
 			if(setProfileView == null) setProfileView = new SetProfilePictureView();
 			NavigationController.PushViewController(setProfileView, true);
+			setProfileView.NavigateTo(url);
+		}
+		
+		public void LoginToFacebook() 
+		{			
+			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=157206157662722&m2w");
 			
-			return;
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
