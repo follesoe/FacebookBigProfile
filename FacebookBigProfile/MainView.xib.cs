@@ -181,8 +181,8 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
-			SplitImage();
-			return; 
+			//SplitImage();
+			//return; 
 			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
@@ -256,7 +256,7 @@ namespace FacebookBigProfile
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			return;
+			//return;
 			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped3, "Part 3 of my Big Profile Picture.", true);
