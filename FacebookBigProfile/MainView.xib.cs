@@ -83,7 +83,7 @@ namespace FacebookBigProfile
 					 				
 			scrollView.ViewForZoomingInScrollView = (sender) => { return profilePictureView; };		
 			
-			LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
+			LoadImage(UIImage.FromFile("ProfilePicture2.jpg"));
 			
 			overlayImage = UIImage.FromFile("FacebookOverlay.png");
 			facebookOverlay.Image = overlayImage;	
@@ -111,9 +111,21 @@ namespace FacebookBigProfile
 			base.ViewDidLoad();
 		}
 		
+		private bool uploadedButNotPosted = false;
+		
 		public override void ViewWillAppear (bool animated)
 		{
-			NavigationController.SetNavigationBarHidden(true, true);
+			NavigationController.SetNavigationBarHidden(true, true);					
+			base.ViewDidAppear (animated);
+		}
+		
+		public override void ViewDidAppear (bool animated)
+		{
+			if(uploadedButNotPosted) 
+			{
+				facebookController.PostToWall();
+				uploadedButNotPosted = false;
+			}
 			base.ViewDidAppear (animated);
 		}
 		
@@ -132,7 +144,7 @@ namespace FacebookBigProfile
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 			loadingView.Hide();			
-			//facebookController.PostToWall();
+			uploadedButNotPosted = true;
 		}
 		
 		public void ShowError(NSError error)

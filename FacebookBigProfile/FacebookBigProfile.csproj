@@ -121,5 +121,6 @@
   <ItemGroup>
     <Content Include="ProfilePicture.jpg" />
     <Content Include="FacebookOverlay.png" />
+    <Content Include="ProfilePicture2.jpg" />
   </ItemGroup>
 </Project>
