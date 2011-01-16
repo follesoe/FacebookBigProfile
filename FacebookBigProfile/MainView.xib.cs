@@ -105,9 +105,7 @@ namespace FacebookBigProfile
 			}
 		
 			facebookButton.Clicked += (o, e) => LoginToFacebook();
-			
-			loadingView = new LoadingView();
-			
+						
 			hud = new ATMHud();
 			View.AddSubview(hud.View);
 			
