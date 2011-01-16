@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>True</MtouchDebug>
-    <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a"</MtouchExtraArgs>
+    <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a -L${ProjectDir} -lAtomHUD -framework QuartzCore -framework CoreGraphics -framework AudioToolbox -ObjC"</MtouchExtraArgs>
     <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -75,6 +75,10 @@
       <HintPath>..\monotouch-facebook.dll</HintPath>
     </Reference>
     <Reference Include="System.Json" />
+    <Reference Include="Atomcraft, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Atomcraft.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -98,7 +102,6 @@
     <Compile Include="RequestDelegateBase.cs" />
     <Compile Include="GetUserRequestDelegate.cs" />
     <Compile Include="FqlRequestDelegate.cs" />
-    <Compile Include="LoadingView.cs" />
     <Compile Include="Reachability.cs" />
     <Compile Include="SetProfilePictureView.xib.cs">
       <DependentUpon>SetProfilePictureView.xib</DependentUpon>

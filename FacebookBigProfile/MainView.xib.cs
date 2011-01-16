@@ -7,6 +7,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 
 using FacebookSdk;
+using Atomcraft;
 
 namespace FacebookBigProfile
 {
@@ -36,7 +37,6 @@ namespace FacebookBigProfile
 		private UIImage overlayImage;
 		private UIImage profilePicture;
 		private UIActionSheet photoFromWhere;
-		private LoadingView loadingView;
 		
 		private UIImageView cropSource1;
 		private UIImageView cropSource2;
@@ -49,6 +49,8 @@ namespace FacebookBigProfile
 		private SizeF profilePictureSmallSize;
 		
 		private SetProfilePictureView setProfileView;
+		
+		private ATMHud hud;
 		
 		public UIColor FacebookBlue 
 		{
@@ -106,6 +108,9 @@ namespace FacebookBigProfile
 			
 			loadingView = new LoadingView();
 			
+			hud = new ATMHud();
+			View.AddSubview(hud.View);
+			
 			AddCropHelpers();
 			
 			base.ViewDidLoad();
@@ -132,18 +137,24 @@ namespace FacebookBigProfile
 		public void StartProgress(string title)
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-			loadingView.Show(title);			
+			
+			hud.SetCaption(title);
+			hud.SetActivity(true);
+			hud.Show();
+			hud.Update();
 		}
 		
 		public void UpdateProgress(string title)
 		{
-			loadingView.UpdateTitle(title);
+			hud.SetCaption(title);
+			hud.Update();
 		}
 		
 		public void StopProgress()
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-			loadingView.Hide();			
+			hud.SetActivity(false);
+			hud.Hide();
 			uploadedButNotPosted = true;
 		}
 		
@@ -172,7 +183,7 @@ namespace FacebookBigProfile
 		}
 		
 		public void LoginToFacebook() 
-		{			
+		{				
 			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=157206157662722&m2w");
 			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
