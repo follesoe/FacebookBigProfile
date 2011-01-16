@@ -191,7 +191,7 @@ namespace FacebookBigProfile
 			var attachment = new JsonObject();
 			attachment.Add("name", "Facebook Big Profile");
 			attachment.Add("caption", "Check out my profile picture");
-			attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store");
+			attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store!");
 			attachment.Add("href", "http://myapp.no/BigProfile");
 									
 			var parameters = new NSMutableDictionary();

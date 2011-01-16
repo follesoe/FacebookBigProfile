@@ -181,7 +181,7 @@ namespace FacebookBigProfile
 		}
 		
 		public void LoginToFacebook() 
-		{				
+		{		
 			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=157206157662722&m2w");
 			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
@@ -215,7 +215,7 @@ namespace FacebookBigProfile
 		}		
 		
 		public void LoadImage(UIImage image) 
-		{						
+		{							
 			profilePicture = image;
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
@@ -240,12 +240,22 @@ namespace FacebookBigProfile
 			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
 			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
 			
+			Console.WriteLine(profilePicture.Size);
+			Console.WriteLine(imageCrop1);
+			Console.WriteLine(imageCrop2);
+			Console.WriteLine(imageCrop3);
+			Console.WriteLine(imageCrop4);
+			Console.WriteLine(imageCrop5);
+			Console.WriteLine(imageCrop6);
+
+			
 			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
 			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
 			var cropped4 = Crop(profilePicture, imageCrop4).Scale(profilePictureSmallSize);
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
+			
 			
 			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
@@ -269,6 +279,9 @@ namespace FacebookBigProfile
 			
 			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
+			
+			Console.WriteLine("CroppedSize: " + croppedImage.Size);
+			
 			return croppedImage;
 	    }
 		

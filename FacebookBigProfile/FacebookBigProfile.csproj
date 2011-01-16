@@ -15,6 +15,10 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <BundleIdentifier>no.follesoe.bigprofile</BundleIdentifier>
     <BundleDisplayName>Big Profile</BundleDisplayName>
+    <BundleIcon>fbp_logo_57x57.png</BundleIcon>
+    <BundleIconHigh>fbp_logo_114x114.png</BundleIconHigh>
+    <BundleIconSpotlight>fbp_logo_29x29.png</BundleIconSpotlight>
+    <BundleIconSpotlightHigh>fbp_logo_58x58.png</BundleIconSpotlightHigh>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,6 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="fbp_logo_114x114.png" />
+    <None Include="fbp_logo_57x57.png" />
+    <None Include="fbp_logo_29x29.png" />
+    <None Include="fbp_logo_58x58.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.xib.designer.cs">
@@ -125,5 +133,6 @@
     <Content Include="ProfilePicture.jpg" />
     <Content Include="FacebookOverlay.png" />
     <Content Include="ProfilePicture2.jpg" />
+    <Content Include="ProfilePicture3.jpg" />
   </ItemGroup>
 </Project>
