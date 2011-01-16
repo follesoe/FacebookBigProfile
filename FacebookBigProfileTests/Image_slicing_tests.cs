@@ -48,7 +48,19 @@ namespace FacebookBigProfileTests
 			actualCrop = CropHelpers.CalculateScaledCropSource(pictureSize, cropSource, scrollOffset, zoomScale);
 			
 			Assert_Rectangle(expectedCrop, actualCrop, 0.01f);
-		}		
+		}
+		
+		[Test]
+		public void Do_not_cut_outside_image_if_image_is_too_small()
+		{
+			scrollOffset = new PointF(0, 0);
+			pictureSize = new SizeF(640, 480);
+			cropSource = new RectangleF(600, 0, 80, 80);
+			expectedCrop = new RectangleF(600, 0, 40, 80);
+			actualCrop = CropHelpers.CalculateScaledCropSource(pictureSize, cropSource, scrollOffset, 1.0f);
+			
+			Assert_Rectangle(expectedCrop, actualCrop, 0.1f);
+		}
 		
 		[Test, ExpectedException(typeof(DivideByZeroException))]
 		public void Throws_an_exception_if_zoom_scale_is_0()
@@ -58,7 +70,7 @@ namespace FacebookBigProfileTests
 			cropSource = new RectangleF(1, 1, 1, 1);			
 			expectedCrop = new RectangleF(1, 1, 1, 1);			
 			actualCrop = CropHelpers.CalculateScaledCropSource(pictureSize, cropSource, scrollOffset, 0.0f);		
-		}
+		}	
 		
 		private void Assert_Rectangle(RectangleF expected, RectangleF actual, float delta) 
 		{

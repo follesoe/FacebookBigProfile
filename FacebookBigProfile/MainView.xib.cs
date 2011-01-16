@@ -91,8 +91,7 @@ namespace FacebookBigProfile
 			facebookOverlay.Image = overlayImage;	
 			
 			picker = new UIImagePickerController();
-			picker.Delegate = new ImagePickerDelegate(this);
-			
+			picker.Delegate = new ImagePickerDelegate(this);			
 						
 			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
 			{			
@@ -182,7 +181,8 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
-			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=157206157662722&m2w");
+			SplitImage();
+			return; 
 			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
@@ -256,7 +256,7 @@ namespace FacebookBigProfile
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			
+			return;
 			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped3, "Part 3 of my Big Profile Picture.", true);
@@ -267,7 +267,13 @@ namespace FacebookBigProfile
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
-	    {			
+	    {	
+			if(section.Left > image.Size.Width)
+				Console.WriteLine("For langt til høyre");
+			
+			if(section.Left < 0)
+				Console.WriteLine("For langt til venste");
+			
 			UIGraphics.BeginImageContext(section.Size);			
 			var context = UIGraphics.GetCurrentContext();
 			
