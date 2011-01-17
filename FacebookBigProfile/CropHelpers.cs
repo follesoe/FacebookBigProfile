@@ -14,10 +14,13 @@ namespace FacebookBigProfile
 		{
 			if(zoomScale == 0f) throw new DivideByZeroException("You can not scale something to 0.");
 			
-			return new RectangleF((cropSource.X + scrollOffset.X) / zoomScale, 
+			var rect = new RectangleF((cropSource.X + scrollOffset.X) / zoomScale, 
 			                      (cropSource.Y + scrollOffset.Y) / zoomScale,
 			                      cropSource.Width / zoomScale,
-			                      cropSource.Height / zoomScale);			
+			                      cropSource.Height / zoomScale);
+			
+						
+			return rect;
 		}
 	}
 }
