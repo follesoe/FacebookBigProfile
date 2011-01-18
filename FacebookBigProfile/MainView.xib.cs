@@ -181,9 +181,6 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
-			SplitImage();
-			return; 
-			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
@@ -235,41 +232,27 @@ namespace FacebookBigProfile
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
-			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
-			
-			/*
 			var imageCrop1 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource1.Frame, scrollView.ContentOffset, currentZoomScale); 		
 			var imageCrop2 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource2.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop3 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource3.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop4 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource4.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
 			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
-			*/
-			
-			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
-			
-			var imageView = new UIImageView(cropped5); 
-			this.View.AddSubview(imageView);
-			
-			
-			/*
+					
 			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);			
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
 			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
 			var cropped4 = Crop(profilePicture, imageCrop4).Scale(profilePictureSmallSize);
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
-			*/
-
-			/*
-			return;
+			
 			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped3, "Part 3 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped4, "Part 4 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped5, "Part 5 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped6, "Part 6 of my Big Profile Picture.", false);	
-			facebookController.StartUpload();*/	
+			facebookController.StartUpload();
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
@@ -304,7 +287,7 @@ namespace FacebookBigProfile
 				left = 0;
 			}
 			
-			rect = new RectangleF(left, top, width, height);
+			rect = new RectangleF(left, top, (float)Math.Round(width, 0), (float)Math.Round(height, 0));
 			
 			top = rect.Top <= 0 ? 0 : section.Height - rect.Height;
 			left = section.Left >= 0 ? 0 : section.Width - rect.Width;
