@@ -6,3 +6,4 @@ test-results
 .test-cache
 *.test-cache
 *.log
+*.pidb
