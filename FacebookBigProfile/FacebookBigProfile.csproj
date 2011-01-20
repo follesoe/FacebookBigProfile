@@ -70,6 +70,17 @@
     <MtouchI18n />
     <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a -L${ProjectDir} -lAtomHUD -framework QuartzCore -framework CoreGraphics -framework AudioToolbox -ObjC"</MtouchExtraArgs>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AdHoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\AdHoc</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>False</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a -L${ProjectDir} -lAtomHUD -framework QuartzCore -framework CoreGraphics -framework AudioToolbox -ObjC"</MtouchExtraArgs>
+    <MtouchI18n />
+    <CodesignProvision>6E8DAB61-A6BA-4829-BA19-C7E7D04B5C8A</CodesignProvision>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
