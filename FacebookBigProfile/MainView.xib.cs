@@ -94,8 +94,16 @@ namespace FacebookBigProfile
 			picker.Delegate = new ImagePickerDelegate(this);			
 						
 			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
-			{			
-				photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", null, "Take Photo", "Choose From Library");
+			{	
+				//Weird MT bug where Cancel doesn't show at the bottom of the menu. Fixed in vNext.
+				//photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", "Destroy!", "Take Photo", "Choose From Library");
+				
+				photoFromWhere = new UIActionSheet("Select an option", new ActionDel(this));
+				photoFromWhere.AddButton("Take a photo");
+				photoFromWhere.AddButton("Choose from library");
+				photoFromWhere.AddButton("Cancel");
+				photoFromWhere.CancelButtonIndex = 2;
+				
 				photoButton.Clicked += (o, e) => photoFromWhere.ShowFromToolbar(toolbar);
 			} 
 			else
@@ -315,8 +323,8 @@ namespace FacebookBigProfile
 			
 			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
 			{
-				if(buttonIndex == 1) _mainView.GetPhotoFromCamera();
-				else if(buttonIndex == 2) _mainView.GetPhotoFromLibrary();
+				if(buttonIndex == 0) _mainView.GetPhotoFromCamera();
+				else if(buttonIndex == 1) _mainView.GetPhotoFromLibrary();
 			}
 		}
 	}
