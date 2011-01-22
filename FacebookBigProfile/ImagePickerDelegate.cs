@@ -20,10 +20,6 @@ namespace FacebookBigProfile
 		
 		public override void FinishedPickingMedia (UIImagePickerController picker, MonoTouch.Foundation.NSDictionary info)
 		{
-			foreach(var i in info)
-			{
-				Console.WriteLine ("Image info = {0} and {1}", i.Key, i.Value );	
-			}
 			var originalImage = new NSString("UIImagePickerControllerOriginalImage");
 			var image = (UIImage)info[originalImage];
 			
