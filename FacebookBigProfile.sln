@@ -14,8 +14,11 @@ Global
 		Default|Any CPU = Default|Any CPU
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
+		AdHoc|iPhone = AdHoc|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.AdHoc|iPhone.ActiveCfg = AdHoc|iPhone
+		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.AdHoc|iPhone.Build.0 = AdHoc|iPhone
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhone.ActiveCfg = Debug|x86
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhone.Build.0 = Debug|x86
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
@@ -30,6 +33,8 @@ Global
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|iPhoneSimulator.Build.0 = Release|x86
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|x86.ActiveCfg = Release|x86
 		{1D276E6D-E5D9-4E21-8C77-4C906D804A9A}.Release|x86.Build.0 = Release|x86
+		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.AdHoc|iPhone.ActiveCfg = AdHoc|iPhone
+		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.AdHoc|iPhone.Build.0 = AdHoc|iPhone
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhone.Build.0 = Debug|iPhone
 		{2CBB70B6-6E90-4E40-9589-E9E07E84F367}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator

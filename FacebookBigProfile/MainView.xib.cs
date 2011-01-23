@@ -94,8 +94,16 @@ namespace FacebookBigProfile
 			picker.Delegate = new ImagePickerDelegate(this);			
 						
 			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
-			{			
-				photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", null, "Take Photo", "Choose From Library");
+			{	
+				//Weird MT bug where Cancel doesn't show at the bottom of the menu. Fixed in vNext.
+				//photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", "Destroy!", "Take Photo", "Choose From Library");
+				
+				photoFromWhere = new UIActionSheet("Select an option", new ActionDel(this));
+				photoFromWhere.AddButton("Take a photo");
+				photoFromWhere.AddButton("Choose from library");
+				photoFromWhere.AddButton("Cancel");
+				photoFromWhere.CancelButtonIndex = 2;
+				
 				photoButton.Clicked += (o, e) => photoFromWhere.ShowFromToolbar(toolbar);
 			} 
 			else
@@ -181,9 +189,6 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
-			//SplitImage();
-			//return; 
-			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
@@ -213,9 +218,11 @@ namespace FacebookBigProfile
 			View.AddSubview(cropSource5);
 			View.AddSubview(cropSource6);
 		}		
-		
+
 		public void LoadImage(UIImage image) 
-		{							
+		{				
+			scrollView.ZoomScale = 1.0f;
+			
 			profilePicture = image;
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			var frame = new RectangleF(0f, 0f, image.Size.Width * zoomScale, image.Size.Height * zoomScale);
@@ -226,67 +233,81 @@ namespace FacebookBigProfile
 			scrollView.ContentSize = frame.Size;
 			scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
 			scrollView.ContentOffset = new PointF(0, 0);
-		}			
+		}				
 		
 		public void SplitImage() 
 		{		
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
-			var imageCrop1 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource1.Frame, scrollView.ContentOffset, currentZoomScale); 
+			var imageCrop1 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource1.Frame, scrollView.ContentOffset, currentZoomScale); 		
 			var imageCrop2 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource2.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop3 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource3.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop4 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource4.Frame, scrollView.ContentOffset, currentZoomScale); 
 			var imageCrop5 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource5.Frame, scrollView.ContentOffset, currentZoomScale); 			
 			var imageCrop6 = CropHelpers.CalculateScaledCropSource(profilePicture.Size, cropSource6.Frame, scrollView.ContentOffset, currentZoomScale); 
-			
-			Console.WriteLine(profilePicture.Size);
-			Console.WriteLine(imageCrop1);
-			Console.WriteLine(imageCrop2);
-			Console.WriteLine(imageCrop3);
-			Console.WriteLine(imageCrop4);
-			Console.WriteLine(imageCrop5);
-			Console.WriteLine(imageCrop6);
-
-			
-			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);
+					
+			var cropped1 = Crop(profilePicture, imageCrop1).Scale(profilePictureSmallSize);			
 			var cropped2 = Crop(profilePicture, imageCrop2).Scale(profilePictureSmallSize);
 			var cropped3 = Crop(profilePicture, imageCrop3).Scale(profilePictureSmallSize);
 			var cropped4 = Crop(profilePicture, imageCrop4).Scale(profilePictureSmallSize);
 			var cropped5 = Crop(profilePicture, imageCrop5).Scale(profilePictureSmallSize);
 			var cropped6 = Crop(profilePicture, imageCrop6).Scale(profilePictureSize);
 			
-			//return;
 			facebookController.QueueForUpload(cropped1, "Part 1 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped2, "Part 2 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped3, "Part 3 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped4, "Part 4 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped5, "Part 5 of my Big Profile Picture.", true);
 			facebookController.QueueForUpload(cropped6, "Part 6 of my Big Profile Picture.", false);	
-			facebookController.StartUpload();		
+			facebookController.StartUpload();
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
 	    {	
-			if(section.Left > image.Size.Width)
-				Console.WriteLine("For langt til høyre");
+			UIGraphics.BeginImageContext(section.Size);
+						
+			var context = UIGraphics.GetCurrentContext();
+			context.SetRGBFillColor(255, 0, 0, 255);
+			context.FillRect(new RectangleF(new PointF(0, 0), image.Size));
+			
+			float toWide = image.Size.Width - (section.Left + section.Width);
+			float toTall = image.Size.Height - (section.Top + section.Height);
+					
+			var rect = section;
+			float width = rect.Width;
+			float height = rect.Height;
+			float left = rect.Left;
+			float top = rect.Top;
+			
+			if(toWide < 0) width = rect.Width - Math.Abs(toWide);
+			if(toTall < 0) height = rect.Height - Math.Abs(toTall);
+			
+			if(section.Top < 0)
+			{
+				height = rect.Height - Math.Abs(rect.Top);
+				top = 0;
+			}
 			
 			if(section.Left < 0)
-				Console.WriteLine("For langt til venste");
+			{
+				width = rect.Width - Math.Abs(section.Left);
+				left = 0;
+			}
 			
-			UIGraphics.BeginImageContext(section.Size);			
-			var context = UIGraphics.GetCurrentContext();
+			rect = new RectangleF(left, top, (float)Math.Round(width, 0), (float)Math.Round(height, 0));
+			
+			top = rect.Top <= 0 ? 0 : section.Height - rect.Height;
+			left = section.Left >= 0 ? 0 : section.Width - rect.Width;
+			
+			var drawSource = new RectangleF(left, top, Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height));				
 			
 			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
-			context.ConcatCTM(transform);	
+			context.ConcatCTM(transform);				
+			context.DrawImage(drawSource, image.CGImage.WithImageInRect(rect));
 
-			context.DrawImage(new RectangleF(0, 0, section.Width, section.Height), 
-			                  image.CGImage.WithImageInRect(section));
-			
 			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
-			
-			Console.WriteLine("CroppedSize: " + croppedImage.Size);
 			
 			return croppedImage;
 	    }
@@ -302,8 +323,8 @@ namespace FacebookBigProfile
 			
 			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
 			{
-				if(buttonIndex == 1) _mainView.GetPhotoFromCamera();
-				else if(buttonIndex == 2) _mainView.GetPhotoFromLibrary();
+				if(buttonIndex == 0) _mainView.GetPhotoFromCamera();
+				else if(buttonIndex == 1) _mainView.GetPhotoFromLibrary();
 			}
 		}
 	}

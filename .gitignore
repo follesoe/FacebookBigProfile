@@ -6,3 +6,5 @@ test-results
 .test-cache
 *.test-cache
 *.log
+*.pidb
+.DS_Store

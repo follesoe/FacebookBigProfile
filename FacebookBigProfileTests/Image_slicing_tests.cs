@@ -51,12 +51,12 @@ namespace FacebookBigProfileTests
 		}
 		
 		[Test]
-		public void Do_not_cut_outside_image_if_image_is_too_small()
+		public void Do_not_cut_outside_image_if_image_isnt_wide_enough()
 		{
-			scrollOffset = new PointF(0, 0);
+			scrollOffset = new PointF(20, 0);
 			pictureSize = new SizeF(640, 480);
-			cropSource = new RectangleF(600, 0, 80, 80);
-			expectedCrop = new RectangleF(600, 0, 40, 80);
+			cropSource = new RectangleF(580, 0, 60, 60);
+			expectedCrop = new RectangleF(600, 0, 40, 60);
 			actualCrop = CropHelpers.CalculateScaledCropSource(pictureSize, cropSource, scrollOffset, 1.0f);
 			
 			Assert_Rectangle(expectedCrop, actualCrop, 0.1f);
