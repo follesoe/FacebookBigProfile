@@ -189,8 +189,6 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
-			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=159175674132437&m2w");
-			//return;
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))

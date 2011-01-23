@@ -93,6 +93,7 @@ namespace FacebookBigProfile
 			Console.WriteLine("ScrollIntoView");
 			string script = "window.scrollTo(240, 580);";			
 			webView.EvaluateJavascript(script);		
+			webView.EvaluateJavascript("document.getElementsByName(\"ok\")[0].click();");
 		}
 	}
 }
