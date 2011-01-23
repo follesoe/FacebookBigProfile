@@ -95,6 +95,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Atomcraft.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -146,5 +147,7 @@
     <Content Include="FacebookOverlay.png" />
     <Content Include="ProfilePicture2.jpg" />
     <Content Include="ProfilePicture3.jpg" />
+    <Content Include="jquery-1.4.4.min.js">
+    </Content>
   </ItemGroup>
 </Project>

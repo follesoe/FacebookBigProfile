@@ -189,6 +189,8 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{		
+			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=159175674132437&m2w");
+			//return;
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
@@ -295,7 +297,7 @@ namespace FacebookBigProfile
 				left = 0;
 			}
 			
-			rect = new RectangleF(left, top, (float)Math.Round(width, 0), (float)Math.Round(height, 0));
+			rect = new RectangleF(left, top, (float)Math.Ceiling(width), (float)Math.Ceiling(height));
 			
 			top = rect.Top <= 0 ? 0 : section.Height - rect.Height;
 			left = section.Left >= 0 ? 0 : section.Width - rect.Width;
@@ -329,9 +331,3 @@ namespace FacebookBigProfile
 		}
 	}
 }
-
-
-
-
-
-

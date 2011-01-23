@@ -24,7 +24,7 @@ namespace FacebookBigProfile
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
 		
-		private const string ProgresString = "Uploading picture {0} of 6 of your Big Profile...";
+		private const string ProgresString = "Uploading image {0} of 6 of your Big Profile...";
 		
 		private Queue<QueuedUpload> _queuedUploads;
 		
@@ -66,7 +66,7 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos", "offline_access"}, _sessionDelegate);
+				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos"}, _sessionDelegate);
 			}
 		}
 		
@@ -190,7 +190,7 @@ namespace FacebookBigProfile
 			
 			var attachment = new JsonObject();
 			attachment.Add("name", "Facebook Big Profile");
-			attachment.Add("caption", "Check out my profile picture");
+			attachment.Add("caption", "Check out my new profile picture");
 			attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store!");
 			attachment.Add("href", "http://myapp.no/BigProfile");
 									
