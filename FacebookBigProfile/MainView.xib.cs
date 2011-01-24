@@ -71,11 +71,26 @@ namespace FacebookBigProfile
 			imageView.Frame = new RectangleF(x, y, width, height);
 			return imageView;
 		}
-
+		
 		public override void ViewDidLoad ()
-		{		
-			profilePictureView = new UIImageView();
-									
+		{	
+			
+			base.ViewDidLoad();
+			
+			// Profile Picture View may already been set when the Camera closes.
+			if(profilePictureView == null)
+			{	
+				profilePictureView = new UIImageView();
+			}						
+			else 
+			{	
+				// Set up Scroll View again when we have a new picture from the camera.
+				var size = scrollView.Frame.Size;
+				scrollView.ContentSize = profilePictureView.Frame.Size;
+				scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
+				scrollView.ContentOffset = new PointF(0, 0);
+			}
+			
 			scrollView.AddSubview(profilePictureView);
 			scrollView.MaximumZoomScale = 5f;
 			scrollView.MinimumZoomScale = 0.2f;
@@ -83,9 +98,11 @@ namespace FacebookBigProfile
 			scrollView.BouncesZoom = false;			
 			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
 					 				
+			
 			scrollView.ViewForZoomingInScrollView = (sender) => { return profilePictureView; };		
 			
-			LoadImage(UIImage.FromFile("ProfilePicture2.jpg"));
+			if(profilePictureView.Image == null)
+				LoadImage(UIImage.FromFile("ProfilePicture2.jpg"));
 			
 			overlayImage = UIImage.FromFile("FacebookOverlay.png");
 			facebookOverlay.Image = overlayImage;	
@@ -118,7 +135,6 @@ namespace FacebookBigProfile
 			
 			AddCropHelpers();
 			
-			base.ViewDidLoad();
 		}
 		
 		private bool uploadedButNotPosted = false;

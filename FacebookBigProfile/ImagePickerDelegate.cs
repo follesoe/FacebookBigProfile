@@ -24,7 +24,7 @@ namespace FacebookBigProfile
 			var image = (UIImage)info[originalImage];
 			
 			_controller.LoadImage(image);
-			picker.DismissModalViewControllerAnimated(true);
+			_controller.DismissModalViewControllerAnimated(true);
 		}
 	}
 }
