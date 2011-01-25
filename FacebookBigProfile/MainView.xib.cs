@@ -361,7 +361,7 @@ namespace FacebookBigProfile
 			var ctx = UIGraphics.GetCurrentContext();
 			
 			// Clear the image with red.
-			ctx.SetRGBFillColor(255, 0, 0, 255);
+			ctx.SetRGBFillColor(255, 255, 255, 255);
 			ctx.FillRect(new RectangleF(new PointF(0, 0), section.Size));
 												
 			// Setting transform to flip the image.

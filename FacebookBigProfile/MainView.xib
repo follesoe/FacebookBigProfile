@@ -99,7 +99,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIPickerView" id="853521018">
+					<object class="IBUIPickerView" id="689510447">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483358</int>
 						<string key="NSFrame">{{0, 200}, {320, 216}}</string>
@@ -107,10 +107,10 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIShowsSelectionIndicator">YES</bool>
 					</object>
-					<object class="IBUIButton" id="791490847">
+					<object class="IBUIButton" id="542857574">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{95, 28}, {215, 37}}</string>
+						<string key="NSFrame">{{98, 28}, {212, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -205,7 +205,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lineSelector</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="853521018"/>
+						<reference key="destination" ref="689510447"/>
 					</object>
 					<int key="connectionID">49</int>
 				</object>
@@ -213,7 +213,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lineButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="791490847"/>
+						<reference key="destination" ref="542857574"/>
 					</object>
 					<int key="connectionID">51</int>
 				</object>
@@ -234,9 +234,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="747711850"/>
 							<reference ref="490063014"/>
-							<reference ref="853521018"/>
+							<reference ref="689510447"/>
 							<reference ref="747166226"/>
-							<reference ref="791490847"/>
+							<reference ref="542857574"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -293,12 +293,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="853521018"/>
+						<reference key="object" ref="689510447"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">50</int>
-						<reference key="object" ref="791490847"/>
+						<reference key="object" ref="542857574"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
