@@ -146,8 +146,6 @@
   <ItemGroup>
     <Content Include="ProfilePicture.jpg" />
     <Content Include="ProfilePicture3.jpg" />
-    <Content Include="jquery-1.4.4.min.js">
-    </Content>
     <Content Include="ProfilePicture2.jpg" />
     <Content Include="FacebookOverlay1.png" />
     <Content Include="FacebookOverlay0.png" />
