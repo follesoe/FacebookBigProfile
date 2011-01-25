@@ -98,7 +98,6 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Info.plist" />
     <None Include="fbp_logo_114x114.png" />
     <None Include="fbp_logo_57x57.png" />
     <None Include="fbp_logo_29x29.png" />
@@ -151,5 +150,6 @@
     <Content Include="FacebookOverlay4.png" />
     <Content Include="FacebookOverlay5.png" />
     <Content Include="ProfilePicture.jpg" />
+    <Content Include="Info.plist" />
   </ItemGroup>
 </Project>
