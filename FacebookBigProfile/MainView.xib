@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">768</int>
+		<int key="IBDocument.SystemTarget">1024</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
@@ -99,7 +99,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIPickerView" id="689510447">
+					<object class="IBUIPickerView" id="828365316">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">-2147483358</int>
 						<string key="NSFrame">{{0, 200}, {320, 216}}</string>
@@ -107,7 +107,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIShowsSelectionIndicator">YES</bool>
 					</object>
-					<object class="IBUIButton" id="542857574">
+					<object class="IBUIButton" id="744049191">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{98, 28}, {212, 37}}</string>
@@ -134,6 +134,33 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+					</object>
+					<object class="IBADBannerView" id="669408925">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">306</int>
+						<string key="NSFrame">{{0, 366}, {320, 50}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSMutableSet" key="IBADRequiredContentSizeIdentifiers">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="NSArray" key="set.sortedObjects">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<string>ADBannerContentSize320x50</string>
+								<string>ADBannerContentSize480x32</string>
+							</object>
+						</object>
+						<object class="NSSet" key="IBADModernRequiredContentSizeIdentifiers">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="NSArray" key="set.sortedObjects">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<string>ADBannerContentSizeLandscape</string>
+								<string>ADBannerContentSizePortrait</string>
+							</object>
 						</object>
 					</object>
 				</object>
@@ -205,7 +232,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lineSelector</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="689510447"/>
+						<reference key="destination" ref="828365316"/>
 					</object>
 					<int key="connectionID">49</int>
 				</object>
@@ -213,9 +240,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">lineButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="542857574"/>
+						<reference key="destination" ref="744049191"/>
 					</object>
 					<int key="connectionID">51</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">adView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="669408925"/>
+					</object>
+					<int key="connectionID">53</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -234,9 +269,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="747711850"/>
 							<reference ref="490063014"/>
-							<reference ref="689510447"/>
+							<reference ref="828365316"/>
 							<reference ref="747166226"/>
-							<reference ref="542857574"/>
+							<reference ref="744049191"/>
+							<reference ref="669408925"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -293,17 +329,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="689510447"/>
+						<reference key="object" ref="828365316"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">50</int>
-						<reference key="object" ref="542857574"/>
+						<reference key="object" ref="744049191"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
 						<reference key="object" ref="747166226"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">52</int>
+						<reference key="object" ref="669408925"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -327,6 +368,7 @@
 					<string>48.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
 					<string>50.IBViewBoundsToFrameTransform</string>
+					<string>52.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -354,6 +396,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABCvgAAwnAAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABBEAAAw7+AAA</bytes>
 					</object>
@@ -375,7 +418,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">53</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -386,6 +429,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>adView</string>
 							<string>facebookButton</string>
 							<string>facebookOverlay</string>
 							<string>lineButton</string>
@@ -397,6 +441,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -411,6 +456,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>adView</string>
 							<string>facebookButton</string>
 							<string>facebookOverlay</string>
 							<string>lineButton</string>
@@ -422,6 +468,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">adView</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">facebookButton</string>
 								<string key="candidateClassName">id</string>
@@ -467,7 +517,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<integer value="768" key="NS.object.0"/>
+			<integer value="1024" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>

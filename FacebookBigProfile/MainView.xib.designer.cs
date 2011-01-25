@@ -31,6 +31,8 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIButton __mt_lineButton;
 		
+		private MonoTouch.iAd.ADBannerView __mt_adView;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -125,6 +127,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_lineButton = value;
 				this.SetNativeField("lineButton", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("adView")]
+		private MonoTouch.iAd.ADBannerView adView {
+			get {
+				this.__mt_adView = ((MonoTouch.iAd.ADBannerView)(this.GetNativeField("adView")));
+				return this.__mt_adView;
+			}
+			set {
+				this.__mt_adView = value;
+				this.SetNativeField("adView", value);
 			}
 		}
 	}

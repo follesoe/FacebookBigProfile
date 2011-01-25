@@ -9,6 +9,7 @@ using MonoTouch.Foundation;
 using FacebookSdk;
 using Atomcraft;
 using MonoTouch.CoreGraphics;
+using MonoTouch.iAd;
 
 namespace FacebookBigProfile
 {
@@ -135,6 +136,20 @@ namespace FacebookBigProfile
 			
 			AddCropHelpers();
 			
+			var contentIdentifiers = new NSMutableSet(); 
+			contentIdentifiers.Add(new NSString("ADBannerContentSizeIdentifierPortrait"));
+			adView.RequiredContentSizeIdentifiers = contentIdentifiers;
+			
+			adView.Hidden = false;
+			adView.AdLoaded += (o, e) => {
+				adView.Hidden = false;
+				Console.WriteLine("AdLoaded");
+			};
+			
+			adView.FailedToReceiveAd += (object o, AdErrorEventArgs e) => {
+				adView.Hidden = true;
+				Console.WriteLine("FailedToReceiveAd: " + e.Error.ToString());
+			};
 		}
 		
 		public override void ViewWillAppear (bool animated)
@@ -164,6 +179,7 @@ namespace FacebookBigProfile
 			{			   
 				lineButton.SetTitle("Done", UIControlState.Normal);
 				
+				adView.Frame = new RectangleF(0, adView.Frame.Y - lineSelector.Frame.Height, 320, 50);
 				lineSelector.Hidden = false;			
 				if(lineMessageShown) return;
 				
@@ -184,6 +200,7 @@ namespace FacebookBigProfile
 			numberOfLines = lines;			
 			lineButton.SetTitle(text, UIControlState.Normal);
 			lineSelector.Hidden = true;
+			adView.Frame = new RectangleF(0, adView.Frame.Y + lineSelector.Frame.Height, 320, 50);
 			UpdateCropHelpers();
 		}
 		
