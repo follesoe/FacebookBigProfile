@@ -103,7 +103,7 @@ namespace FacebookBigProfile
 			scrollView.ViewForZoomingInScrollView = (sender) => { return profilePictureView; };		
 			
 			if(profilePictureView.Image == null)
-				LoadImage(UIImage.FromFile("ProfilePicture2.jpg"));
+				LoadImage(UIImage.FromFile("ProfilePicture.jpg"));
 			
 			overlayImage = UIImage.FromFile(string.Format("FacebookOverlay{0}.png", numberOfLines));
 			facebookOverlay.Image = overlayImage;	
