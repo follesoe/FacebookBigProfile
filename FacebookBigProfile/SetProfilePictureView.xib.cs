@@ -6,6 +6,7 @@ using MonoTouch.UIKit;
 using System.IO;
 using System.Web;
 using Atomcraft;
+using System.Threading;
 
 namespace FacebookBigProfile
 {
@@ -43,6 +44,7 @@ namespace FacebookBigProfile
 		public override void ViewWillAppear (bool animated)
 		{
 			NavigationController.SetNavigationBarHidden(false, true);
+			profileUpdated = false;
 			base.ViewDidAppear (animated);
 		}
 		
@@ -87,7 +89,7 @@ namespace FacebookBigProfile
 			if(webView.Request.Url.AbsoluteString.StartsWith("http://www.facebook.com/profile"))
 			{
 				profileUpdated = true;
-				HideProgress();
+				HideProgress();				
 			}
 			
 			if(webView.Request.Url.AbsoluteString.Contains("login"))
@@ -101,8 +103,15 @@ namespace FacebookBigProfile
 			
 			if(webView.Request.Url.AbsoluteString.Equals(navigationTarget))
 			{			
-				ClickMakeProfilePicture();
-				ClickOkay();
+				
+				var thread = new Thread(() => {
+					Thread.Sleep(1500);
+					InvokeOnMainThread(() => ClickMakeProfilePicture());
+					Thread.Sleep(2500);
+					BeginInvokeOnMainThread(() => ClickOkay());
+				});
+				
+				thread.Start();
 			}
 		}
 		
