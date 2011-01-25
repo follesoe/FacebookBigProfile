@@ -8,6 +8,7 @@ using MonoTouch.Foundation;
 
 using FacebookSdk;
 using Atomcraft;
+using MonoTouch.CoreGraphics;
 
 namespace FacebookBigProfile
 {
@@ -73,8 +74,7 @@ namespace FacebookBigProfile
 		}
 		
 		public override void ViewDidLoad ()
-		{	
-			
+		{				
 			base.ViewDidLoad();
 			
 			// Profile Picture View may already been set when the Camera closes.
@@ -111,10 +111,7 @@ namespace FacebookBigProfile
 			picker.Delegate = new ImagePickerDelegate(this);			
 						
 			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
-			{	
-				//Weird MT bug where Cancel doesn't show at the bottom of the menu. Fixed in vNext.
-				//photoFromWhere = new UIActionSheet("", new ActionDel(this), "Cancel", "Destroy!", "Take Photo", "Choose From Library");
-				
+			{					
 				photoFromWhere = new UIActionSheet("Select an option", new ActionDel(this));
 				photoFromWhere.AddButton("Take a photo");
 				photoFromWhere.AddButton("Choose from library");
@@ -234,9 +231,10 @@ namespace FacebookBigProfile
 			View.AddSubview(cropSource5);
 			View.AddSubview(cropSource6);
 		}		
-
+			
 		public void LoadImage(UIImage image) 
-		{				
+		{			
+			image = image.Scale(GetScaledSize(image.Size));
 			scrollView.ZoomScale = 1.0f;
 			
 			profilePicture = image;
@@ -249,10 +247,33 @@ namespace FacebookBigProfile
 			scrollView.ContentSize = frame.Size;
 			scrollView.ContentInset = new UIEdgeInsets(size.Height * 0.8f, size.Width * 0.8f, size.Height * 0.8f, size.Width * 0.8f);
 			scrollView.ContentOffset = new PointF(0, 0);
-		}				
+		}	
+		
+		private SizeF GetScaledSize(SizeF orgSize)
+		{
+			float scale = 0.0f;
+			float maxWidth = 1600;
+			float maxHeight = 1600;
+
+		    if (orgSize.Width > maxWidth || orgSize.Height > maxHeight)
+		    {
+		        if (maxWidth/orgSize.Width < maxHeight/orgSize.Height)
+		        {
+		            scale = maxWidth/orgSize.Width;
+		        }
+		        else
+		        {
+		            scale = maxHeight/orgSize.Height;
+		        }
+				return new SizeF(orgSize.Width*scale, orgSize.Height*scale);
+		    }
+			
+			return orgSize;
+		}
 		
 		public void SplitImage() 
 		{		
+			
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
@@ -280,53 +301,60 @@ namespace FacebookBigProfile
 		}
 		
 		public UIImage Crop(UIImage image, RectangleF section)
-	    {	
+	    {						
+			// Start context.
 			UIGraphics.BeginImageContext(section.Size);
-						
-			var context = UIGraphics.GetCurrentContext();
-			context.SetRGBFillColor(255, 0, 0, 255);
-			context.FillRect(new RectangleF(new PointF(0, 0), image.Size));
+			var ctx = UIGraphics.GetCurrentContext();
 			
-			float toWide = image.Size.Width - (section.Left + section.Width);
-			float toTall = image.Size.Height - (section.Top + section.Height);
-					
-			var rect = section;
-			float width = rect.Width;
-			float height = rect.Height;
-			float left = rect.Left;
-			float top = rect.Top;
-			
-			if(toWide < 0) width = rect.Width - Math.Abs(toWide);
-			if(toTall < 0) height = rect.Height - Math.Abs(toTall);
-			
-			if(section.Top < 0)
-			{
-				height = rect.Height - Math.Abs(rect.Top);
-				top = 0;
-			}
-			
-			if(section.Left < 0)
-			{
-				width = rect.Width - Math.Abs(section.Left);
-				left = 0;
-			}
-			
-			rect = new RectangleF(left, top, (float)Math.Ceiling(width), (float)Math.Ceiling(height));
-			
-			top = rect.Top <= 0 ? 0 : section.Height - rect.Height;
-			left = section.Left >= 0 ? 0 : section.Width - rect.Width;
-			
-			var drawSource = new RectangleF(left, top, Convert.ToInt32(rect.Width), Convert.ToInt32(rect.Height));				
-			
+			// Clear the image with red.
+			ctx.SetRGBFillColor(255, 0, 0, 255);
+			ctx.FillRect(new RectangleF(new PointF(0, 0), section.Size));
+												
+			// Setting transform to flip the image.
 			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
-			context.ConcatCTM(transform);				
-			context.DrawImage(drawSource, image.CGImage.WithImageInRect(rect));
-
+			ctx.ConcatCTM(transform);	
+						
+			// Drawing the image.
+			var drawSource = CreateDrawRectangle(image, section);
+			ctx.DrawImage(drawSource, image.CGImage.WithImageInRect(section));			
+			
+			// Extracting the image and ending.
 			var croppedImage = UIGraphics.GetImageFromCurrentImageContext();
 			UIGraphics.EndImageContext();
 			
 			return croppedImage;
 	    }
+		
+		private RectangleF CreateDrawRectangle(UIImage image, RectangleF section)
+		{
+			float toWide = image.Size.Width - (section.Left + section.Width);
+			float toTall = image.Size.Height - (section.Top + section.Height);
+							
+			float width = section.Width;
+			float height = section.Height;
+			float left = section.Left;
+			float top = section.Top;
+			
+			if(toWide < 0) width = section.Width - Math.Abs(toWide);
+			if(toTall < 0) height = section.Height - Math.Abs(toTall);
+			
+			if(section.Top < 0)
+			{
+				height = section.Height - Math.Abs(section.Top);
+				top = 0;
+			}
+			
+			if(section.Left < 0)
+			{
+				width = section.Width - Math.Abs(section.Left);
+				left = 0;
+			}
+						
+			top = section.Top <= 0 ? 0 : section.Height - height;
+			left = section.Left >= 0 ? 0 : section.Width - width;
+						
+			return new RectangleF(left, top, width, height);
+		}
 		
 		public class ActionDel : UIActionSheetDelegate
 		{

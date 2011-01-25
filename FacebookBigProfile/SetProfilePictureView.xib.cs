@@ -46,6 +46,7 @@ namespace FacebookBigProfile
 		{
 			Title = "Set Profile Picture";		
 			webView.LoadFinished += LoadFinished;
+			webView.ScalesPageToFit = true;
 			base.ViewDidLoad ();
 		}
 		
@@ -54,7 +55,6 @@ namespace FacebookBigProfile
 			Console.WriteLine("Load url: " + url);
 			navigationTarget = url;
 			webView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
-			webView.ContentScaleFactor = 1.5f;
 			
 			using(var alert = new UIAlertView("One more thing...", "You need to click \"Make Profile Picture\" to complete your Big Profile", null, "OK", null))
 			{
