@@ -137,7 +137,7 @@ namespace FacebookBigProfile
 			AddCropHelpers();
 			
 			var contentIdentifiers = new NSMutableSet(); 
-			contentIdentifiers.Add(new NSString("ADBannerContentSizeIdentifierPortrait"));
+			contentIdentifiers.Add(new NSString("ADBannerContentSize320x50"));
 			adView.RequiredContentSizeIdentifiers = contentIdentifiers;
 			
 			adView.Hidden = false;
