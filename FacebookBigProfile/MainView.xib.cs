@@ -147,13 +147,7 @@ namespace FacebookBigProfile
 			if(uploadedButNotPosted) 
 			{
 				uploadedButNotPosted = false;
-				PostToWall();
-				/* Need to fix this. The Publish dialog just disapears when I launch it in click handler...
-				using(var alert = new UIAlertView("Tell your friends", "Do you want to write a wall post letting your friends know about your new profile?", null, "No", "Yes"))
-				{
-					alert.Clicked += (object o, UIButtonEventArgs e) => { if(e.ButtonIndex == 1) PostToWall(); };
-					alert.Show();
-				}*/											
+				PostToWall();											
 			}
 			base.ViewDidAppear (animated);
 		}
@@ -213,6 +207,9 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook() 
 		{	
+			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=159589650757706&m2w");
+			//return;
+			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))

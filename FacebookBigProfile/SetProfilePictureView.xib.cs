@@ -5,6 +5,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.IO;
 using System.Web;
+using Atomcraft;
 
 namespace FacebookBigProfile
 {
@@ -15,6 +16,9 @@ namespace FacebookBigProfile
         private const string JavaScriptEvaluatorReadyStateCheckScript  = @"document.UIWebViewDocumentIsReady;";
 
 		private string navigationTarget; 
+		private bool hudVisible;
+		private bool profileUpdated;
+		private ATMHud hud;
 		
 		public SetProfilePictureView (IntPtr handle) : base(handle)
 		{
@@ -44,33 +48,84 @@ namespace FacebookBigProfile
 		
 		public override void ViewDidLoad ()
 		{
+			base.ViewDidLoad ();
+			
 			Title = "Set Profile Picture";		
+			webView.LoadStarted += LoadStarted;
 			webView.LoadFinished += LoadFinished;
 			webView.ScalesPageToFit = true;
-			base.ViewDidLoad ();
+			
+			hud = new ATMHud();
+			View.AddSubview(hud.View);
+		}
+		
+		public override void ViewWillDisappear (bool animated)
+		{			
+			profileUpdated = false;
+			HideProgress();
+			base.ViewWillDisappear (animated);
 		}
 		
 		public void NavigateTo(string url)
-		{
+		{		
+			ShowProgress();
 			Console.WriteLine("Load url: " + url);
 			navigationTarget = url;
 			webView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
-			
-			using(var alert = new UIAlertView("One last thing...", "You need to log in to complete your Big Profile", null, "OK", null))
-			{
-				alert.Show();
-			}
 		}
 		
+		private void LoadStarted(object sender, EventArgs e)
+		{
+			ShowProgress();
+			Console.WriteLine("LoadStarted: {0}", webView.Request.Url.AbsoluteString);
+		}
+					
 		private void LoadFinished(object sender, EventArgs e)
 		{
 			Console.WriteLine("LoadFinished: {0}", webView.Request.Url.AbsoluteString);
 			
+			if(webView.Request.Url.AbsoluteString.StartsWith("http://www.facebook.com/profile"))
+			{
+				profileUpdated = true;
+				HideProgress();
+			}
+			
+			if(webView.Request.Url.AbsoluteString.Contains("login"))
+			{
+				HideProgress();
+				using(var alert = new UIAlertView("One last thing...", "You need to log in to set your profile picture", null, "OK", null))
+				{
+					alert.Show();
+				}
+			}
+			
 			if(webView.Request.Url.AbsoluteString.Equals(navigationTarget))
 			{			
 				ClickMakeProfilePicture();
-				ScrollIntoView();
+				ClickOkay();
 			}
+		}
+		
+		private void ShowProgress()
+		{
+			if(!hudVisible && !profileUpdated)
+			{
+				hudVisible = true;
+				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+				hud.SetCaption("Setting profile picture...");			
+				hud.SetActivity(true);
+				hud.Show();				
+				hud.Update();
+				hud.HideAfter(45.0);
+			}
+		}
+		
+		private void HideProgress()
+		{
+			hudVisible = false;
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+			hud.SetActivity(false);
+			hud.Hide();
 		}
 		
 		private void ClickMakeProfilePicture()
@@ -85,9 +140,13 @@ namespace FacebookBigProfile
 				string script = html.Substring(setPhotoScriptStartIndex, length);			
 				webView.EvaluateJavascript(script);
 			}
+			else 
+			{
+				HideProgress();
+			}
 		}
 		
-		private void ScrollIntoView()
+		private void ClickOkay()
 		{
 			webView.EvaluateJavascript("document.getElementsByName('ok')[0].click();");
 		}
