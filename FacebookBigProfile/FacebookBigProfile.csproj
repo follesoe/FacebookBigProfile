@@ -11,7 +11,7 @@
     <RootNamespace>FacebookBigProfile</RootNamespace>
     <MainNibFile>MainWindow.xib</MainNibFile>
     <AssemblyName>FacebookBigProfile</AssemblyName>
-    <MtouchMinimumOS>3.0</MtouchMinimumOS>
+    <MtouchMinimumOS>4.0</MtouchMinimumOS>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <BundleIdentifier>no.follesoe.bigprofile</BundleIdentifier>
     <BundleDisplayName>Big Profile</BundleDisplayName>
