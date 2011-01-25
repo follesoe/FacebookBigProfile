@@ -56,7 +56,7 @@ namespace FacebookBigProfile
 			navigationTarget = url;
 			webView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
 			
-			using(var alert = new UIAlertView("One more thing...", "You need to click \"Make Profile Picture\" to complete your Big Profile", null, "OK", null))
+			using(var alert = new UIAlertView("One last thing...", "You need to log in to complete your Big Profile", null, "OK", null))
 			{
 				alert.Show();
 			}
@@ -67,8 +67,7 @@ namespace FacebookBigProfile
 			Console.WriteLine("LoadFinished: {0}", webView.Request.Url.AbsoluteString);
 			
 			if(webView.Request.Url.AbsoluteString.Equals(navigationTarget))
-			{
-				
+			{			
 				ClickMakeProfilePicture();
 				ScrollIntoView();
 			}
@@ -90,10 +89,7 @@ namespace FacebookBigProfile
 		
 		private void ScrollIntoView()
 		{
-			Console.WriteLine("ScrollIntoView");
-			string script = "window.scrollTo(240, 580);";			
-			webView.EvaluateJavascript(script);		
-			webView.EvaluateJavascript("document.getElementsByName(\"ok\")[0].click();");
+			webView.EvaluateJavascript("document.getElementsByName('ok')[0].click();");
 		}
 	}
 }
