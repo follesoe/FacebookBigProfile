@@ -27,6 +27,10 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UIToolbar __mt_toolbar;
 		
+		private MonoTouch.UIKit.UIPickerView __mt_lineSelector;
+		
+		private MonoTouch.UIKit.UIButton __mt_lineButton;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -97,6 +101,30 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_toolbar = value;
 				this.SetNativeField("toolbar", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("lineSelector")]
+		private MonoTouch.UIKit.UIPickerView lineSelector {
+			get {
+				this.__mt_lineSelector = ((MonoTouch.UIKit.UIPickerView)(this.GetNativeField("lineSelector")));
+				return this.__mt_lineSelector;
+			}
+			set {
+				this.__mt_lineSelector = value;
+				this.SetNativeField("lineSelector", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("lineButton")]
+		private MonoTouch.UIKit.UIButton lineButton {
+			get {
+				this.__mt_lineButton = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("lineButton")));
+				return this.__mt_lineButton;
+			}
+			set {
+				this.__mt_lineButton = value;
+				this.SetNativeField("lineButton", value);
 			}
 		}
 	}

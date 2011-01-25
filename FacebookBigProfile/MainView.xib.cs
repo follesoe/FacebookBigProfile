@@ -53,6 +53,10 @@ namespace FacebookBigProfile
 		
 		private ATMHud hud;
 		
+		private bool uploadedButNotPosted = false;
+		private bool lineMessageShown = false;		
+		private int numberOfLines = 2;
+		
 		public UIColor FacebookBlue 
 		{
 			get { return toolbar.BackgroundColor; }
@@ -65,17 +69,15 @@ namespace FacebookBigProfile
 			profilePictureSize = new SizeF(180f, 540f);
 			profilePictureSmallSize = new SizeF(97f, 68f);
 		}
-		
-		private UIImageView CreateCropSource(float x, float y, float width, float height) 
-		{
-			var imageView = new UIImageView();
-			imageView.Frame = new RectangleF(x, y, width, height);
-			return imageView;
-		}
-		
+				
 		public override void ViewDidLoad ()
 		{				
 			base.ViewDidLoad();
+			
+			lineSelector.Model = new LinePickerModel(this);
+			lineSelector.ShowSelectionIndicator = true;
+			
+			lineButton.TouchUpInside += SelectLines;
 			
 			// Profile Picture View may already been set when the Camera closes.
 			if(profilePictureView == null)
@@ -97,14 +99,13 @@ namespace FacebookBigProfile
 			scrollView.Bounces = false;
 			scrollView.BouncesZoom = false;			
 			scrollView.IndicatorStyle = UIScrollViewIndicatorStyle.Black;
-					 				
-			
+					 							
 			scrollView.ViewForZoomingInScrollView = (sender) => { return profilePictureView; };		
 			
 			if(profilePictureView.Image == null)
 				LoadImage(UIImage.FromFile("ProfilePicture2.jpg"));
 			
-			overlayImage = UIImage.FromFile("FacebookOverlay.png");
+			overlayImage = UIImage.FromFile(string.Format("FacebookOverlay{0}.png", numberOfLines));
 			facebookOverlay.Image = overlayImage;	
 			
 			picker = new UIImagePickerController();
@@ -134,8 +135,6 @@ namespace FacebookBigProfile
 			
 		}
 		
-		private bool uploadedButNotPosted = false;
-		
 		public override void ViewWillAppear (bool animated)
 		{
 			NavigationController.SetNavigationBarHidden(true, true);					
@@ -155,6 +154,26 @@ namespace FacebookBigProfile
 		public void PostToWall()
 		{
 			facebookController.PostToWall();
+		}
+		
+		private void SelectLines(object sender, EventArgs e)
+		{
+			lineSelector.Hidden = false;			
+			if(lineMessageShown) return;
+			
+			using(var alert = new UIAlertView("Number of Lines", "Choose the number of lines of profile text that appears beneath your name on your Facebook profile. This helps to accurately crop the profile photos.", null, "OK", null))
+			{
+				lineMessageShown = true;
+				alert.Show();
+			}
+		}
+		
+		public void LinesSelected(string text, int lines)
+		{
+			numberOfLines = lines;			
+			lineButton.SetTitle(text, UIControlState.Normal);
+			lineSelector.Hidden = true;
+			UpdateCropHelpers();
 		}
 		
 		public void StartProgress(string title)
@@ -225,20 +244,47 @@ namespace FacebookBigProfile
 
 		private void AddCropHelpers() 
 		{
-			cropSource6 = CreateCropSource(5, 25, 80, 242);
-			cropSource5 = CreateCropSource(94, 57, 43, 30);
-			cropSource4 = CreateCropSource(138, 57, 44, 30);			
-			cropSource3 = CreateCropSource(183, 57, 43, 30);
-			cropSource2 = CreateCropSource(227, 57, 44, 30);
-			cropSource1 = CreateCropSource(272, 57, 43, 30);
+			cropSource6 = CreateCropSource(5, 50, 80, 242);
+			cropSource5 = CreateCropSource(94, 82, 43, 30);
+			cropSource4 = CreateCropSource(138, 82, 44, 30);			
+			cropSource3 = CreateCropSource(183, 82, 43, 30);
+			cropSource2 = CreateCropSource(227, 82, 44, 30);
+			cropSource1 = CreateCropSource(272, 82, 43, 30);
 			
 			View.AddSubview(cropSource1);
 			View.AddSubview(cropSource2);
 			View.AddSubview(cropSource3);
 			View.AddSubview(cropSource4);
 			View.AddSubview(cropSource5);
-			View.AddSubview(cropSource6);
-		}		
+			View.AddSubview(cropSource6);		
+		}	
+		
+		private void UpdateCropHelpers()
+		{
+			float topSmall = 72f + (float)numberOfLines*5.0f;	
+						
+			UpdateCropSource(cropSource5, topSmall);
+			UpdateCropSource(cropSource4, topSmall);
+			UpdateCropSource(cropSource3, topSmall);
+			UpdateCropSource(cropSource2, topSmall);
+			UpdateCropSource(cropSource1, topSmall);
+			
+			overlayImage = UIImage.FromFile(string.Format("FacebookOverlay{0}.png", numberOfLines));
+			facebookOverlay.Image = overlayImage;			
+		}
+		
+		private void UpdateCropSource(UIImageView image, float newTop)
+		{
+			var oldFrame = image.Frame;
+			image.Frame = new RectangleF(oldFrame.X, newTop, oldFrame.Width, oldFrame.Height);
+		}
+		
+		private UIImageView CreateCropSource(float x, float y, float width, float height) 
+		{
+			var imageView = new UIImageView();
+			imageView.Frame = new RectangleF(x, y, width, height);
+			return imageView;
+		}
 			
 		public void LoadImage(UIImage image) 
 		{			
@@ -361,7 +407,7 @@ namespace FacebookBigProfile
 			top = section.Top <= 0 ? 0 : section.Height - height;
 			left = section.Left >= 0 ? 0 : section.Width - width;
 						
-			return new RectangleF(left, top, width, height);
+			return new RectangleF((float)Math.Ceiling(left), (float)Math.Ceiling(top), (float)Math.Ceiling(width), (float)Math.Ceiling(height));
 		}
 		
 		public class ActionDel : UIActionSheetDelegate

@@ -130,6 +130,7 @@
     <Compile Include="SetProfilePictureView.xib.designer.cs">
       <DependentUpon>SetProfilePictureView.xib</DependentUpon>
     </Compile>
+    <Compile Include="LinePickerModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -144,10 +145,15 @@
   </ProjectExtensions>
   <ItemGroup>
     <Content Include="ProfilePicture.jpg" />
-    <Content Include="FacebookOverlay.png" />
     <Content Include="ProfilePicture3.jpg" />
     <Content Include="jquery-1.4.4.min.js">
     </Content>
     <Content Include="ProfilePicture2.jpg" />
+    <Content Include="FacebookOverlay1.png" />
+    <Content Include="FacebookOverlay0.png" />
+    <Content Include="FacebookOverlay2.png" />
+    <Content Include="FacebookOverlay3.png" />
+    <Content Include="FacebookOverlay4.png" />
+    <Content Include="FacebookOverlay5.png" />
   </ItemGroup>
 </Project>
