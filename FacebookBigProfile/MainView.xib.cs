@@ -50,6 +50,7 @@ namespace FacebookBigProfile
 		private SizeF profilePictureSmallSize;
 		
 		private SetProfilePictureView setProfileView;
+		private LinePickerModel linePickerModel;
 		
 		private ATMHud hud;
 		
@@ -74,7 +75,8 @@ namespace FacebookBigProfile
 		{				
 			base.ViewDidLoad();
 			
-			lineSelector.Model = new LinePickerModel(this);
+			linePickerModel = new LinePickerModel(this);
+			lineSelector.Model = linePickerModel;
 			lineSelector.ShowSelectionIndicator = true;
 			
 			lineButton.TouchUpInside += SelectLines;
@@ -158,13 +160,22 @@ namespace FacebookBigProfile
 		
 		private void SelectLines(object sender, EventArgs e)
 		{
-			lineSelector.Hidden = false;			
-			if(lineMessageShown) return;
-			
-			using(var alert = new UIAlertView("Number of Lines", "Choose the number of lines of profile text that appears beneath your name on your Facebook profile. This helps to accurately crop the profile photos.", null, "OK", null))
+			if(lineSelector.Hidden)
+			{			   
+				lineButton.SetTitle("Done", UIControlState.Normal);
+				
+				lineSelector.Hidden = false;			
+				if(lineMessageShown) return;
+				
+				using(var alert = new UIAlertView("Number of Lines", "Choose the number of lines of profile text that appears beneath your name on your Facebook profile. This helps to accurately crop the profile photos.", null, "OK", null))
+				{
+					lineMessageShown = true;
+					alert.Show();
+				}
+			}
+			else
 			{
-				lineMessageShown = true;
-				alert.Show();
+				LinesSelected(linePickerModel.CurrentText, linePickerModel.CurrentRow);
 			}
 		}
 		

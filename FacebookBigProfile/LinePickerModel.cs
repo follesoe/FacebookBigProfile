@@ -8,7 +8,12 @@ namespace FacebookBigProfile
 	{
 		private readonly List<string> _options;
 		private readonly MainView _mainView;
-		private int currentRow;
+		public int CurrentRow;
+		
+		public string CurrentText
+		{
+			get { return _options[CurrentRow]; }
+		}
 		
 		public LinePickerModel(MainView mainView)
 		{
@@ -37,8 +42,7 @@ namespace FacebookBigProfile
 		
 		public override void Selected (UIPickerView picker, int row, int component)
 		{
-			currentRow = row;
-			_mainView.LinesSelected(_options[row], row);
+			CurrentRow = row;
 		}		
 	}
 }
