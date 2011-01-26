@@ -57,7 +57,8 @@ namespace FacebookBigProfile
 			webView.LoadFinished += LoadFinished;
 			webView.ScalesPageToFit = true;
 			
-			hud = new ATMHud();
+			hud = new ATMHud();		
+			hud.Center = new System.Drawing.PointF(View.Frame.Width / 2f, 66f);
 			View.AddSubview(hud.View);
 		}
 		
