@@ -33,6 +33,8 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.iAd.ADBannerView __mt_adView;
 		
+		private MonoTouch.UIKit.UILabel __mt_helpLabel;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -139,6 +141,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_adView = value;
 				this.SetNativeField("adView", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("helpLabel")]
+		private MonoTouch.UIKit.UILabel helpLabel {
+			get {
+				this.__mt_helpLabel = ((MonoTouch.UIKit.UILabel)(this.GetNativeField("helpLabel")));
+				return this.__mt_helpLabel;
+			}
+			set {
+				this.__mt_helpLabel = value;
+				this.SetNativeField("helpLabel", value);
 			}
 		}
 	}

@@ -140,7 +140,7 @@ namespace FacebookBigProfile
 			contentIdentifiers.Add(new NSString("ADBannerContentSize320x50"));
 			adView.RequiredContentSizeIdentifiers = contentIdentifiers;
 			
-			adView.Hidden = false;
+			adView.Hidden = true;
 			adView.AdLoaded += (o, e) => {
 				adView.Hidden = false;
 				Console.WriteLine("AdLoaded");
@@ -179,10 +179,10 @@ namespace FacebookBigProfile
 			{			   
 				lineButton.SetTitle("Done", UIControlState.Normal);
 				
-				adView.Frame = new RectangleF(0, adView.Frame.Y - lineSelector.Frame.Height, 320, 50);
-				lineSelector.Hidden = false;			
-				if(lineMessageShown) return;
-				
+				adView.Frame = new RectangleF(0, adView.Frame.Y - lineSelector.Frame.Height, 320, 50);				
+				lineSelector.Hidden = false;
+				helpLabel.Hidden = true;
+				if(lineMessageShown) return;				
 				using(var alert = new UIAlertView("Number of Lines", "Choose the number of lines of profile text that appears beneath your name on your Facebook profile. This helps to accurately crop the profile photos.", null, "OK", null))
 				{
 					lineMessageShown = true;
@@ -235,12 +235,14 @@ namespace FacebookBigProfile
 		
 		public void GetPhotoFromLibrary()
 		{
+			helpLabel.Hidden = true;
 			picker.SourceType = UIImagePickerControllerSourceType.PhotoLibrary;
 			PresentModalViewController(picker, true);		
 		}
 		
 		public void GetPhotoFromCamera()
 		{
+			helpLabel.Hidden = true;
 			picker.SourceType = UIImagePickerControllerSourceType.Camera;
 			PresentModalViewController(picker, true);
 		}
@@ -315,7 +317,7 @@ namespace FacebookBigProfile
 		}
 			
 		public void LoadImage(UIImage image) 
-		{			
+		{		
 			image = image.Scale(GetScaledSize(image.Size));
 			scrollView.ZoomScale = 1.0f;
 			

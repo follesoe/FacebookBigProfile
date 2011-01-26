@@ -151,5 +151,7 @@
     <Content Include="FacebookOverlay5.png" />
     <Content Include="ProfilePicture.jpg" />
     <Content Include="Info.plist" />
+    <Content Include="Default.png" />
+    <Content Include="Default%402x.png" />
   </ItemGroup>
 </Project>
