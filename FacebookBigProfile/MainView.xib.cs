@@ -142,7 +142,7 @@ namespace FacebookBigProfile
 			
 			adView.Hidden = true;
 			adView.AdLoaded += (o, e) => {
-				adView.Hidden = false;
+				//adView.Hidden = false;
 				Console.WriteLine("AdLoaded");
 			};
 			

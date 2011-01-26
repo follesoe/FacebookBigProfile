@@ -11,7 +11,6 @@
     <RootNamespace>FacebookBigProfile</RootNamespace>
     <MainNibFile>MainWindow.xib</MainNibFile>
     <AssemblyName>FacebookBigProfile</AssemblyName>
-    <MtouchMinimumOS>4.0</MtouchMinimumOS>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <BundleIdentifier>no.follesoe.bigprofile</BundleIdentifier>
     <BundleDisplayName>Big Profile</BundleDisplayName>
@@ -19,6 +18,8 @@
     <BundleIconHigh>fbp_logo_114x114.png</BundleIconHigh>
     <BundleIconSpotlight>fbp_logo_29x29.png</BundleIconSpotlight>
     <BundleIconSpotlightHigh>fbp_logo_58x58.png</BundleIconSpotlightHigh>
+    <BundleVersion>1.0.0</BundleVersion>
+    <MtouchMinimumOS>4.0</MtouchMinimumOS>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +82,17 @@
     <MtouchI18n />
     <CodesignProvision>6E8DAB61-A6BA-4829-BA19-C7E7D04B5C8A</CodesignProvision>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Distribution|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Distribution</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>False</MtouchDebug>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>127CA193-A1BE-4DE9-88C0-FF205AA64C5C</CodesignProvision>
+    <MtouchI18n />
+    <MtouchExtraArgs>-v -gcc_flags "-L${ProjectDir} -lfacebook_ios_sdk -framework CoreGraphics -force_load ${ProjectDir}/libfacebook_ios_sdk.a -L${ProjectDir} -lAtomHUD -framework QuartzCore -framework CoreGraphics -framework AudioToolbox -ObjC"</MtouchExtraArgs>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -96,12 +108,6 @@
       <HintPath>..\Atomcraft.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Services" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="fbp_logo_114x114.png" />
-    <None Include="fbp_logo_57x57.png" />
-    <None Include="fbp_logo_29x29.png" />
-    <None Include="fbp_logo_58x58.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.xib.designer.cs">
@@ -153,5 +159,9 @@
     <Content Include="Info.plist" />
     <Content Include="Default.png" />
     <Content Include="Default%402x.png" />
+    <Content Include="fbp_logo_114x114.png" />
+    <Content Include="fbp_logo_29x29.png" />
+    <Content Include="fbp_logo_57x57.png" />
+    <Content Include="fbp_logo_58x58.png" />
   </ItemGroup>
 </Project>
