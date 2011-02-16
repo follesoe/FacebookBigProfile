@@ -18,7 +18,7 @@
     <BundleIconHigh>fbp_logo_114x114.png</BundleIconHigh>
     <BundleIconSpotlight>fbp_logo_29x29.png</BundleIconSpotlight>
     <BundleIconSpotlightHigh>fbp_logo_58x58.png</BundleIconSpotlightHigh>
-    <BundleVersion>1.0.0</BundleVersion>
+    <BundleVersion>1.1.0</BundleVersion>
     <MtouchMinimumOS>4.0</MtouchMinimumOS>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
