@@ -21,8 +21,10 @@ namespace FacebookBigProfile
 			_options = new List<string>();
 			_options.Add("No lines");
 			_options.Add("One line");
-			_options.Add("Two lines");
+			_options.Add("Two lines (most common)");
 			_options.Add("Three lines");
+			_options.Add("Four lines");
+			_options.Add("Five lines");
 		}
 		
 		public override int GetComponentCount (UIPickerView picker)
