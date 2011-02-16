@@ -31,10 +31,13 @@ namespace FacebookBigProfile
 		{
 			Initialize();
 		}
+		
+		private UINavigationController _parentNavigationController;
 
-		public SetProfilePictureView () : base("SetProfilePictureView", null)
+		public SetProfilePictureView (UINavigationController parentNavigationController) : base("SetProfilePictureView", null)
 		{
 			Initialize();
+			_parentNavigationController = parentNavigationController;
 		}
 
 		void Initialize()
@@ -90,7 +93,9 @@ namespace FacebookBigProfile
 			if(webView.Request.Url.AbsoluteString.StartsWith("http://www.facebook.com/profile"))
 			{
 				profileUpdated = true;
-				HideProgress();				
+				HideProgress();
+				_parentNavigationController.PopViewControllerAnimated(true);
+				return;
 			}
 			
 			if(webView.Request.Url.AbsoluteString.Contains("login"))
@@ -127,7 +132,7 @@ namespace FacebookBigProfile
 				hud.SetActivity(true);
 				hud.Show();				
 				hud.Update();
-				hud.HideAfter(40.0);
+				hud.HideAfter(35.0);
 			}
 		}
 		

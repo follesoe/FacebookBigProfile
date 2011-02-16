@@ -249,8 +249,8 @@ namespace FacebookBigProfile
 		
 		public void SetProfilePicture(string url)
 		{
-			if(setProfileView == null) setProfileView = new SetProfilePictureView();
-			NavigationController.PushViewController(setProfileView, true);
+			if(setProfileView == null) setProfileView = new SetProfilePictureView(NavigationController);
+			NavigationController.PushViewController(setProfileView, true);			
 			setProfileView.NavigateTo(url);
 		}
 		
