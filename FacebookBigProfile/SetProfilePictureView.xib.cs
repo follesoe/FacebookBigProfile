@@ -122,11 +122,12 @@ namespace FacebookBigProfile
 			{
 				hudVisible = true;
 				UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+				hud.Center = new System.Drawing.PointF(View.Frame.Width / 2f, 66f);
 				hud.SetCaption("Setting profile picture...");			
 				hud.SetActivity(true);
 				hud.Show();				
 				hud.Update();
-				hud.HideAfter(20.0);
+				hud.HideAfter(40.0);
 			}
 		}
 		
