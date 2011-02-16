@@ -132,7 +132,7 @@ namespace FacebookBigProfile
 				hud.SetActivity(true);
 				hud.Show();				
 				hud.Update();
-				hud.HideAfter(35.0);
+				hud.HideAfter(50.0);
 			}
 		}
 		
