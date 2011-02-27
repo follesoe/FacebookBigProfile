@@ -113,22 +113,9 @@ namespace FacebookBigProfile
 			
 			picker = new UIImagePickerController();
 			picker.Delegate = new ImagePickerDelegate(this);			
-						
-			if(UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) 
-			{					
-				photoFromWhere = new UIActionSheet("Select an option", new ActionDel(this));
-				photoFromWhere.AddButton("Take a photo");
-				photoFromWhere.AddButton("Choose from library");
-				photoFromWhere.AddButton("Cancel");
-				photoFromWhere.CancelButtonIndex = 2;
-				
-				photoButton.Clicked += (o, e) => photoFromWhere.ShowFromToolbar(toolbar);
-			} 
-			else
-			{
-				photoButton.Clicked += (o, e) => GetPhotoFromLibrary();			
-			}
-		
+			
+			InitializePhotoButton();
+			
 			facebookButton.Clicked += (o, e) => LoginToFacebook();
 						
 			hud = new ATMHud();
@@ -150,6 +137,31 @@ namespace FacebookBigProfile
 				adView.Hidden = true;
 				Console.WriteLine("FailedToReceiveAd: " + e.Error.ToString());
 			};
+		}
+		
+		private void InitializePhotoButton()
+		{						
+			bool hasCamera = UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera);
+			photoFromWhere = new UIActionSheet("Select an option", new ActionDel(this, hasCamera));			
+			
+			if(hasCamera)
+			{
+				photoFromWhere.AddButton("Take a photo");					
+			}
+			photoFromWhere.AddButton("Choose from library");
+			photoFromWhere.AddButton("Choose from Facebook");
+			photoFromWhere.AddButton("Cancel");
+			
+			if(hasCamera)
+			{
+				photoFromWhere.CancelButtonIndex = 3;
+			}
+			else
+			{
+				photoFromWhere.CancelButtonIndex = 2;
+			}
+			
+			photoButton.Clicked += (o, e) => photoFromWhere.ShowFromToolbar(toolbar);
 		}
 		
 		public override void ViewWillAppear (bool animated)
@@ -245,6 +257,11 @@ namespace FacebookBigProfile
 			helpLabel.Hidden = true;
 			picker.SourceType = UIImagePickerControllerSourceType.Camera;
 			PresentModalViewController(picker, true);
+		}
+		
+		public void GetPhotoFromFacebook()
+		{
+			Console.WriteLine("Get from Facebook!");
 		}
 		
 		public void SetProfilePicture(string url)
@@ -443,16 +460,26 @@ namespace FacebookBigProfile
 		public class ActionDel : UIActionSheetDelegate
 		{
 			private readonly MainView _mainView;
+			private readonly bool _hasCamera;
 			
-			public ActionDel(MainView mainView)
+			public ActionDel(MainView mainView, bool hasCamera)
 			{
 				_mainView = mainView;
 			}
 				
 			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
 			{
-				if(buttonIndex == 0) _mainView.GetPhotoFromCamera();
-				else if(buttonIndex == 1) _mainView.GetPhotoFromLibrary();
+				if(_hasCamera)
+				{
+					if(buttonIndex == 0) _mainView.GetPhotoFromCamera();
+					else if(buttonIndex == 1) _mainView.GetPhotoFromLibrary();
+					else if(buttonIndex == 2) _mainView.GetPhotoFromFacebook();
+				}
+				else
+				{
+					if(buttonIndex == 0) _mainView.GetPhotoFromLibrary();
+					else if(buttonIndex == 1) _mainView.GetPhotoFromFacebook();
+				}
 			}
 		}
 	}
