@@ -1,13 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
+
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FacebookSdk;
 
 namespace FacebookBigProfile
 {
-    public class FacebookAlbumTableViewController : UITableViewController
+    public class FacebookAlbumTableViewController : UITableViewController, IFacebookErrorProvider
     {
         static NSString CellID = new NSString ("MyIdentifier");
 		
@@ -28,6 +29,8 @@ namespace FacebookBigProfile
             {			
                 _tvc = tableViewController;	
 				_facebook = facebook;
+				
+				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc));
             }
             
             public override int RowsInSection (UITableView tableView, int section)
@@ -73,5 +76,26 @@ namespace FacebookBigProfile
             TableView.Delegate = new TableDelegate (this);
             TableView.DataSource = new DataSource (this, _facebook);
         }
-    }
+    
+		public void ErrorOccurred (NSError error)
+		{
+			Console.WriteLine("Error occured!");
+		}
+	}
+	
+	public class GetAlbumsRequestDelegate : RequestDelegateBase
+	{
+		public GetAlbumsRequestDelegate(IFacebookErrorProvider controller) : base(controller)
+		{
+		}
+		
+		public override void HandleResult (FBRequest request, NSDictionary dict)
+		{
+			NSArray data = (NSArray)dict.ObjectForKey(new NSString("data"));
+			for(uint i = 0; i < 6; ++i)
+			{	
+				Console.WriteLine(data.ValueAt(i));
+			}
+		}
+	}
 }
