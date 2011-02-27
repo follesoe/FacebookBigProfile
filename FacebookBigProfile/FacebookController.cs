@@ -7,7 +7,12 @@ using System.Collections.Generic;
 
 namespace FacebookBigProfile
 {
-	public class FacebookController
+	public interface IFacebookErrorProvider
+	{
+		void ErrorOccurred(NSError error);	
+	}
+	
+	public class FacebookController : IFacebookErrorProvider
 	{
 		public class QueuedUpload 
 		{
@@ -17,81 +22,31 @@ namespace FacebookBigProfile
 		}		
 		
 		private readonly Facebook _facebook;
+		private readonly FacebookLoginController _loginController;
 		private readonly MainView _mainView;
-		private readonly GetUserRequestDelegate _userDelegate;
 		private readonly UploadPhotoRequestDelegate _photoDelegate;
 		private readonly FqlRequestDelegate _fqlDelegate;
-		private readonly SessionDelegate _sessionDelegate;
 		private readonly UploadNextRequestDelegate _uploadNextDelegate;
 		
 		private const string ProgresString = "Uploading image {0} of 6 of your Big Profile...";
 		
-		private Queue<QueuedUpload> _queuedUploads;
+		private Queue<QueuedUpload> _queuedUploads;			
 		
-		private string _userId;
-		private bool _isLoggedIn; 
-		
-		public bool IsLoggedIn 
-		{
-			get { return _isLoggedIn; }
-			set 
-			{
-				_isLoggedIn = value;
-				if(_isLoggedIn) 
-				{
-					
-					_mainView.StartProgress(string.Format(ProgresString, 1));			
-					GetProfile();
-				}
-			}
-		}		
-		
-		public FacebookController(Facebook facebook, MainView mainView)
+		public FacebookController(Facebook facebook, FacebookLoginController loginController, MainView mainView)
 		{
 			_facebook = facebook;
 			_mainView = mainView;
+			_loginController = loginController;
 			_photoDelegate = new UploadPhotoRequestDelegate(this);
-			_userDelegate = new GetUserRequestDelegate(this);
-			_sessionDelegate = new SessionDelegate(this);
 			_fqlDelegate = new FqlRequestDelegate(this);
 			_uploadNextDelegate = new UploadNextRequestDelegate(this);
 			_queuedUploads = new Queue<QueuedUpload>();
-		}
-		
-		public void Login() 
-		{
-			if(_facebook.IsSessionValid)
-			{
-				IsLoggedIn = true;
-			}
-			else 
-			{
-				_facebook.Authorize(new string[]{"publish_stream", "read_stream", "user_photos"}, _sessionDelegate);
-			}
-		}
-		
-		public void Logout() 
-		{			
-			_facebook.Logout(_sessionDelegate);
-		}
-		
-		public void LoggedIn(string userId) 
-		{
-			_userId = userId;
-			_mainView.SplitImage();
-		}
+		}				
 		
 		public void ErrorOccurred(NSError error)
 		{
 			_mainView.StopProgress();
 			_mainView.ShowError(error);
-		}
-		
-		public void GetProfile() 
-		{
-			if(!IsLoggedIn) throw new Exception("User not logged in!");
-			
-			_facebook.RequestWithGraphPath("me", _userDelegate);
 		}
 		
 		public void QueueForUpload(UIImage image, string message, bool autoTag) 
@@ -115,8 +70,8 @@ namespace FacebookBigProfile
 		
 		private void UploadPhoto(UIImage image, string message, bool autoTag) 
 		{			
-			if(!IsLoggedIn) throw new Exception("User not logged in.");	
-			if(string.IsNullOrEmpty(_userId)) throw new Exception("Logged in but missing user id.");
+			if(!_loginController.IsLoggedIn) throw new Exception("User not logged in.");	
+			if(string.IsNullOrEmpty(_loginController.UserId)) throw new Exception("Logged in but missing user id.");
 		
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("picture"), image);
@@ -148,7 +103,7 @@ namespace FacebookBigProfile
 		{
 			var parameters = new NSMutableDictionary();
 			parameters.Add(new NSString("pid"), new NSString(photoPid));
-			parameters.Add(new NSString("tag_uid"), new NSString(_userId));
+			parameters.Add(new NSString("tag_uid"), new NSString(_loginController.UserId));
 			parameters.Add(new NSString("x"), new NSString("10.0"));
 			parameters.Add(new NSString("y"), new NSString("10.0"));
 			_facebook.RequestWithMethodName("photos.addTag", parameters, "POST", _uploadNextDelegate);	

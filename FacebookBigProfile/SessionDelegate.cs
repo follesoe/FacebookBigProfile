@@ -5,9 +5,9 @@ namespace FacebookBigProfile
 {
 	public class SessionDelegate : FBSessionDelegate
 	{
-		private FacebookController _facebookController;
+		private FacebookLoginController _facebookController;
 		
-		public SessionDelegate(FacebookController facebookController)
+		public SessionDelegate(FacebookLoginController facebookController)
 		{
 			_facebookController = facebookController;
 		}

@@ -6,9 +6,9 @@ namespace FacebookBigProfile
 {
 	public abstract class RequestDelegateBase : FBRequestDelegate
 	{				
-		private FacebookController _controller;
+		private IFacebookErrorProvider _controller;
 		
-		public RequestDelegateBase(FacebookController controller)
+		public RequestDelegateBase(IFacebookErrorProvider controller)
 		{
 			_controller = controller;
 		}
@@ -58,4 +58,3 @@ namespace FacebookBigProfile
 		}
 	}
 }
-

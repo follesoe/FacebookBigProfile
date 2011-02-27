@@ -6,9 +6,9 @@ namespace FacebookBigProfile
 {
 	public class GetUserRequestDelegate : RequestDelegateBase
 	{
-		private FacebookController _facebookController;
+		private FacebookLoginController _facebookController;
 		
-		public GetUserRequestDelegate(FacebookController facebookController) : base(facebookController)
+		public GetUserRequestDelegate(FacebookLoginController facebookController) : base(facebookController)
 		{
 			_facebookController = facebookController;
 		}

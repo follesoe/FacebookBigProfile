@@ -143,6 +143,7 @@
       <DependentUpon>FacebookPicturePicker.xib</DependentUpon>
     </Compile>
     <Compile Include="FacebookAlbumTableViewController.cs" />
+    <Compile Include="FacebookLoginController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

@@ -33,6 +33,7 @@ namespace FacebookBigProfile
 		}		
 		
 		private Facebook facebook;
+		private FacebookLoginController facebookLoginController;
 		private FacebookController facebookController;
 		private UIImagePickerController picker;
 		private UIImageView profilePictureView;
@@ -67,7 +68,8 @@ namespace FacebookBigProfile
 		private void Initialize ()
 		{
 			View.Frame = new RectangleF(0, 20, View.Frame.Width, View.Frame.Height);
-			facebookController = new FacebookController(facebook, this);		
+			facebookLoginController = new FacebookLoginController(facebook, this);
+			facebookController = new FacebookController(facebook, facebookLoginController, this);				
 			profilePictureSize = new SizeF(180f, 540f);
 			profilePictureSmallSize = new SizeF(97f, 68f);
 		}
@@ -285,8 +287,8 @@ namespace FacebookBigProfile
 				}				
 			}
 			else 
-			{
-				facebookController.Login();
+			{				
+				facebookLoginController.Login();
 			}
 		}
 
@@ -466,6 +468,7 @@ namespace FacebookBigProfile
 			public ActionDel(MainView mainView, bool hasCamera)
 			{
 				_mainView = mainView;
+				_hasCamera = hasCamera;
 			}
 				
 			public override void Clicked (UIActionSheet actionSheet, int buttonIndex)
