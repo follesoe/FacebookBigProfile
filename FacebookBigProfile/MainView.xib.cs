@@ -71,7 +71,7 @@ namespace FacebookBigProfile
 			facebookLoginController = new FacebookLoginController(facebook, this);
 			facebookController = new FacebookController(facebook, facebookLoginController, this);				
 			profilePictureSize = new SizeF(180f, 540f);
-			profilePictureSmallSize = new SizeF(97f, 68f);
+			profilePictureSmallSize = new SizeF(97f, 68f);				
 		}
 				
 		public override void ViewDidLoad ()
@@ -118,7 +118,7 @@ namespace FacebookBigProfile
 			
 			InitializePhotoButton();
 			
-			facebookButton.Clicked += (o, e) => LoginToFacebook();
+			facebookButton.Clicked += (o, e) => LoginToFacebook(true);
 						
 			hud = new ATMHud();
 			View.AddSubview(hud.View);
@@ -261,10 +261,10 @@ namespace FacebookBigProfile
 			PresentModalViewController(picker, true);
 		}
 		
-		public void GetPhotoFromFacebook()
+		private void ShowFacebookPhotoAlbums(object sender, EventArgs e)
 		{
 			var view = new FacebookPicturePicker(NavigationController, facebook);
-			NavigationController.PushViewController(view, true);			
+			NavigationController.PushViewController(view, true);
 		}
 		
 		public void SetProfilePicture(string url)
@@ -274,11 +274,8 @@ namespace FacebookBigProfile
 			setProfileView.NavigateTo(url);
 		}
 		
-		public void LoginToFacebook() 
+		public void LoginToFacebook(bool upload) 
 		{	
-			//SetProfilePicture("http://www.facebook.com/photo.php?fbid=159589650757706&m2w");
-			//return;
-			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))
@@ -287,8 +284,20 @@ namespace FacebookBigProfile
 				}				
 			}
 			else 
-			{				
-				facebookLoginController.Login();
+			{	
+				facebookLoginController.UserIsLoggedIn -= SplitImage;
+				facebookLoginController.UserIsLoggedIn -= ShowFacebookPhotoAlbums;
+				if(upload)
+				{
+					StartProgress("Uploading image 1 of 6 of your Big Profile...");
+					facebookLoginController.UserIsLoggedIn += SplitImage;
+					facebookLoginController.Login();
+				}
+				else
+				{
+					facebookLoginController.UserIsLoggedIn += ShowFacebookPhotoAlbums;
+					facebookLoginController.Login();
+				}
 			}
 		}
 
@@ -375,9 +384,9 @@ namespace FacebookBigProfile
 			return orgSize;
 		}
 		
-		public void SplitImage() 
+		public void SplitImage(object sender, EventArgs e) 
 		{		
-			
+			Console.WriteLine("Split Image");
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
@@ -477,12 +486,12 @@ namespace FacebookBigProfile
 				{
 					if(buttonIndex == 0) _mainView.GetPhotoFromCamera();
 					else if(buttonIndex == 1) _mainView.GetPhotoFromLibrary();
-					else if(buttonIndex == 2) _mainView.GetPhotoFromFacebook();
+					else if(buttonIndex == 2) _mainView.LoginToFacebook(false);
 				}
 				else
 				{
 					if(buttonIndex == 0) _mainView.GetPhotoFromLibrary();
-					else if(buttonIndex == 1) _mainView.GetPhotoFromFacebook();
+					else if(buttonIndex == 1) _mainView.LoginToFacebook(false);
 				}
 			}
 		}

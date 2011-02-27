@@ -11,8 +11,8 @@ namespace FacebookBigProfile
 		private readonly SessionDelegate _sessionDelegate;
 		private readonly GetUserRequestDelegate _userDelegate;
 		
-		private const string ProgresString = "Uploading image {0} of 6 of your Big Profile...";		
-		
+		public event EventHandler UserIsLoggedIn; 
+				
 		public FacebookLoginController (Facebook facebook, MainView mainView)
 		{
 			_facebook = facebook;
@@ -36,7 +36,6 @@ namespace FacebookBigProfile
 				_isLoggedIn = value;
 				if(_isLoggedIn) 
 				{
-					_mainView.StartProgress(string.Format(ProgresString, 1));					
 					GetProfile();
 				}
 			}
@@ -68,7 +67,8 @@ namespace FacebookBigProfile
 		public void LoggedIn(string userId) 
 		{
 			UserId = userId;
-			_mainView.SplitImage();
+			if(UserIsLoggedIn != null)
+				UserIsLoggedIn(this, new EventArgs());			
 		}
 		
 		public void GetProfile() 
@@ -79,4 +79,3 @@ namespace FacebookBigProfile
 		}
 	}
 }
-
