@@ -136,11 +136,19 @@
       <DependentUpon>SetProfilePictureView.xib</DependentUpon>
     </Compile>
     <Compile Include="LinePickerModel.cs" />
+    <Compile Include="FacebookPicturePicker.xib.cs">
+      <DependentUpon>FacebookPicturePicker.xib</DependentUpon>
+    </Compile>
+    <Compile Include="FacebookPicturePicker.xib.designer.cs">
+      <DependentUpon>FacebookPicturePicker.xib</DependentUpon>
+    </Compile>
+    <Compile Include="FacebookAlbumTableViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
     <Page Include="MainView.xib" />
     <Page Include="SetProfilePictureView.xib" />
+    <Page Include="FacebookPicturePicker.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

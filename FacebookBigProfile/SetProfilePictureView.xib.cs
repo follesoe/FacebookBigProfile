@@ -40,7 +40,7 @@ namespace FacebookBigProfile
 			_parentNavigationController = parentNavigationController;
 		}
 
-		void Initialize()
+		private void Initialize()
 		{
 		}
 		
