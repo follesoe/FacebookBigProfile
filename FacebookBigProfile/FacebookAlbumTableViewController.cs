@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using FacebookSdk;
 
 namespace FacebookBigProfile
 {
     public class FacebookAlbumTableViewController : UITableViewController
     {
         static NSString CellID = new NSString ("MyIdentifier");
+		
+		private readonly Facebook _facebook;
               
-		public FacebookAlbumTableViewController ()
+		public FacebookAlbumTableViewController (Facebook facebook)
 		{
+			_facebook = facebook;
 		}
         
         // The data source for our TableView
         class DataSource : UITableViewDataSource
         {
-            FacebookAlbumTableViewController tvc;
-            
-            public DataSource (FacebookAlbumTableViewController tableViewController)
-            {
-                this.tvc = tableViewController;
+            private readonly FacebookAlbumTableViewController _tvc;
+			private readonly Facebook _facebook;
+            		
+            public DataSource (FacebookAlbumTableViewController tableViewController, Facebook facebook)
+            {			
+                _tvc = tableViewController;	
+				_facebook = facebook;
             }
             
             public override int RowsInSection (UITableView tableView, int section)
@@ -47,11 +53,11 @@ namespace FacebookBigProfile
         // This class receives notifications that happen on the UITableView
         class TableDelegate : UITableViewDelegate
         {
-            FacebookAlbumTableViewController tvc;
+            private readonly FacebookAlbumTableViewController _tvc;
 
             public TableDelegate (FacebookAlbumTableViewController tableViewController)
             {
-                this.tvc = tableViewController;
+                _tvc = tableViewController;
             }
             
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
@@ -65,7 +71,7 @@ namespace FacebookBigProfile
             base.ViewDidLoad ();
 
             TableView.Delegate = new TableDelegate (this);
-            TableView.DataSource = new DataSource (this);
+            TableView.DataSource = new DataSource (this, _facebook);
         }
     }
 }

@@ -261,7 +261,7 @@ namespace FacebookBigProfile
 		
 		public void GetPhotoFromFacebook()
 		{
-			var view = new FacebookPicturePicker(NavigationController);
+			var view = new FacebookPicturePicker(NavigationController, facebook);
 			NavigationController.PushViewController(view, true);			
 		}
 		

@@ -5,6 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Drawing;
+using FacebookSdk;
 
 namespace FacebookBigProfile
 {
@@ -24,12 +25,14 @@ namespace FacebookBigProfile
 			Initialize();
 		}
 		
-		private UINavigationController _parentNavigationController;
+		private readonly UINavigationController _parentNavigationController;
+		private readonly Facebook _facebook;
 
-		public FacebookPicturePicker(UINavigationController parentNavigationController) : base("FacebookPicturePicker", null)
+		public FacebookPicturePicker(UINavigationController parentNavigationController, Facebook facebook) : base("FacebookPicturePicker", null)
 		{
 			Initialize ();
 			_parentNavigationController = parentNavigationController;
+			_facebook = facebook;
 		}
 		
 		private void Initialize()
@@ -46,7 +49,7 @@ namespace FacebookBigProfile
 				_parentNavigationController.PopViewControllerAnimated(true);				
 			};
 			
-			_albums = new FacebookAlbumTableViewController();
+			_albums = new FacebookAlbumTableViewController(_facebook);
 			_albums.View.Bounds = new RectangleF(0, 0, 320, View.Frame.Height - 44);
 			_albums.View.Frame = new RectangleF(0, 44, 320, _albums.View.Bounds.Height);
 			View.AddSubview(_albums.View);			
