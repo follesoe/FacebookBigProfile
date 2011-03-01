@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FacebookSdk;
+using MonoTouch.ObjCRuntime;
 
 namespace FacebookBigProfile
 {
@@ -90,11 +91,18 @@ namespace FacebookBigProfile
 		}
 		
 		public override void HandleResult (FBRequest request, NSDictionary dict)
-		{
-			NSArray data = (NSArray)dict.ObjectForKey(new NSString("data"));
+		{			
+			var data = (NSArray)dict.ObjectForKey(new NSString("data"));			
+							
 			for(uint i = 0; i < 6; ++i)
 			{	
-				Console.WriteLine(data.ValueAt(i));
+				var objDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(i));
+				
+				var id = objDict.ObjectForKey(new NSString("id"));
+				var name = objDict.ObjectForKey(new NSString("name"));
+				var count = objDict.ObjectForKey(new NSString("count"));
+				
+				Console.WriteLine("{0} {1} ({2})", id, name, count);
 			}
 		}
 	}
