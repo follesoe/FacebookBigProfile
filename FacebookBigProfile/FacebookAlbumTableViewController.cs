@@ -100,8 +100,7 @@ namespace FacebookBigProfile
 				
 				var id = objDict.ObjectForKey(new NSString("id"));
 				var name = objDict.ObjectForKey(new NSString("name"));
-				var count = objDict.ObjectForKey(new NSString("count"));
-				
+				var count = objDict.ObjectForKey(new NSString("count"));				
 				Console.WriteLine("{0} {1} ({2})", id, name, count);
 			}
 		}
