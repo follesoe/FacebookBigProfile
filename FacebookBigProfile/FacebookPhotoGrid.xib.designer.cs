@@ -12,8 +12,8 @@ namespace FacebookBigProfile {
 	
 	
 	// Base type probably should be MonoTouch.UIKit.UIViewController or subclass
-	[MonoTouch.Foundation.Register("FacebookPicturePicker")]
-	public partial class FacebookPicturePicker {
+	[MonoTouch.Foundation.Register("FacebookPhotoGrid")]
+	public partial class FacebookPhotoGrid {
 		
 		private MonoTouch.UIKit.UIView __mt_view;
 		

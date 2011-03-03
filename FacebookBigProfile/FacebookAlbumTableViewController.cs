@@ -14,13 +14,14 @@ namespace FacebookBigProfile
         static NSString CellID = new NSString ("MyIdentifier");
 		
 		private readonly Facebook _facebook;
+		private readonly FacebookPicturePicker _picker;
               
-		public FacebookAlbumTableViewController (Facebook facebook)
+		public FacebookAlbumTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
 			_facebook = facebook;
+			_picker = picker;
 		}
         
-        // The data source for our TableView
         class DataSource : UITableViewDataSource
         {
             private readonly FacebookAlbumTableViewController _tvc;
@@ -34,8 +35,8 @@ namespace FacebookBigProfile
 				
                 _tvc = tableViewController;	
 				
-				_facebook = facebook;								
-				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+				//_facebook = facebook;								
+				//_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
             }
 			
 			public void ShowAlbums(List<Album> albums)
@@ -47,6 +48,7 @@ namespace FacebookBigProfile
             
             public override int RowsInSection(UITableView tableView, int section)
             {
+				return 1;
                 return Albums.Count;			
             }
 
@@ -58,11 +60,39 @@ namespace FacebookBigProfile
                     cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
                 }
             
-                // Customize the cell here...
-				cell.TextLabel.Text = Albums[indexPath.Row].ToString();
+				
+                //cell.TextLabel.Text = Albums[indexPath.Row].ToString();
+				cell.TextLabel.Text = "Hello World!";
+				cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
             
                 return cell;
             }
+        }
+		
+		class TableDelegate : UITableViewDelegate
+        {
+            private readonly FacebookAlbumTableViewController _tvc;
+			private readonly DataSource _dataSource;
+
+            public TableDelegate (FacebookAlbumTableViewController tableViewController, DataSource dataSource)
+            {
+                _tvc = tableViewController;		
+				_dataSource = dataSource;
+            }
+            
+            public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+            {				
+                _tvc.AlbumSelected(null);
+            }
+        }
+		
+		public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+			
+			var dataSource = new DataSource(this, _facebook);
+            TableView.Delegate = new TableDelegate (this, dataSource);
+            TableView.DataSource = dataSource;
         }
 		
 	 	class GetAlbumsRequestDelegate : RequestDelegateBase
@@ -75,48 +105,36 @@ namespace FacebookBigProfile
 			}
 			
 			public override void HandleResult (FBRequest request, NSDictionary dict)
-			{			
-				var data = (NSArray)dict.ObjectForKey(new NSString("data"));			
+			{	
+				try
+				{
+					var data = (NSArray)dict.ObjectForKey(new NSString("data"));			
+							
+					var albums = new List<Album>();
+					for(uint i = 0; i < data.Count; ++i)
+					{	
+						var objDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(i));
 						
-				var albums = new List<Album>();
-				for(uint i = 0; i < data.Count; ++i)
-				{	
-					var objDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(i));
+						var id = objDict.ObjectForKey(new NSString("id"));
+						var name = objDict.ObjectForKey(new NSString("name"));
+						var count = (NSNumber)objDict.ObjectForKey(new NSString("count"));
+						
+						albums.Add(new Album(id.ToString(), name.ToString(), count.Int32Value));
+					}
 					
-					var id = objDict.ObjectForKey(new NSString("id"));
-					var name = objDict.ObjectForKey(new NSString("name"));
-					var count = (NSNumber)objDict.ObjectForKey(new NSString("count"));
-					
-					albums.Add(new Album(id.ToString(), name.ToString(), count.Int32Value));
+					_dataSource.ShowAlbums(albums);
 				}
-				
-				_dataSource.ShowAlbums(albums);
+				catch(Exception ex)
+				{
+					Console.WriteLine(ex.ToString());
+				}
 			}
 		}
-    
-        // This class receives notifications that happen on the UITableView
-        class TableDelegate : UITableViewDelegate
-        {
-            private readonly FacebookAlbumTableViewController _tvc;
-
-            public TableDelegate (FacebookAlbumTableViewController tableViewController)
-            {
-                _tvc = tableViewController;				
-            }
-            
-            public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-            {
-                Console.WriteLine ("Row selected {0}", indexPath.Row);
-            }
-        }
-
-        public override void ViewDidLoad ()
-        {
-            base.ViewDidLoad ();
-
-            TableView.Delegate = new TableDelegate (this);
-            TableView.DataSource = new DataSource (this, _facebook);
-        }
+		
+		public void AlbumSelected(Album album)
+		{
+			_picker.AlbumSelected(album);
+		}
     
 		public void ErrorOccurred (NSError error)
 		{
