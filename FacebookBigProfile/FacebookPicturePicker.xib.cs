@@ -10,10 +10,10 @@ namespace FacebookBigProfile
 {
 	public partial class FacebookPicturePicker : UIViewController
 	{		
-		private FacebookPhotoGrid _photoGrid;		
 		private readonly Facebook _facebook;
 		private readonly MainView _mainView;
 		private FacebookAlbumTableViewController _tableView;
+		private FacebookPhotosTableViewController _photos;
 		
 		public FacebookPicturePicker (IntPtr handle) : base(handle)
 		{
@@ -52,16 +52,16 @@ namespace FacebookBigProfile
 		{
 			_tableView.GetAlbums();
 		}
-							
+									
 		public void AlbumSelected(Album album)
 		{
-			if(_photoGrid == null)
+			if(_photos == null)
 			{
-				_photoGrid = new FacebookPhotoGrid(_facebook, this);
+				_photos = new FacebookPhotosTableViewController(_facebook, this);
+				_photos.View.Frame = new RectangleF(0, 0, 320, 450);
 			}
-						
-			NavigationController.PushViewController(_photoGrid, true);
-			_photoGrid.LoadPhotos(album);
+			_photos.LoadFromAlbum(album);
+			NavigationController.PushViewController(_photos, true);		
 		}
 		
 		public void StartProgress(string message)

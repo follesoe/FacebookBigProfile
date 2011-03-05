@@ -145,12 +145,6 @@
     <Compile Include="FacebookAlbumTableViewController.cs" />
     <Compile Include="FacebookLoginController.cs" />
     <Compile Include="Album.cs" />
-    <Compile Include="FacebookPhotoGrid.xib.cs">
-      <DependentUpon>FacebookPhotoGrid.xib</DependentUpon>
-    </Compile>
-    <Compile Include="FacebookPhotoGrid.xib.designer.cs">
-      <DependentUpon>FacebookPhotoGrid.xib</DependentUpon>
-    </Compile>
     <Compile Include="FacebookPhotosTableViewController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +152,6 @@
     <Page Include="MainView.xib" />
     <Page Include="SetProfilePictureView.xib" />
     <Page Include="FacebookPicturePicker.xib" />
-    <Page Include="FacebookPhotoGrid.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -40,7 +40,8 @@ namespace FacebookBigProfile
 				
 				Console.WriteLine("Load photos from " + album.Name);
 				
-				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), new GetPhotosRequestDelegate(_tvc, this));
+				var requestDelegate = new GetPhotosRequestDelegate(_tvc, this);
+				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), requestDelegate);
 			}
 			
 			public void AddPhotos(List<Photo> photos)
