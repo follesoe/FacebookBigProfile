@@ -10,6 +10,8 @@ namespace FacebookBigProfile
 {
 	public partial class FacebookPicturePicker : UIViewController
 	{		
+		private FacebookPhotoGrid _photoGrid;
+		
 		public FacebookPicturePicker (IntPtr handle) : base(handle)
 		{
 			Initialize();
@@ -49,27 +51,14 @@ namespace FacebookBigProfile
 			list.View.Frame = new RectangleF(0, 0, 320, 450);
 			View.AddSubview(list.View);
 		}
-	
-				
-		/*
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);		
-			
-			cancelButton.Clicked += (o, e) => {
-				_parentNavigationController.PopViewControllerAnimated(true);				
-			};
-			
-			_albums = new FacebookAlbumTableViewController(_facebook, this);
-			_albums.View.Bounds = new RectangleF(0, 0, 320, View.Frame.Height - 44);
-			_albums.View.Frame = new RectangleF(0, 44, 320, _albums.View.Bounds.Height);					
-		}*/
-		
-		
+							
 		public void AlbumSelected(Album album)
 		{
-			var pictures = new FacebookPhotoGrid();	
-			NavigationController.PushViewController(pictures, true);
+			if(_photoGrid == null)
+				_photoGrid = new FacebookPhotoGrid();
+			
+			_photoGrid.LoadPhotos(album);
+			NavigationController.PushViewController(_photoGrid, true);
 		}
 	}
 }

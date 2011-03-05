@@ -276,9 +276,6 @@ namespace FacebookBigProfile
 		
 		public void LoginToFacebook(bool upload) 
 		{	
-			ShowFacebookPhotoAlbums(null, EventArgs.Empty);
-			return;
-			
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
 			{
 				using(var alert = new UIAlertView("No connection", "You need an Internet connection to upload your Big Profile", null, "OK", null))

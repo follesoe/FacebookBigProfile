@@ -1,22 +1,18 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FacebookSdk;
-using MonoTouch.ObjCRuntime;
 
 namespace FacebookBigProfile
 {
-    public class FacebookAlbumTableViewController : UITableViewController, IFacebookErrorProvider
-    {
-        static NSString CellID = new NSString ("MyIdentifier");
+	public class FacebookPhotosTableViewController : UITableViewController, IFacebookErrorProvider
+	{
+		static NSString CellID = new NSString ("MyOtherIdentifier");
 		
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
               
-		public FacebookAlbumTableViewController (Facebook facebook, FacebookPicturePicker picker)
+		public FacebookPhotosTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
 			_facebook = facebook;
 			_picker = picker;
@@ -24,31 +20,29 @@ namespace FacebookBigProfile
         
         class DataSource : UITableViewDataSource
         {
-            private readonly FacebookAlbumTableViewController _tvc;
+            private readonly FacebookPhotosTableViewController _tvc;
 			private readonly Facebook _facebook;
 			
-			public List<Album> Albums { get; private set; }
+			public Album Album { get; private set; }
             		
-            public DataSource (FacebookAlbumTableViewController tableViewController, Facebook facebook)
+            public DataSource (FacebookPhotosTableViewController tableViewController, Facebook facebook)
             {	
-				Albums = new List<Album>();
-				
+
                 _tvc = tableViewController;	
 				
 				_facebook = facebook;								
-				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+				//_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
             }
 			
-			public void ShowAlbums(List<Album> albums)
+			public void ShowAlbum(Album album)
 			{
-				Albums.Clear();
-				Albums.AddRange(albums);				
+				Album = album;
 				_tvc.TableView.ReloadData();
 			}
             
             public override int RowsInSection(UITableView tableView, int section)
             {
-                return Albums.Count;			
+                return 0;
             }
 
             public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -59,8 +53,7 @@ namespace FacebookBigProfile
                     cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
                 }
             				
-                cell.TextLabel.Text = Albums[indexPath.Row].ToString();
-				cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
+                cell.TextLabel.Text = "TODO";
             
                 return cell;
             }
@@ -68,10 +61,10 @@ namespace FacebookBigProfile
 		
 		class TableDelegate : UITableViewDelegate
         {
-            private readonly FacebookAlbumTableViewController _tvc;
+            private readonly FacebookPhotosTableViewController _tvc;
 			private readonly DataSource _dataSource;
 
-            public TableDelegate (FacebookAlbumTableViewController tableViewController, DataSource dataSource)
+            public TableDelegate (FacebookPhotosTableViewController tableViewController, DataSource dataSource)
             {
                 _tvc = tableViewController;		
 				_dataSource = dataSource;
@@ -79,7 +72,7 @@ namespace FacebookBigProfile
             
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {				
-                _tvc.AlbumSelected(_dataSource.Albums[indexPath.Row]);
+                // TODO
             }
         }
 		
@@ -92,6 +85,7 @@ namespace FacebookBigProfile
             TableView.DataSource = dataSource;
         }
 		
+		/*
 	 	class GetAlbumsRequestDelegate : RequestDelegateBase
 		{
 			private DataSource _dataSource;
@@ -126,13 +120,8 @@ namespace FacebookBigProfile
 					Console.WriteLine(ex.ToString());
 				}
 			}
-		}
+		}*/
 		
-		public void AlbumSelected(Album album)
-		{
-			_picker.AlbumSelected(album);
-		}
-    
 		public void ErrorOccurred (NSError error)
 		{
 			Console.WriteLine("Error occured!");
