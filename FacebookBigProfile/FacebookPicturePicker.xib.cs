@@ -55,7 +55,7 @@ namespace FacebookBigProfile
 		public void AlbumSelected(Album album)
 		{
 			if(_photoGrid == null)
-				_photoGrid = new FacebookPhotoGrid();
+				_photoGrid = new FacebookPhotoGrid(_facebook, this);
 			
 			_photoGrid.LoadPhotos(album);
 			NavigationController.PushViewController(_photoGrid, true);
