@@ -37,6 +37,7 @@ namespace FacebookBigProfile
         {
             private readonly FacebookAlbumTableViewController _tvc;
 			private readonly Facebook _facebook;
+			private readonly GetAlbumsRequestDelegate _requestDelegate;
 			
 			public List<Album> Albums { get; private set; }
             		
@@ -44,14 +45,15 @@ namespace FacebookBigProfile
             {	
 				Albums = new List<Album>();
 				
-                _tvc = tableViewController;	
+                _tvc = tableViewController;					
+				_facebook = facebook;		
 				
-				_facebook = facebook;												
+				_requestDelegate = new GetAlbumsRequestDelegate(_tvc, this);
             }
 			
 			public void GetAlbums()
 			{
-				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+				_facebook.RequestWithGraphPath("/me/albums", _requestDelegate);
 			}
 			
 			public void ShowAlbums(List<Album> albums)
@@ -109,7 +111,7 @@ namespace FacebookBigProfile
 		
 	 	class GetAlbumsRequestDelegate : RequestDelegateBase
 		{
-			private DataSource _dataSource;
+			private readonly DataSource _dataSource;
 			
 			public GetAlbumsRequestDelegate(IFacebookErrorProvider controller, DataSource dataSource) : base(controller)
 			{
@@ -145,14 +147,12 @@ namespace FacebookBigProfile
 		
 		public void GetAlbums()
 		{
-			_picker.StartProgress("Getting albums");
 			_dataSource.GetAlbums();	
 		}
 		
 		public void GotAlbums()
 		{
 			TableView.ReloadData();
-			_picker.StopProgress();
 		}
 		
 		public void AlbumSelected(Album album)

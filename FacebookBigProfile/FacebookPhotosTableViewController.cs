@@ -25,23 +25,23 @@ namespace FacebookBigProfile
         {
             private readonly FacebookPhotosTableViewController _tvc;
 			private readonly Facebook _facebook;
+			private readonly GetPhotosRequestDelegate _requestDelegate;
 			
 			public Album Album { get; private set; }
             		
             public DataSource (FacebookPhotosTableViewController tableViewController, Facebook facebook)
             {	
                 _tvc = tableViewController;					
-				_facebook = facebook;												
+				_facebook = facebook;
+				_requestDelegate = new GetPhotosRequestDelegate(_tvc, this);
             }
 			
 			public void LoadFromAlbum(Album album)
 			{
-				Album = album;
-				
 				Console.WriteLine("Load photos from " + album.Name);
 				
-				var requestDelegate = new GetPhotosRequestDelegate(_tvc, this);
-				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), requestDelegate);
+				Album = album;											
+				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), _requestDelegate);
 			}
 			
 			public void AddPhotos(List<Photo> photos)
@@ -83,13 +83,15 @@ namespace FacebookBigProfile
             
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {				
-                // TODO
+                Console.WriteLine(_dataSource.Album.Photos[indexPath.Row].Id + " selected..");
             }
         }
 		
-		public override void ViewDidLoad ()
+		public override void ViewDidLoad()
         {
-            base.ViewDidLoad ();
+            base.ViewDidLoad();
+			
+			Title = "Photos";
 			
 			_dataSource = new DataSource(this, _facebook);
             TableView.Delegate = new TableDelegate (this, _dataSource);
@@ -109,16 +111,31 @@ namespace FacebookBigProfile
 			{	
 				try
 				{
-					var data = (NSArray)dict.ObjectForKey(new NSString("data"));			
+					var data = (NSArray)dict.ObjectForKey(new NSString("data"));
 							
 					var photos = new List<Photo>();
 					for(uint i = 0; i < data.Count; ++i)
 					{	
 						var objDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(i));
 						
-						var id = objDict.ObjectForKey(new NSString("id"));
+						var id = objDict.ObjectForKey(new NSString("id")).ToString();
+						var source = objDict.ObjectForKey(new NSString("source")).ToString();
 						
-						photos.Add(new Photo { Id = id.ToString() });
+						string smallesSource = string.Empty;						
+						uint smallestSize = uint.MaxValue;	
+						
+					 	var photoArray = (NSArray)objDict.ObjectForKey(new NSString("images"));
+						for(uint j = 0; j < photoArray.Count; ++j)
+						{
+							var imgDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(j));
+							var size = (NSNumber)imgDict.ObjectForKey(new NSString("height"));
+							if(smallestSize > size.UInt32Value)
+							{
+								smallestSize = size.UInt32Value;
+								smallesSource = imgDict.ObjectForKey(new NSString("source")).ToString();
+							}
+						}
+						photos.Add(new Photo(id, source, smallesSource));
 					}
 					
 					_dataSource.AddPhotos(photos);
@@ -132,6 +149,7 @@ namespace FacebookBigProfile
 		
 		public void LoadFromAlbum(Album album)
 		{
+			Title = album.Name;
 			_dataSource.LoadFromAlbum(album);	
 		}
 		

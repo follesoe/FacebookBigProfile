@@ -31,6 +31,15 @@ namespace FacebookBigProfile
 	
 	public class Photo
 	{
-		public string Id { get; set; }
+		public string Id { get; private set; }
+		public string Source { get; private set; }
+		public string SmallSource { get; private set; }
+		
+		public Photo(string id, string source, string smallSource)
+		{
+			Id = id;
+			Source = source;
+			SmallSource = smallSource;
+		}
 	}
 }
