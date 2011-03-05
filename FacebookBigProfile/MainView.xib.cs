@@ -263,7 +263,7 @@ namespace FacebookBigProfile
 		
 		private void ShowFacebookPhotoAlbums(object sender, EventArgs e)
 		{
-			var view = new FacebookPicturePicker(NavigationController, facebook);
+			var view = new FacebookPicturePicker(facebook, this);
 			NavigationController.PushViewController(view, true);
 		}
 		

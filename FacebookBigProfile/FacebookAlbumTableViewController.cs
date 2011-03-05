@@ -2,10 +2,11 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using FacebookSdk;
+using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
+
+using FacebookSdk;
 
 namespace FacebookBigProfile
 {
@@ -15,6 +16,16 @@ namespace FacebookBigProfile
 		
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
+		private DataSource _dataSource;
+		
+		public FacebookAlbumTableViewController (IntPtr handle) : base(handle)
+		{
+		}
+
+		[Export("initWithCoder:")]
+		public FacebookAlbumTableViewController (NSCoder coder) : base(coder)
+		{			
+		}
               
 		public FacebookAlbumTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
@@ -35,15 +46,19 @@ namespace FacebookBigProfile
 				
                 _tvc = tableViewController;	
 				
-				_facebook = facebook;								
-				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+				_facebook = facebook;												
             }
+			
+			public void GetAlbums()
+			{
+				_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+			}
 			
 			public void ShowAlbums(List<Album> albums)
 			{
 				Albums.Clear();
 				Albums.AddRange(albums);				
-				_tvc.TableView.ReloadData();
+				_tvc.GotAlbums();
 			}
             
             public override int RowsInSection(UITableView tableView, int section)
@@ -87,9 +102,9 @@ namespace FacebookBigProfile
         {
             base.ViewDidLoad ();
 			
-			var dataSource = new DataSource(this, _facebook);
-            TableView.Delegate = new TableDelegate (this, dataSource);
-            TableView.DataSource = dataSource;
+			_dataSource = new DataSource(this, _facebook);
+			TableView.Delegate = new TableDelegate (this, _dataSource);
+			TableView.DataSource = _dataSource;            
         }
 		
 	 	class GetAlbumsRequestDelegate : RequestDelegateBase
@@ -126,6 +141,18 @@ namespace FacebookBigProfile
 					Console.WriteLine(ex.ToString());
 				}
 			}
+		}
+		
+		public void GetAlbums()
+		{
+			_picker.StartProgress("Getting albums");
+			_dataSource.GetAlbums();	
+		}
+		
+		public void GotAlbums()
+		{
+			TableView.ReloadData();
+			_picker.StopProgress();
 		}
 		
 		public void AlbumSelected(Album album)

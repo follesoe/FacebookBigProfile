@@ -66,13 +66,16 @@ namespace FacebookBigProfile
 		
 		public void LoggedIn(string userId) 
 		{
+			_mainView.StopProgress();
 			UserId = userId;
+			
 			if(UserIsLoggedIn != null)
 				UserIsLoggedIn(this, new EventArgs());			
 		}
 		
 		public void GetProfile() 
 		{
+			_mainView.StartProgress("Logging in");
 			if(!IsLoggedIn) throw new Exception("User not logged in!");
 			
 			_facebook.RequestWithGraphPath("me", _userDelegate);

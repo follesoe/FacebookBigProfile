@@ -12,43 +12,28 @@ namespace FacebookBigProfile
 	{
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
+		private FacebookPhotosTableViewController _photos;
 		
-		public FacebookPhotoGrid (IntPtr handle) : base(handle)
-		{
-			Initialize ();
-		}
-
-		[Export("initWithCoder:")]
-		public FacebookPhotoGrid (NSCoder coder) : base(coder)
-		{
-			Initialize ();
-		}
-
-		public FacebookPhotoGrid (Facebook facebook, FacebookPicturePicker picker) : base("FacebookPhotoGrid", null)
+		public FacebookPhotoGrid(Facebook facebook, FacebookPicturePicker picker) : base("FacebookPhotoGrid", null)
 		{			
 			_facebook = facebook;
 			_picker = picker;
-			
-			Initialize ();
-		}
-
-		private void Initialize ()
-		{
-		}
+		}		
 		
-		public override void ViewDidLoad ()
+		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad ();
-			Title = "Photos";
 			
-			var list = new FacebookPhotosTableViewController(_facebook, _picker);
-			list.View.Frame = new RectangleF(0, 0, 320, 450);
-			View.AddSubview(list.View);
+			Console.WriteLine("PhotoGrid DidLoad");
+			
+			_photos = new FacebookPhotosTableViewController(_facebook, _picker);
+			_photos.View.Frame = new RectangleF(0, 0, 320, 450);
+			View.AddSubview(_photos.View);				
 		}
 		
 		public void LoadPhotos(Album album)
-		{
-			Console.WriteLine("Load photos from " + album.Name);
+		{	
+			_photos.LoadFromAlbum(album);
 		}
 	}
 }

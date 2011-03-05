@@ -2,6 +2,8 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FacebookSdk;
+using System.Collections.Generic;
+using MonoTouch.ObjCRuntime;
 
 namespace FacebookBigProfile
 {
@@ -11,6 +13,7 @@ namespace FacebookBigProfile
 		
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
+		private DataSource _dataSource;
               
 		public FacebookPhotosTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
@@ -27,22 +30,29 @@ namespace FacebookBigProfile
             		
             public DataSource (FacebookPhotosTableViewController tableViewController, Facebook facebook)
             {	
-
-                _tvc = tableViewController;	
-				
-				_facebook = facebook;								
-				//_facebook.RequestWithGraphPath("/me/albums", new GetAlbumsRequestDelegate(_tvc, this));
+                _tvc = tableViewController;					
+				_facebook = facebook;												
             }
 			
-			public void ShowAlbum(Album album)
+			public void LoadFromAlbum(Album album)
 			{
 				Album = album;
+				
+				Console.WriteLine("Load photos from " + album.Name);
+				
+				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), new GetPhotosRequestDelegate(_tvc, this));
+			}
+			
+			public void AddPhotos(List<Photo> photos)
+			{
+				Album.AddPhotos(photos);
 				_tvc.TableView.ReloadData();
 			}
             
             public override int RowsInSection(UITableView tableView, int section)
             {
-                return 0;
+                if(Album == null) return 0;
+				return Album.Photos.Count;
             }
 
             public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -53,7 +63,7 @@ namespace FacebookBigProfile
                     cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
                 }
             				
-                cell.TextLabel.Text = "TODO";
+                cell.TextLabel.Text = Album.Photos[indexPath.Row].Id;
             
                 return cell;
             }
@@ -80,17 +90,16 @@ namespace FacebookBigProfile
         {
             base.ViewDidLoad ();
 			
-			var dataSource = new DataSource(this, _facebook);
-            TableView.Delegate = new TableDelegate (this, dataSource);
-            TableView.DataSource = dataSource;
+			_dataSource = new DataSource(this, _facebook);
+            TableView.Delegate = new TableDelegate (this, _dataSource);
+            TableView.DataSource = _dataSource;
         }
 		
-		/*
-	 	class GetAlbumsRequestDelegate : RequestDelegateBase
+	 	class GetPhotosRequestDelegate : RequestDelegateBase
 		{
 			private DataSource _dataSource;
 			
-			public GetAlbumsRequestDelegate(IFacebookErrorProvider controller, DataSource dataSource) : base(controller)
+			public GetPhotosRequestDelegate(IFacebookErrorProvider controller, DataSource dataSource) : base(controller)
 			{
 				_dataSource = dataSource;
 			}
@@ -101,26 +110,29 @@ namespace FacebookBigProfile
 				{
 					var data = (NSArray)dict.ObjectForKey(new NSString("data"));			
 							
-					var albums = new List<Album>();
+					var photos = new List<Photo>();
 					for(uint i = 0; i < data.Count; ++i)
 					{	
 						var objDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(i));
 						
 						var id = objDict.ObjectForKey(new NSString("id"));
-						var name = objDict.ObjectForKey(new NSString("name"));
-						var count = (NSNumber)objDict.ObjectForKey(new NSString("count"));
 						
-						albums.Add(new Album(id.ToString(), name.ToString(), count.Int32Value));
+						photos.Add(new Photo { Id = id.ToString() });
 					}
 					
-					_dataSource.ShowAlbums(albums);
+					_dataSource.AddPhotos(photos);
 				}
 				catch(Exception ex)
 				{
 					Console.WriteLine(ex.ToString());
 				}
 			}
-		}*/
+		}
+		
+		public void LoadFromAlbum(Album album)
+		{
+			_dataSource.LoadFromAlbum(album);	
+		}
 		
 		public void ErrorOccurred (NSError error)
 		{

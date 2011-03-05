@@ -10,31 +10,24 @@ namespace FacebookBigProfile
 {
 	public partial class FacebookPicturePicker : UIViewController
 	{		
-		private FacebookPhotoGrid _photoGrid;
+		private FacebookPhotoGrid _photoGrid;		
+		private readonly Facebook _facebook;
+		private readonly MainView _mainView;
+		private FacebookAlbumTableViewController _tableView;
 		
 		public FacebookPicturePicker (IntPtr handle) : base(handle)
 		{
-			Initialize();
 		}
 
 		[Export("initWithCoder:")]
 		public FacebookPicturePicker (NSCoder coder) : base(coder)
-		{
-			Initialize();
-		}
-		
-		private readonly UINavigationController _parentNavigationController;
-		private readonly Facebook _facebook;
+		{			
+		}	
 
-		public FacebookPicturePicker(UINavigationController parentNavigationController, Facebook facebook) : base("FacebookPicturePicker", null)
+		public FacebookPicturePicker(Facebook facebook, MainView mainView) : base("FacebookPicturePicker", null)
 		{
-			Initialize ();
-			_parentNavigationController = parentNavigationController;
 			_facebook = facebook;
-		}
-		
-		private void Initialize()
-		{
+			_mainView = mainView;
 		}
 		
 		public override void ViewWillAppear (bool animated)
@@ -45,20 +38,40 @@ namespace FacebookBigProfile
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			
+			Console.WriteLine("PicturePicker DidLoad");
+			
 			Title = "Facebook Albums";
 			
-			var list = new FacebookAlbumTableViewController(_facebook, this);
-			list.View.Frame = new RectangleF(0, 0, 320, 450);
-			View.AddSubview(list.View);
+			_tableView = new FacebookAlbumTableViewController(_facebook, this);				
+			_tableView.View.Frame = new RectangleF(0, 0, 320, 450);
+			View.AddSubview(_tableView.View);				
+		}
+		
+		public override void ViewDidAppear (bool animated)
+		{
+			_tableView.GetAlbums();
 		}
 							
 		public void AlbumSelected(Album album)
 		{
 			if(_photoGrid == null)
+			{
 				_photoGrid = new FacebookPhotoGrid(_facebook, this);
-			
-			_photoGrid.LoadPhotos(album);
+			}
+						
 			NavigationController.PushViewController(_photoGrid, true);
+			_photoGrid.LoadPhotos(album);
+		}
+		
+		public void StartProgress(string message)
+		{
+			_mainView.StartProgress(message);
+		}		
+		
+		public void StopProgress()
+		{
+			_mainView.StopProgress();
 		}
 	}
 }
