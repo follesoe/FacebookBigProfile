@@ -45,7 +45,7 @@ namespace FacebookBigProfile
 		
 		public void ErrorOccurred(NSError error)
 		{
-			_mainView.StopProgress();
+			_mainView.StopProgress(false);
 			_mainView.ShowError(error);
 		}
 		
@@ -64,7 +64,7 @@ namespace FacebookBigProfile
 			}
 			else 
 			{
-				_mainView.StopProgress();
+				_mainView.StopProgress(true);
 			}
 		}
 		
@@ -112,7 +112,7 @@ namespace FacebookBigProfile
 		public void SetProfilePicture(string fbid)
 		{
 			string profilePictureUrl = string.Format("http://www.facebook.com/photo.php?fbid={0}&m2w", fbid);
-			_mainView.StopProgress();
+			_mainView.StopProgress(true);
 			_mainView.SetProfilePicture(profilePictureUrl);
 			
 			/*

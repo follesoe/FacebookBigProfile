@@ -56,7 +56,7 @@ namespace FacebookBigProfile
 		
 		private ATMHud hud;
 		
-		private bool uploadedButNotPosted = false;
+		private bool showPostToWall = false;
 		private bool lineMessageShown = false;		
 		private int numberOfLines = 2;
 		
@@ -78,7 +78,7 @@ namespace FacebookBigProfile
 		{				
 			base.ViewDidLoad();
 			
-			linePickerModel = new LinePickerModel(this);
+			linePickerModel = new LinePickerModel();
 			lineSelector.Model = linePickerModel;
 			lineSelector.ShowSelectionIndicator = true;
 			
@@ -174,9 +174,9 @@ namespace FacebookBigProfile
 		
 		public override void ViewDidAppear (bool animated)
 		{
-			if(uploadedButNotPosted) 
+			if(showPostToWall) 
 			{
-				uploadedButNotPosted = false;
+				showPostToWall = false;
 				PostToWall();											
 			}
 			base.ViewDidAppear (animated);
@@ -234,13 +234,13 @@ namespace FacebookBigProfile
 			hud.Update();
 		}
 		
-		public void StopProgress()
+		public void StopProgress(bool shouldPostToWall)
 		{
 			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-			hud.SetActivity(false);
-			hud.Hide();
-			uploadedButNotPosted = true;
-		}
+			hud.SetActivity(false);			
+			hud.Hide();			
+			showPostToWall = shouldPostToWall;
+		}		
 		
 		public void ShowError(NSError error)
 		{
@@ -311,7 +311,7 @@ namespace FacebookBigProfile
 				
 				BeginInvokeOnMainThread(() => {
 					LoadImage(image);
-					StopProgress();
+					StopProgress(false);
 				});
 				
 			});

@@ -43,7 +43,7 @@ namespace FacebookBigProfile
 		
 		public void ErrorOccurred(NSError error)
 		{
-			_mainView.StopProgress();
+			_mainView.StopProgress(false);
 			_mainView.ShowError(error);
 		}
 		
@@ -66,7 +66,7 @@ namespace FacebookBigProfile
 		
 		public void LoggedIn(string userId) 
 		{
-			_mainView.StopProgress();
+			_mainView.StopProgress(false);
 			UserId = userId;
 			
 			if(UserIsLoggedIn != null)

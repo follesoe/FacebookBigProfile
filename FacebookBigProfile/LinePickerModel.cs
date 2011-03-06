@@ -7,7 +7,6 @@ namespace FacebookBigProfile
 	public class LinePickerModel : UIPickerViewModel
 	{
 		private readonly List<string> _options;
-		private readonly MainView _mainView;
 		public int CurrentRow;
 		
 		public string CurrentText
@@ -15,9 +14,8 @@ namespace FacebookBigProfile
 			get { return _options[CurrentRow]; }
 		}
 		
-		public LinePickerModel(MainView mainView)
+		public LinePickerModel()
 		{
-			_mainView = mainView;
 			_options = new List<string>();
 			_options.Add("No lines");
 			_options.Add("One line");

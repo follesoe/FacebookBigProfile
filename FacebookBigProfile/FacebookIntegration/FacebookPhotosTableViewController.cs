@@ -86,13 +86,8 @@ namespace FacebookBigProfile
 		
 		class TableDelegate : UITableViewDelegate
         {
-            private readonly FacebookPhotosTableViewController _tvc;
-			private readonly DataSource _dataSource;
-
-            public TableDelegate (FacebookPhotosTableViewController tableViewController, DataSource dataSource)
+            public TableDelegate ()
             {
-                _tvc = tableViewController;		
-				_dataSource = dataSource;
             }
 			
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
@@ -112,7 +107,7 @@ namespace FacebookBigProfile
 			Title = "Photos";
 			
 			_dataSource = new DataSource(this, _facebook);
-            TableView.Delegate = new TableDelegate (this, _dataSource);
+            TableView.Delegate = new TableDelegate();
             TableView.DataSource = _dataSource;
         }
 		

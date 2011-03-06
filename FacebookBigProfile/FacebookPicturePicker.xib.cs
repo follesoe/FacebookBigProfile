@@ -67,16 +67,6 @@ namespace FacebookBigProfile
 		{			
 			NavigationController.PopToRootViewController(true);
 			_mainView.StartDownloadImage(url);
-		}
-		
-		public void StartProgress(string message)
-		{
-			_mainView.StartProgress(message);
-		}		
-		
-		public void StopProgress()
-		{
-			_mainView.StopProgress();
-		}
+		}	
 	}
 }
