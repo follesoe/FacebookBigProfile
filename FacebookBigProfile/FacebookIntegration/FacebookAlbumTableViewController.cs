@@ -73,10 +73,11 @@ namespace FacebookBigProfile
                 var cell = tableView.DequeueReusableCell(CellID);
                 if (cell == null)
                 {					
-                    cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
+                    cell = new UITableViewCell (UITableViewCellStyle.Subtitle, CellID);
                 }
             				
-                cell.TextLabel.Text = Albums[indexPath.Row].ToString();
+                cell.TextLabel.Text = Albums[indexPath.Row].Name;
+				cell.DetailTextLabel.Text = string.Format("{0} photos", Albums[indexPath.Row].Count);
 				cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
             
                 return cell;

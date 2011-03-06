@@ -41,9 +41,7 @@ namespace FacebookBigProfile
             }
 			
 			public void LoadFromAlbum(Album album)
-			{
-				Console.WriteLine("Load photos from " + album.Name);
-				
+			{				
 				Album = album;											
 				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), _requestDelegate);
 			}
@@ -108,7 +106,7 @@ namespace FacebookBigProfile
 			
 			_dataSource = new DataSource(this, _facebook);
             TableView.Delegate = new TableDelegate();
-            TableView.DataSource = _dataSource;
+            TableView.DataSource = _dataSource;				
         }
 		
 	 	class GetPhotosRequestDelegate : RequestDelegateBase

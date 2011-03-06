@@ -32,19 +32,18 @@ namespace FacebookBigProfile
 		
 		public override void ViewWillAppear (bool animated)
 		{
+			Title = "Facebook Albums";
 			NavigationController.SetNavigationBarHidden(false, true);			
 		}
 		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-						
-			Title = "Facebook Albums";
-			
+												
 			_tableView = new FacebookAlbumTableViewController(_facebook, this);				
 			_tableView.View.Frame = new RectangleF(0, 0, 320, 450);
 			View.AddSubview(_tableView.View);				
-		}
+		}	
 		
 		public override void ViewDidAppear (bool animated)
 		{
@@ -60,11 +59,12 @@ namespace FacebookBigProfile
 			}
 			_photos.LoadFromAlbum(album);
 			
+			Title = "Albums";
 			NavigationController.PushViewController(_photos, true);		
 		}
 		
 		public void PhotoSelected(string url)
-		{			
+		{						
 			NavigationController.PopToRootViewController(true);
 			_mainView.StartDownloadImage(url);
 		}	
