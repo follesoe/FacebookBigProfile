@@ -275,6 +275,8 @@ namespace FacebookBigProfile
 			setProfileView.NavigateTo(url);
 		}
 		
+		private ReadyHandler _readyHandler;
+		
 		public void LoginToFacebook(bool upload) 
 		{	
 			if(Reachability.RemoteHostStatus() == NetworkStatus.NotReachable)
@@ -290,9 +292,11 @@ namespace FacebookBigProfile
 				facebookLoginController.UserIsLoggedIn -= ShowFacebookPhotoAlbums;
 				if(upload)
 				{
-					StartProgress("Uploading image 1 of 6 of your Big Profile...");
-					facebookLoginController.UserIsLoggedIn += SplitImage;
-					facebookLoginController.Login();
+					if(_readyHandler == null) _readyHandler = new ReadyHandler(this);
+					using(UIAlertView alert = new UIAlertView("Ready to upload?", "This will set the current picture as your Big Profile", _readyHandler, "No", "Yes"))
+					{
+						alert.Show();
+					}					
 				}
 				else
 				{
@@ -300,6 +304,13 @@ namespace FacebookBigProfile
 					facebookLoginController.Login();
 				}
 			}
+		}
+		
+		public void UploadProfile()
+		{
+			StartProgress("Uploading image 1 of 6 of your Big Profile...");
+			facebookLoginController.UserIsLoggedIn += SplitImage;
+			facebookLoginController.Login();
 		}
 		
 		public void StartDownloadImage(string url)
@@ -508,6 +519,24 @@ namespace FacebookBigProfile
 				{
 					if(buttonIndex == 0) _mainView.GetPhotoFromLibrary();
 					else if(buttonIndex == 1) _mainView.LoginToFacebook(false);
+				}
+			}
+		}
+		
+		public class ReadyHandler : UIAlertViewDelegate
+		{
+			private MainView _mainView;
+			
+			public ReadyHandler(MainView mainView)
+			{
+				_mainView = mainView;
+			}
+			
+			public override void Clicked (UIAlertView alertview, int buttonIndex)
+			{
+				if(buttonIndex == 1)
+				{
+					_mainView.UploadProfile();
 				}
 			}
 		}
