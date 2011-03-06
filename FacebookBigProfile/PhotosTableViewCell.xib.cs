@@ -116,6 +116,7 @@ namespace FacebookBigProfile
 					
 					if(!File.Exists(target))
 					{
+						UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 						using (var file = new FileStream (target, FileMode.Create, FileAccess.Write, FileShare.Read)) 
 						{
 							var req = WebRequest.Create (request.Uri) as HttpWebRequest;
@@ -130,6 +131,7 @@ namespace FacebookBigProfile
 			                    }
 			                }
 						}
+						UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
 					}
 					
 					callback(new UpdateImage(request.Number, request.Uri, UIImage.FromFileUncached(target)));
@@ -139,16 +141,6 @@ namespace FacebookBigProfile
 			{
 				Console.WriteLine ("Problem with {0} {1}", request.Uri, ex);
 			}			
-			
-			/*
-			try 
-			{										
-				var image = UIImage.LoadFromData(NSData.FromUrl(new NSUrl(request.Uri.ToString())));
-			} 
-			catch (Exception ex) 
-			{
-				Console.WriteLine ("Problem with {0} {1}", request, ex);
-			}*/
 		}
 	}
 	

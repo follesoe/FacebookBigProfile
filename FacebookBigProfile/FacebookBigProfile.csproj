@@ -121,13 +121,7 @@
       <DependentUpon>MainView.xib</DependentUpon>
     </Compile>
     <Compile Include="ImagePickerDelegate.cs" />
-    <Compile Include="FacebookController.cs" />
-    <Compile Include="SessionDelegate.cs" />
     <Compile Include="CropHelpers.cs" />
-    <Compile Include="UploadPhotoRequestDelegate.cs" />
-    <Compile Include="RequestDelegateBase.cs" />
-    <Compile Include="GetUserRequestDelegate.cs" />
-    <Compile Include="FqlRequestDelegate.cs" />
     <Compile Include="Reachability.cs" />
     <Compile Include="SetProfilePictureView.xib.cs">
       <DependentUpon>SetProfilePictureView.xib</DependentUpon>
@@ -142,10 +136,7 @@
     <Compile Include="FacebookPicturePicker.xib.designer.cs">
       <DependentUpon>FacebookPicturePicker.xib</DependentUpon>
     </Compile>
-    <Compile Include="FacebookAlbumTableViewController.cs" />
-    <Compile Include="FacebookLoginController.cs" />
     <Compile Include="Album.cs" />
-    <Compile Include="FacebookPhotosTableViewController.cs" />
     <Compile Include="PhotosTableViewCell.xib.cs">
       <DependentUpon>PhotosTableViewCell.xib</DependentUpon>
     </Compile>
@@ -156,6 +147,15 @@
     <Compile Include="Infrastructure\SplitOrderedList.cs" />
     <Compile Include="Infrastructure\ObjectPool.cs" />
     <Compile Include="Infrastructure\Processor.cs" />
+    <Compile Include="FacebookIntegration\FacebookAlbumTableViewController.cs" />
+    <Compile Include="FacebookIntegration\FacebookController.cs" />
+    <Compile Include="FacebookIntegration\FacebookLoginController.cs" />
+    <Compile Include="FacebookIntegration\FacebookPhotosTableViewController.cs" />
+    <Compile Include="FacebookIntegration\FqlRequestDelegate.cs" />
+    <Compile Include="FacebookIntegration\GetUserRequestDelegate.cs" />
+    <Compile Include="FacebookIntegration\RequestDelegateBase.cs" />
+    <Compile Include="FacebookIntegration\SessionDelegate.cs" />
+    <Compile Include="FacebookIntegration\UploadPhotoRequestDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
@@ -188,5 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
+    <Folder Include="FacebookIntegration\" />
   </ItemGroup>
 </Project>
