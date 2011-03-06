@@ -61,7 +61,14 @@ namespace FacebookBigProfile
 				_photos.View.Frame = new RectangleF(0, 0, 320, 450);
 			}
 			_photos.LoadFromAlbum(album);
+			
 			NavigationController.PushViewController(_photos, true);		
+		}
+		
+		public void PhotoSelected(string url)
+		{
+			Console.WriteLine("Download {0}", url);
+			NavigationController.PopToRootViewController(true);
 		}
 		
 		public void StartProgress(string message)

@@ -68,6 +68,7 @@ namespace FacebookBigProfile
                 if (cell == null)
                 {
 					cellController = new PhotosTableViewCell();
+					cellController.ImageSelected += (img) => _tvc.PhotoSelected(img);
                     cell = cellController.Cell;
 					cell.Tag = Environment.TickCount + _random.Next(0, 1000);
 					_cellControllers.Add(cell.Tag, cellController);					
@@ -162,6 +163,11 @@ namespace FacebookBigProfile
 					Console.WriteLine(ex.ToString());
 				}
 			}
+		}
+		
+		public void PhotoSelected(string url)
+		{
+			_picker.PhotoSelected(url);
 		}
 		
 		public void LoadFromAlbum(Album album)

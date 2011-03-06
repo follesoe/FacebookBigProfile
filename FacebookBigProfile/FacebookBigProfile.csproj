@@ -156,6 +156,7 @@
     <Compile Include="FacebookIntegration\RequestDelegateBase.cs" />
     <Compile Include="FacebookIntegration\SessionDelegate.cs" />
     <Compile Include="FacebookIntegration\UploadPhotoRequestDelegate.cs" />
+    <Compile Include="Infrastructure\ImageLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />

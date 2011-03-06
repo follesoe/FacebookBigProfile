@@ -17,13 +17,13 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UITableViewCell __mt_cell;
 		
-		private MonoTouch.UIKit.UIImageView __mt_img1;
+		private MonoTouch.UIKit.UIButton __mt_btn1;
 		
-		private MonoTouch.UIKit.UIImageView __mt_img2;
+		private MonoTouch.UIKit.UIButton __mt_btn2;
 		
-		private MonoTouch.UIKit.UIImageView __mt_img3;
+		private MonoTouch.UIKit.UIButton __mt_btn3;
 		
-		private MonoTouch.UIKit.UIImageView __mt_img4;
+		private MonoTouch.UIKit.UIButton __mt_btn4;
 		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("cell")]
@@ -38,51 +38,51 @@ namespace FacebookBigProfile {
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("img1")]
-		private MonoTouch.UIKit.UIImageView img1 {
+		[MonoTouch.Foundation.Connect("btn1")]
+		private MonoTouch.UIKit.UIButton btn1 {
 			get {
-				this.__mt_img1 = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("img1")));
-				return this.__mt_img1;
+				this.__mt_btn1 = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("btn1")));
+				return this.__mt_btn1;
 			}
 			set {
-				this.__mt_img1 = value;
-				this.SetNativeField("img1", value);
+				this.__mt_btn1 = value;
+				this.SetNativeField("btn1", value);
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("img2")]
-		private MonoTouch.UIKit.UIImageView img2 {
+		[MonoTouch.Foundation.Connect("btn2")]
+		private MonoTouch.UIKit.UIButton btn2 {
 			get {
-				this.__mt_img2 = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("img2")));
-				return this.__mt_img2;
+				this.__mt_btn2 = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("btn2")));
+				return this.__mt_btn2;
 			}
 			set {
-				this.__mt_img2 = value;
-				this.SetNativeField("img2", value);
+				this.__mt_btn2 = value;
+				this.SetNativeField("btn2", value);
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("img3")]
-		private MonoTouch.UIKit.UIImageView img3 {
+		[MonoTouch.Foundation.Connect("btn3")]
+		private MonoTouch.UIKit.UIButton btn3 {
 			get {
-				this.__mt_img3 = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("img3")));
-				return this.__mt_img3;
+				this.__mt_btn3 = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("btn3")));
+				return this.__mt_btn3;
 			}
 			set {
-				this.__mt_img3 = value;
-				this.SetNativeField("img3", value);
+				this.__mt_btn3 = value;
+				this.SetNativeField("btn3", value);
 			}
 		}
 		
-		[MonoTouch.Foundation.Connect("img4")]
-		private MonoTouch.UIKit.UIImageView img4 {
+		[MonoTouch.Foundation.Connect("btn4")]
+		private MonoTouch.UIKit.UIButton btn4 {
 			get {
-				this.__mt_img4 = ((MonoTouch.UIKit.UIImageView)(this.GetNativeField("img4")));
-				return this.__mt_img4;
+				this.__mt_btn4 = ((MonoTouch.UIKit.UIButton)(this.GetNativeField("btn4")));
+				return this.__mt_btn4;
 			}
 			set {
-				this.__mt_img4 = value;
-				this.SetNativeField("img4", value);
+				this.__mt_btn4 = value;
+				this.SetNativeField("btn4", value);
 			}
 		}
 	}
