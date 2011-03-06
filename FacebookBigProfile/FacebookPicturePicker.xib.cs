@@ -13,7 +13,7 @@ namespace FacebookBigProfile
 		private readonly Facebook _facebook;
 		private readonly MainView _mainView;
 		private FacebookAlbumTableViewController _tableView;
-		private FacebookPhotosTableViewController _photos;
+		private FacebookPhotosTableViewController _photos;		
 		
 		public FacebookPicturePicker (IntPtr handle) : base(handle)
 		{
@@ -42,7 +42,7 @@ namespace FacebookBigProfile
 												
 			_tableView = new FacebookAlbumTableViewController(_facebook, this);				
 			_tableView.View.Frame = new RectangleF(0, 0, 320, 450);
-			View.AddSubview(_tableView.View);				
+			View.AddSubview(_tableView.View);			
 		}	
 		
 		public override void ViewDidAppear (bool animated)
@@ -67,6 +67,6 @@ namespace FacebookBigProfile
 		{						
 			NavigationController.PopToRootViewController(true);
 			_mainView.StartDownloadImage(url);
-		}	
+		}		
 	}
 }

@@ -4,6 +4,7 @@ using MonoTouch.UIKit;
 using FacebookSdk;
 using System.Collections.Generic;
 using MonoTouch.ObjCRuntime;
+using Atomcraft;
 
 namespace FacebookBigProfile
 {
@@ -14,6 +15,7 @@ namespace FacebookBigProfile
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
 		private DataSource _dataSource;		
+		private ATMHud _hud;
               
 		public FacebookPhotosTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
@@ -41,15 +43,17 @@ namespace FacebookBigProfile
             }
 			
 			public void LoadFromAlbum(Album album)
-			{				
+			{								
 				Album = album;											
-				_facebook.RequestWithGraphPath(string.Format("/{0}/photos", Album.Id), _requestDelegate);
+				_facebook.RequestWithGraphPath(string.Format("/{0}/photos?limit={1}", Album.Id, Album.Count), _requestDelegate);
+				_tvc.StartProgress("Loading pictures");
 			}
 			
 			public void AddPhotos(List<Photo> photos)
 			{
 				Album.AddPhotos(photos);
 				_tvc.TableView.ReloadData();
+				_tvc.StopProgress();
 			}		
             
             public override int RowsInSection(UITableView tableView, int section)
@@ -91,7 +95,7 @@ namespace FacebookBigProfile
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
 				return 81f;
-			}
+			}		
             
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {				
@@ -106,7 +110,10 @@ namespace FacebookBigProfile
 			
 			_dataSource = new DataSource(this, _facebook);
             TableView.Delegate = new TableDelegate();
-            TableView.DataSource = _dataSource;				
+            TableView.DataSource = _dataSource;	
+			
+			_hud = new ATMHud();
+			View.AddSubview(_hud.View);
         }
 		
 	 	class GetPhotosRequestDelegate : RequestDelegateBase
@@ -149,7 +156,7 @@ namespace FacebookBigProfile
 						photos.Add(new Photo(id, source, smallesSource));
 					}
 					
-					_dataSource.AddPhotos(photos);
+					_dataSource.AddPhotos(photos);					
 				}
 				catch(Exception ex)
 				{
@@ -157,6 +164,23 @@ namespace FacebookBigProfile
 				}
 			}
 		}
+		
+		public void StartProgress(string title)
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+			
+			_hud.SetCaption(title);
+			_hud.SetActivity(true);
+			_hud.Show();
+			_hud.Update();
+		}
+		
+		public void StopProgress()
+		{
+			UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+			_hud.SetActivity(false);			
+			_hud.Hide();			
+		}		
 		
 		public void PhotoSelected(string url)
 		{
@@ -171,6 +195,7 @@ namespace FacebookBigProfile
 		
 		public void ErrorOccurred (NSError error)
 		{
+			StopProgress();
 			Console.WriteLine("Error occured!");
 		}
 	}

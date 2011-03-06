@@ -4,13 +4,14 @@ using System.Net;
 using System.Linq;
 using System.Collections.Concurrent;
 using MonoTouch.UIKit;
+using System.Collections.Generic;
 
 namespace FacebookBigProfile
 {
 	public class ImageLoader
 	{
 		static string _cacheDir = string.Empty;
-		static ConcurrentDictionary<GetImageRequest, Action<UpdateImage>> _requests;
+		static Dictionary<GetImageRequest, Action<UpdateImage>> _requests;
 		static Processor<GetImageRequest> _queue;
 		
 		static ImageLoader()
@@ -18,15 +19,13 @@ namespace FacebookBigProfile
 			string baseDir = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.Personal), "..");
 			_cacheDir = Path.Combine (baseDir, "tmp/");
 			_queue = new Processor<GetImageRequest>(Download);
-			_requests = new ConcurrentDictionary<GetImageRequest, Action<UpdateImage>>();
+			_requests = new Dictionary<GetImageRequest, Action<UpdateImage>>();
 		}
 		
 		public static void GetImage(GetImageRequest request, Action<UpdateImage> callback)
 		{			
-			if(_requests.TryAdd(request, callback))
-			{
-				_queue.Queue(request);
-			}
+			_requests.Add(request, callback);
+			_queue.Queue(request);
 		}		
 
 		static void Download (GetImageRequest request)
