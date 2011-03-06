@@ -5,6 +5,7 @@ using FacebookSdk;
 using System.Collections.Generic;
 using MonoTouch.ObjCRuntime;
 using Atomcraft;
+using System.Drawing;
 
 namespace FacebookBigProfile
 {
@@ -71,8 +72,10 @@ namespace FacebookBigProfile
                 {
 					cellController = new PhotosTableViewCell();
 					cellController.ImageSelected += (img) => _tvc.PhotoSelected(img);
+					
                     cell = cellController.Cell;
 					cell.Tag = Environment.TickCount + _random.Next(0, 1000);
+										
 					_cellControllers.Add(cell.Tag, cellController);					
                 }
 				else
@@ -114,7 +117,15 @@ namespace FacebookBigProfile
 			
 			_hud = new ATMHud();
 			View.AddSubview(_hud.View);
-        }
+			
+			var backView = new UIView(RectangleF.Empty);
+			backView.BackgroundColor = UIColor.Clear;			
+			
+			var table = (UITableView)View;
+			table.BackgroundView = backView;
+			table.SeparatorColor = UIColor.Clear;
+			table.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+       	}
 		
 	 	class GetPhotosRequestDelegate : RequestDelegateBase
 		{
