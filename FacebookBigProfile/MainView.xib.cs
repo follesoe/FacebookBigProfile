@@ -300,6 +300,22 @@ namespace FacebookBigProfile
 				}
 			}
 		}
+		
+		public void StartDownloadImage(string url)
+		{
+			StartProgress("Downloading picture");
+			
+			System.Threading.ThreadPool.QueueUserWorkItem((s) => {
+				
+				var image = UIImage.LoadFromData(NSData.FromUrl(new NSUrl(url)));
+				
+				BeginInvokeOnMainThread(() => {
+					LoadImage(image);
+					StopProgress();
+				});
+				
+			});
+		}
 
 		private void AddCropHelpers() 
 		{

@@ -38,9 +38,7 @@ namespace FacebookBigProfile
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			Console.WriteLine("PicturePicker DidLoad");
-			
+						
 			Title = "Facebook Albums";
 			
 			_tableView = new FacebookAlbumTableViewController(_facebook, this);				
@@ -66,9 +64,9 @@ namespace FacebookBigProfile
 		}
 		
 		public void PhotoSelected(string url)
-		{
-			Console.WriteLine("Download {0}", url);
+		{			
 			NavigationController.PopToRootViewController(true);
+			_mainView.StartDownloadImage(url);
 		}
 		
 		public void StartProgress(string message)
