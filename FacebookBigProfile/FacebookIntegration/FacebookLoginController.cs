@@ -65,8 +65,7 @@ namespace FacebookBigProfile
 		}
 		
 		public void LoggedIn(string userId) 
-		{
-			_mainView.StopProgress(false);
+		{			
 			UserId = userId;
 			
 			if(UserIsLoggedIn != null)

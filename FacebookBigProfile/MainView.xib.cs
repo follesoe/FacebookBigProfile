@@ -263,6 +263,7 @@ namespace FacebookBigProfile
 		
 		private void ShowFacebookPhotoAlbums(object sender, EventArgs e)
 		{
+			StopProgress(false);
 			var view = new FacebookPicturePicker(facebook, this);
 			NavigationController.PushViewController(view, true);
 		}
@@ -402,7 +403,6 @@ namespace FacebookBigProfile
 		
 		public void SplitImage(object sender, EventArgs e) 
 		{		
-			Console.WriteLine("Split Image");
 			float zoomScale = CropHelpers.GetZoomScale(profilePicture.Size, scrollView.Frame.Size);	
 			float currentZoomScale = scrollView.ZoomScale * zoomScale;
 			
