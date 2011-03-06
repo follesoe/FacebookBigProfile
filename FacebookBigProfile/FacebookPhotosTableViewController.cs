@@ -9,11 +9,11 @@ namespace FacebookBigProfile
 {
 	public class FacebookPhotosTableViewController : UITableViewController, IFacebookErrorProvider
 	{
-		static NSString CellID = new NSString ("MyOtherIdentifier");
+		static NSString CellID = new NSString ("PhotoCell");
 		
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
-		private DataSource _dataSource;
+		private DataSource _dataSource;		
               
 		public FacebookPhotosTableViewController (Facebook facebook, FacebookPicturePicker picker)
 		{
@@ -26,6 +26,8 @@ namespace FacebookBigProfile
             private readonly FacebookPhotosTableViewController _tvc;
 			private readonly Facebook _facebook;
 			private readonly GetPhotosRequestDelegate _requestDelegate;
+			private readonly Dictionary<int, PhotosTableViewCell> _cellControllers;
+			private readonly Random _random;
 			
 			public Album Album { get; private set; }
             		
@@ -33,7 +35,9 @@ namespace FacebookBigProfile
             {	
                 _tvc = tableViewController;					
 				_facebook = facebook;
+				_cellControllers = new Dictionary<int, PhotosTableViewCell>();
 				_requestDelegate = new GetPhotosRequestDelegate(_tvc, this);
+				_random = new Random(Environment.TickCount);
             }
 			
 			public void LoadFromAlbum(Album album)
@@ -48,24 +52,33 @@ namespace FacebookBigProfile
 			{
 				Album.AddPhotos(photos);
 				_tvc.TableView.ReloadData();
-			}
+			}		
             
             public override int RowsInSection(UITableView tableView, int section)
             {
                 if(Album == null) return 0;
-				return Album.Photos.Count;
+				return Album.NumberOfGroups;
             }
 
             public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
             {
+				PhotosTableViewCell cellController = null;
+				
                 var cell = tableView.DequeueReusableCell(CellID);
                 if (cell == null)
                 {
-                    cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
+					cellController = new PhotosTableViewCell();
+                    cell = cellController.Cell;
+					cell.Tag = Environment.TickCount + _random.Next(0, 1000);
+					_cellControllers.Add(cell.Tag, cellController);					
                 }
-            				
-                cell.TextLabel.Text = Album.Photos[indexPath.Row].Id;
-            
+				else
+				{
+					cellController = _cellControllers[cell.Tag];
+				}
+				
+				cellController.ShowPhotos(Album.GetGroup(indexPath.Row));
+            				            
                 return cell;
             }
         }
@@ -80,10 +93,14 @@ namespace FacebookBigProfile
                 _tvc = tableViewController;		
 				_dataSource = dataSource;
             }
+			
+			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				return 81f;
+			}
             
             public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
             {				
-                Console.WriteLine(_dataSource.Album.Photos[indexPath.Row].Id + " selected..");
             }
         }
 		
@@ -126,13 +143,13 @@ namespace FacebookBigProfile
 						
 					 	var photoArray = (NSArray)objDict.ObjectForKey(new NSString("images"));
 						for(uint j = 0; j < photoArray.Count; ++j)
-						{
-							var imgDict = (NSMutableDictionary)Runtime.GetNSObject(data.ValueAt(j));
-							var size = (NSNumber)imgDict.ObjectForKey(new NSString("height"));
+						{		
+							var imgDict = (NSMutableDictionary)Runtime.GetNSObject(photoArray.ValueAt(j));
+							var size = (NSNumber)imgDict.ObjectForKey(new NSString("height"));							
 							if(smallestSize > size.UInt32Value)
 							{
 								smallestSize = size.UInt32Value;
-								smallesSource = imgDict.ObjectForKey(new NSString("source")).ToString();
+								smallesSource = imgDict.ObjectForKey(new NSString("source")).ToString();							
 							}
 						}
 						photos.Add(new Photo(id, source, smallesSource));

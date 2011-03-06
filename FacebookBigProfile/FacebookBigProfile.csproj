@@ -146,12 +146,23 @@
     <Compile Include="FacebookLoginController.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="FacebookPhotosTableViewController.cs" />
+    <Compile Include="PhotosTableViewCell.xib.cs">
+      <DependentUpon>PhotosTableViewCell.xib</DependentUpon>
+    </Compile>
+    <Compile Include="PhotosTableViewCell.xib.designer.cs">
+      <DependentUpon>PhotosTableViewCell.xib</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\ConcurrentDictionary.cs" />
+    <Compile Include="Infrastructure\SplitOrderedList.cs" />
+    <Compile Include="Infrastructure\ObjectPool.cs" />
+    <Compile Include="Infrastructure\Processor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainWindow.xib" />
     <Page Include="MainView.xib" />
     <Page Include="SetProfilePictureView.xib" />
     <Page Include="FacebookPicturePicker.xib" />
+    <Page Include="PhotosTableViewCell.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -174,5 +185,8 @@
     <Content Include="fbp_logo_29x29.png" />
     <Content Include="fbp_logo_57x57.png" />
     <Content Include="fbp_logo_58x58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
   </ItemGroup>
 </Project>

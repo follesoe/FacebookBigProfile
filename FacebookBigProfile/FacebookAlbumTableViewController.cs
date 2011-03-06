@@ -12,7 +12,7 @@ namespace FacebookBigProfile
 {
     public class FacebookAlbumTableViewController : UITableViewController, IFacebookErrorProvider
     {
-        static NSString CellID = new NSString ("MyIdentifier");
+        static NSString CellID = new NSString ("PhotoCell");
 		
 		private readonly Facebook _facebook;
 		private readonly FacebookPicturePicker _picker;
@@ -67,12 +67,12 @@ namespace FacebookBigProfile
             {
                 return Albums.Count;			
             }
-
+			
             public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
-            {
+            {				
                 var cell = tableView.DequeueReusableCell(CellID);
                 if (cell == null)
-                {
+                {					
                     cell = new UITableViewCell (UITableViewCellStyle.Default, CellID);
                 }
             				
