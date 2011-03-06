@@ -129,32 +129,38 @@ namespace FacebookBigProfile
 		}
 		
 		public void PostToWall()
-		{			
-			var actionLinks = new JsonArray();
-			
-			var learnMore = new JsonObject();
-			learnMore.Add("text", "Learn more about Big Profile");
-			learnMore.Add("href", "http://myapp.no/BigProfile");
-			
-			var appStore = new JsonObject();
-			appStore.Add("text", "Visit App Store");
-			appStore.Add("href", "http://myapp.no/BigProfileAppStore");
-			
-			//actionLinks.Add(learnMore);
-			actionLinks.Add(appStore);
-			
-			var attachment = new JsonObject();
-			attachment.Add("name", "Big Profile");
-			attachment.Add("caption", "Check out my new profile picture");
-			attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store!");
-			attachment.Add("href", "http://myapp.no/BigProfile");
-									
-			var parameters = new NSMutableDictionary();
-			parameters.Add(new NSString("user_message_prompt"), new NSString("Tell your friends"));
-			parameters.Add(new NSString("attachment"), new NSString(attachment.ToString()));     
-			parameters.Add(new NSString("action_links"), new NSString(actionLinks.ToString()));
-			
-			_facebook.Dialog("stream.publish", parameters, facebookDialogDelegate);
+		{		
+			try
+			{
+				var actionLinks = new JsonArray();
+				
+				var learnMore = new JsonObject();
+				learnMore.Add("text", "Learn more about Big Profile");
+				learnMore.Add("href", "http://myapp.no/BigProfile");
+				
+				var appStore = new JsonObject();
+				appStore.Add("text", "Visit App Store");
+				appStore.Add("href", "http://myapp.no/BigProfileAppStore");
+				
+				//actionLinks.Add(learnMore);
+				actionLinks.Add(appStore);
+				
+				var attachment = new JsonObject();
+				attachment.Add("name", "Big Profile");
+				attachment.Add("description", "Make your profile stand out with a big profile picture stretched across the new Facebook design. Available in App Store!");
+				attachment.Add("href", "http://myapp.no/BigProfile");
+										
+				var parameters = new NSMutableDictionary();
+				parameters.Add(new NSString("user_message_prompt"), new NSString("Tell your friends"));
+				parameters.Add(new NSString("attachment"), new NSString(attachment.ToString()));     
+				parameters.Add(new NSString("action_links"), new NSString(actionLinks.ToString()));
+				
+				_facebook.Dialog("stream.publish", parameters, facebookDialogDelegate);
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine("Exception when showing dialog: {0}", ex);
+			}
 		}
 		
 		private FacebookDialogDelegate facebookDialogDelegate = new FacebookDialogDelegate();

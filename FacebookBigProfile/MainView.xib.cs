@@ -184,6 +184,8 @@ namespace FacebookBigProfile
 		
 		public void PostToWall()
 		{
+			helpLabel.Hidden = false;
+			helpLabel.Text = "Got to your Facebook profile on a computer to see the result";
 			facebookController.PostToWall();
 		}
 		
