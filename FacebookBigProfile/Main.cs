@@ -21,7 +21,7 @@ namespace FacebookBigProfile
 	// The name AppDelegate is referenced in the MainWindow.xib file.
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		const string kAppId = "188864954461169";
+		const string kAppId = "124033857671303";
 		private Facebook _facebook;
 		
 		private MainView mainView;
