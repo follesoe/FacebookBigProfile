@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1024</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
@@ -65,6 +65,12 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSMutableArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIBarButtonItem" id="297399514">
+								<string key="IBUITitle">Mirror</string>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="490063014"/>
+							</object>
 							<object class="IBUIBarButtonItem" id="217113861">
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUIToolbar" ref="490063014"/>
@@ -287,6 +293,14 @@
 					</object>
 					<int key="connectionID">55</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mirrorButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="297399514"/>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -340,6 +354,7 @@
 							<reference ref="613740265"/>
 							<reference ref="661934052"/>
 							<reference ref="217113861"/>
+							<reference ref="297399514"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -388,6 +403,11 @@
 						<reference key="object" ref="928642834"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">56</int>
+						<reference key="object" ref="297399514"/>
+						<reference key="parent" ref="490063014"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -414,6 +434,7 @@
 					<string>52.IBViewBoundsToFrameTransform</string>
 					<string>54.IBPluginDependency</string>
 					<string>54.IBViewBoundsToFrameTransform</string>
+					<string>56.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 					<string>8.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -452,6 +473,7 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABC0gAAwz4AAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABBEAAAw7+AAA</bytes>
 					</object>
@@ -473,7 +495,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">55</int>
+			<int key="maxID">57</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -490,6 +512,7 @@
 							<string>helpLabel</string>
 							<string>lineButton</string>
 							<string>lineSelector</string>
+							<string>mirrorButton</string>
 							<string>photoButton</string>
 							<string>scrollView</string>
 							<string>toolbar</string>
@@ -497,6 +520,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -519,6 +543,7 @@
 							<string>helpLabel</string>
 							<string>lineButton</string>
 							<string>lineSelector</string>
+							<string>mirrorButton</string>
 							<string>photoButton</string>
 							<string>scrollView</string>
 							<string>toolbar</string>
@@ -548,6 +573,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">lineSelector</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">mirrorButton</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBToOneOutletInfo">

@@ -35,6 +35,8 @@ namespace FacebookBigProfile {
 		
 		private MonoTouch.UIKit.UILabel __mt_helpLabel;
 		
+		private MonoTouch.UIKit.UIBarButtonItem __mt_mirrorButton;
+		
 		#pragma warning disable 0169
 		[MonoTouch.Foundation.Connect("view")]
 		private MonoTouch.UIKit.UIView view {
@@ -153,6 +155,18 @@ namespace FacebookBigProfile {
 			set {
 				this.__mt_helpLabel = value;
 				this.SetNativeField("helpLabel", value);
+			}
+		}
+		
+		[MonoTouch.Foundation.Connect("mirrorButton")]
+		private MonoTouch.UIKit.UIBarButtonItem mirrorButton {
+			get {
+				this.__mt_mirrorButton = ((MonoTouch.UIKit.UIBarButtonItem)(this.GetNativeField("mirrorButton")));
+				return this.__mt_mirrorButton;
+			}
+			set {
+				this.__mt_mirrorButton = value;
+				this.SetNativeField("mirrorButton", value);
 			}
 		}
 	}

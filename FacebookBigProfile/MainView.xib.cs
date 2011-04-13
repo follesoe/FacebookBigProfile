@@ -119,6 +119,7 @@ namespace FacebookBigProfile
 			InitializePhotoButton();
 			
 			facebookButton.Clicked += (o, e) => LoginToFacebook(true);
+			mirrorButton.Clicked += (o, e) => MirrorImage();
 						
 			hud = new ATMHud();
 			View.AddSubview(hud.View);
@@ -177,7 +178,7 @@ namespace FacebookBigProfile
 			if(showPostToWall) 
 			{
 				showPostToWall = false;
-				PostToWall();											
+				//PostToWall();											
 			}
 			base.ViewDidAppear (animated);
 		}
@@ -378,6 +379,7 @@ namespace FacebookBigProfile
 		public void LoadImage(UIImage image) 
 		{		
 			image = image.Scale(GetScaledSize(image.Size));
+			
 			scrollView.ZoomScale = 1.0f;
 			
 			profilePicture = image;
@@ -454,7 +456,7 @@ namespace FacebookBigProfile
 												
 			// Setting transform to flip the image.
 			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, section.Height);
-			ctx.ConcatCTM(transform);	
+			ctx.ConcatCTM(transform);			
 						
 			// Drawing the image.
 			var drawSource = CreateDrawRectangle(image, section);
@@ -466,6 +468,26 @@ namespace FacebookBigProfile
 			
 			return croppedImage;
 	    }
+		
+		private void MirrorImage() 
+		{
+			UIGraphics.BeginImageContext(profilePicture.Size);
+			
+			var ctx = UIGraphics.GetCurrentContext();											
+			
+			ctx.TranslateCTM(profilePicture.Size.Width, 0);
+			ctx.ScaleCTM(-1, 1);	
+			var transform = new MonoTouch.CoreGraphics.CGAffineTransform(1, 0, 0, -1, 0, profilePicture.Size.Height);
+			ctx.ConcatCTM(transform);			
+			
+			ctx.DrawImage(new RectangleF(new PointF(0, 0), profilePicture.Size), profilePicture.CGImage);
+			
+			profilePicture = UIGraphics.GetImageFromCurrentImageContext();
+			
+			UIGraphics.EndImageContext();
+			
+			profilePictureView.Image = profilePicture;
+		}
 		
 		private RectangleF CreateDrawRectangle(UIImage image, RectangleF section)
 		{
